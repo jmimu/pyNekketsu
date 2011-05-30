@@ -11,6 +11,7 @@ sys.path.insert(0, "engine")
 from perso import Player
 from inputs import Inputs
 from displayzoom import DisplayZoom
+from camera import Camera
 
 # set up pygame
 pygame.init()
@@ -39,17 +40,15 @@ while 1:
     player.update(inputs)
     
     dz.surface.fill((200, 200, 255))
-    pygame.draw.rect(dz.surface, ( 50, 100,   0), (0, 180, 256, 60))
-    pygame.draw.rect(dz.surface, (255, 200, 185), (0, 182, 256,  1), 1)
-    
-    pygame.draw.line(dz.surface, (225, 230, 255), (40,188), (10, 230), 3)
-    pygame.draw.line(dz.surface, (225, 230, 255), (10, 230), (246, 230), 3)
-    pygame.draw.line(dz.surface, (225, 230, 255), (246, 230), (216, 188), 3)
-    pygame.draw.line(dz.surface, (225, 230, 255), (216, 188), (40,188), 3)
+    pygame.draw.rect(dz.surface, ( 50, 100,   0), (0, 80, 256, 160))
+    pygame.draw.rect(dz.surface, (255, 200, 185), (0, 82, 256,  1), 1)
     
     
-    player_drawn_pos=player.pos[0]-player.pos[1]/20,180-player.pos[2]-player.pos[1]/10
-    dz.surface.blit(player.image, player_drawn_pos)
+    pygame.draw.line(dz.surface, (225, 230, 255), cam.proj([-100,-50,0]), cam.proj([-100,50,0]), 3)
+    pygame.draw.line(dz.surface, (225, 230, 255), cam.proj([-100,50,0]), cam.proj([100,50,0]), 3)
+    pygame.draw.line(dz.surface, (225, 230, 255), cam.proj([100,50,0]), cam.proj([100,-50,0]), 3)
+    pygame.draw.line(dz.surface, (225, 230, 255), cam.proj([100,-50,0]), cam.proj([-100,-50,0]), 3)
+    dz.surface.blit(player.image, cam.proj(player.pos,player.image.get_width(),player.image.get_height()))
     
     dz.update()
     mainClock.tick(40)

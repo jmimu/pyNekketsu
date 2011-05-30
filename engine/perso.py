@@ -14,7 +14,7 @@ class Player(object):
         self.direction=1# +1: right, -1: left
         self.state="walk"
         
-        self.pos = [128, 128, 20]
+        self.pos = [0, 0, 20]
         self.jump_speed = 0
 
         
@@ -86,13 +86,13 @@ class Player(object):
                 self.anim_index=0
         
         # Keep the player in-bounds
-        if self.pos[0] < 16:
-            self.pos[0] = 16
-        if self.pos[0] > 240:
-            self.pos[0] = 240
-        if self.pos[1] < 16:
-            self.pos[1] = 16
-        if self.pos[1] > 240:
-            self.pos[1] = 240
+        if self.pos[0] < -100:
+            self.pos[0] = -100
+        if self.pos[0] > 100:
+            self.pos[0] = 100
+        if self.pos[1] < -50:
+            self.pos[1] = -50
+        if self.pos[1] > 50:
+            self.pos[1] = 50
 
 
