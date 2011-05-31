@@ -12,6 +12,7 @@ from perso import Player
 from inputs import Inputs
 from displayzoom import DisplayZoom
 from camera import Camera
+from field import Field
 
 # set up pygame
 pygame.init()
@@ -28,7 +29,7 @@ player = Player() # Create the player
 
 inputs=Inputs()
 cam=Camera()
-
+field=Field()
 
 
 while 1:    
@@ -37,17 +38,12 @@ while 1:
         pygame.quit()
         sys.exit()
     
-    player.update(inputs)
+    player.update(inputs,field)
     
-    dz.surface.fill((200, 200, 255))
-    pygame.draw.rect(dz.surface, ( 50, 100,   0), (0, 80, 256, 160))
-    pygame.draw.rect(dz.surface, (255, 200, 185), (0, 82, 256,  1), 1)
-    
-    
-    pygame.draw.line(dz.surface, (225, 230, 255), cam.proj([-100,-50,0]), cam.proj([-100,50,0]), 3)
-    pygame.draw.line(dz.surface, (225, 230, 255), cam.proj([-100,50,0]), cam.proj([100,50,0]), 3)
-    pygame.draw.line(dz.surface, (225, 230, 255), cam.proj([100,50,0]), cam.proj([100,-50,0]), 3)
-    pygame.draw.line(dz.surface, (225, 230, 255), cam.proj([100,-50,0]), cam.proj([-100,-50,0]), 3)
+    cam.aim_to(player.pos,5)
+
+    field.draw(dz.surface,cam)
+
     dz.surface.blit(player.image, cam.proj(player.pos,player.image.get_width(),player.image.get_height()))
     
     dz.update()

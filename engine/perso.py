@@ -41,7 +41,7 @@ class Player(object):
         self.image = self.anim[self.direction][self.state][int(self.anim_index)] #this is how we get the current picture
         
         
-    def update(self,inputs):
+    def update(self,inputs,field):
         if inputs.L:
             self.pos[0] -= 2
             self.direction = -1
@@ -75,24 +75,6 @@ class Player(object):
         if (self.jump_speed < -0.5):
             self.state="jump"
             self.anim_index=1
+        field.collide_with_player(self)
         
-        
-        # If we're at ground level, stop.
-        if (self.pos[2] <= 0):
-            self.pos[2] = 0
-            self.jump_speed = 0
-            if (self.state=="jump"):
-                self.state="walk"
-                self.anim_index=0
-        
-        # Keep the player in-bounds
-        if self.pos[0] < -100:
-            self.pos[0] = -100
-        if self.pos[0] > 100:
-            self.pos[0] = 100
-        if self.pos[1] < -50:
-            self.pos[1] = -50
-        if self.pos[1] > 50:
-            self.pos[1] = 50
-
 
