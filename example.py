@@ -32,6 +32,8 @@ cam=Camera()
 field=Field()
 
 
+shadow_image=pygame.image.load("data/shadow2.png")
+
 while 1:    
     inputs.update()
     if (inputs.Esc):
@@ -40,11 +42,12 @@ while 1:
     
     player.update(inputs,field)
     
-    cam.aim_to(player.pos,5)
+    cam.aim_to(player.pos,player.direction,5)
 
     field.draw(dz.surface,cam)
 
-    dz.surface.blit(player.image, cam.proj(player.pos,player.image.get_width(),player.image.get_height()))
+    dz.surface.blit(shadow_image, cam.proj([player.pos[0],player.pos[1],0],shadow_image.get_width(),shadow_image.get_height()))
+    dz.surface.blit(player.image, cam.proj(player.pos,player.image.get_width(),player.image.get_height()+3))
     
     dz.update()
     mainClock.tick(40)
