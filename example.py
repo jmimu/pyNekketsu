@@ -13,6 +13,7 @@ from inputs import Inputs
 from displayzoom import DisplayZoom
 from camera import Camera
 from field import Field
+from ball import Ball
 
 # set up pygame
 pygame.init()
@@ -30,7 +31,7 @@ player = Player() # Create the player
 inputs=Inputs()
 cam=Camera()
 field=Field()
-
+ball=Ball()
 
 shadow_image=pygame.image.load("data/shadow2.png")
 
@@ -41,6 +42,7 @@ while 1:
         sys.exit()
     
     player.update(inputs,field)
+    ball.update(inputs)
     
     cam.aim_to(player.pos,player.direction,5)
 
@@ -48,6 +50,9 @@ while 1:
 
     dz.surface.blit(shadow_image, cam.proj([player.pos[0],player.pos[1],0],shadow_image.get_width(),shadow_image.get_height()))
     dz.surface.blit(player.image, cam.proj(player.pos,player.image.get_width(),player.image.get_height()+3))
+    
+    dz.surface.blit(shadow_image, cam.proj([ball.pos[0],ball.pos[1],0],shadow_image.get_width(),shadow_image.get_height()))   
+    dz.surface.blit(ball.image, cam.proj(ball.pos,ball.image.get_width(),ball.image.get_height()+3))
     
     dz.update()
     mainClock.tick(40)
