@@ -3,13 +3,14 @@
 
 import pygame
 import os
-
+import random
 from sprite import Sprite
 
-class Player(Sprite):
+class Perso(Sprite):
     
     def __init__(self):
         Sprite.__init__(self)
+        self.pos=[random.randint(-80, 80),random.randint(-40, 40),2]
         self.anim_index=0
         self.direction=1# +1: right, -1: left
         self.state="walk"

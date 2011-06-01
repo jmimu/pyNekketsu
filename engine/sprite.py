@@ -20,4 +20,3 @@ class Sprite(object):
             surface.blit(self.image, camera.proj(self.pos,self.image.get_width(),self.image.get_height()+3))
 
 
-

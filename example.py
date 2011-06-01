@@ -8,12 +8,13 @@ import os
 import sys
 sys.path.insert(0, "engine")
 
-from perso import Player
+from perso import Perso
 from inputs import Inputs
 from displayzoom import DisplayZoom
 from camera import Camera
 from field import Field
 from ball import Ball
+from sprite import Sprite
 
 # set up pygame
 pygame.init()
@@ -26,12 +27,16 @@ WINDOWHEIGHT = 400
 dz=DisplayZoom(3,"Yo!",256, 240)
 #displayzoom.screen = displayzoom.get_surface()
 
-player = Player() # Create the player
+player = Perso() # Create the player
 
 inputs=Inputs()
 cam=Camera()
 field=Field()
 ball=Ball()
+
+perso_list=[player]
+for i in range(10):
+    perso_list.append(Perso())
 
 
 while 1:    
@@ -39,22 +44,20 @@ while 1:
     if (inputs.Esc):
         pygame.quit()
         sys.exit()
-    
-    player.update(inputs,field)
-    ball.update(inputs)
+
+    for p in perso_list:    
+        p.update(inputs,field)
+
+    ball.update()
     
     cam.aim_to(player.pos,player.direction,5)
 
     field.draw(dz.surface,cam)
 
-    player.draw(dz.surface,cam)
-    ball.draw(dz.surface,cam)
-    #dz.surface.blit(shadow_image, cam.proj([player.pos[0],player.pos[1],0],shadow_image.get_width(),shadow_image.get_height()))
-    #dz.surface.blit(player.image, cam.proj(player.pos,player.image.get_width(),player.image.get_height()+3))
-    
-    #dz.surface.blit(shadow_image, cam.proj([ball.pos[0],ball.pos[1],0],shadow_image.get_width(),shadow_image.get_height()))   
-    #dz.surface.blit(ball.image, cam.proj(ball.pos,ball.image.get_width(),ball.image.get_height()+3))
-    
+    sprite_list=sorted( [ball]+perso_list,   key=lambda Sprite: -Sprite.pos[1])#sort all the sprites list with y pos
+    for s in sprite_list:
+        s.draw(dz.surface,cam)
+
     dz.update()
     mainClock.tick(40)
     

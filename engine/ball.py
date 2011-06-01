@@ -34,7 +34,7 @@ class Ball(Sprite):
         self.image = self.anim[self.direction][self.state][int(self.anim_index)] #this is how we get the current picture
         
         
-    def update(self,inputs):
+    def update(self):
         self.anim_index += 0.2
         
         if (self.anim_index>=len(self.anim[self.direction][self.state])):
