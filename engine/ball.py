@@ -10,8 +10,12 @@ class Ball(Sprite):
     
     def __init__(self):
         Sprite.__init__(self)
+
+        self.speed=[4,3,8]
+
+
         self.anim_index=0
-        self.direction=1# +1: right, -1: left
+        self.direction=1# +1: right, -1: left  TODO : add more directions ?
         self.state="roll1"
         
         self.anim={}#dictionnary for left and right
@@ -34,9 +38,41 @@ class Ball(Sprite):
         self.image = self.anim[self.direction][self.state][int(self.anim_index)] #this is how we get the current picture
         
         
-    def update(self):
-        self.anim_index += 0.2
+    def update(self,field):
+        self.pos[0]+=self.speed[0]*0.2
+        self.pos[1]+=self.speed[1]*0.2
+        self.pos[2]+=self.speed[2]*0.2
+        self.speed[2]+=-2*0.2
+    
+
+        #bounce
+        if (self.pos[2] <= field.z):
+            self.pos[2] = field.z
+            self.speed[2]=abs(self.speed[2])*field.bounce_damp
+            if (abs(self.speed[2])<0.1):
+                self.speed[2]=0
         
+        # Keep in bounds
+        if self.pos[0] < -field.half_length:
+            self.pos[0] = -field.half_length
+            self.speed[0]*=-1
+        if self.pos[0] > field.half_length:
+            self.pos[0] = field.half_length
+            self.speed[0]*=-1
+        if self.pos[1] < -field.half_width:
+            self.pos[1] = -field.half_width
+            self.speed[1]*=-1
+        if self.pos[1] > field.half_width:
+            self.pos[1] = field.half_width
+            self.speed[1]*=-1
+
+
+        self.direction=1
+        if (self.speed[0]<0):
+            self.direction=-1
+        
+        self.anim_index += (self.speed[0]**2+self.speed[1]**2)/100.0
+
         if (self.anim_index>=len(self.anim[self.direction][self.state])):
             self.anim_index=0
         self.image = self.anim[self.direction][self.state][int(self.anim_index)]

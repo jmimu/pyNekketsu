@@ -48,7 +48,7 @@ while 1:
     for p in perso_list:    
         p.update(inputs,field)
 
-    ball.update()
+    ball.update(field)
     
     cam.aim_to(player.pos,player.direction,5)
 

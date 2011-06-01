@@ -17,6 +17,7 @@ class Field():
         self.east_goal_half_width=20
         self.east_goal_height=15
         self.east_goal_latitude=0#where in field width
+        self.bounce_damp=0.6#1=perfect
     def collide_with_player(self,player): #block a player inside the field
         # If we're at ground level, stop.
         if (player.pos[2] <= self.z):
@@ -26,7 +27,7 @@ class Field():
                 player.state="walk"
                 player.anim_index=0
         
-        # Keep the player in-bounds
+        # Keep the player in bounds
         if player.pos[0] < -self.half_length:
             player.pos[0] = -self.half_length
         if player.pos[0] > self.half_length:
