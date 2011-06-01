@@ -4,17 +4,15 @@
 import pygame
 import os
 
+from sprite import Sprite
 
-class Ball(object):
+class Ball(Sprite):
     
     def __init__(self):
-        self.images=[]
-        self.image=0
+        Sprite.__init__(self)
         self.anim_index=0
         self.direction=1# +1: right, -1: left
         self.state="roll1"
-        
-        self.pos = [0, 0, 2]
         
         self.anim={}#dictionnary for left and right
         self.anim[1]={} #dictionnary of all animation looking to the right
@@ -23,6 +21,8 @@ class Ball(object):
         self.anim[1]["roll1"].append(pygame.image.load("data/ball_roll1_B.png"))
         self.anim[1]["roll1"].append(pygame.image.load("data/ball_roll1_C.png"))
         self.anim[1]["roll1"].append(pygame.image.load("data/ball_roll1_D.png"))
+        self.anim[1]["roll1"].append(pygame.image.load("data/ball_roll1_E.png"))
+        self.anim[1]["roll1"].append(pygame.image.load("data/ball_roll1_F.png"))
         
         #flip all anims to look left
         self.anim[-1]={}

@@ -33,7 +33,6 @@ cam=Camera()
 field=Field()
 ball=Ball()
 
-shadow_image=pygame.image.load("data/shadow2.png")
 
 while 1:    
     inputs.update()
@@ -48,11 +47,13 @@ while 1:
 
     field.draw(dz.surface,cam)
 
-    dz.surface.blit(shadow_image, cam.proj([player.pos[0],player.pos[1],0],shadow_image.get_width(),shadow_image.get_height()))
-    dz.surface.blit(player.image, cam.proj(player.pos,player.image.get_width(),player.image.get_height()+3))
+    player.draw(dz.surface,cam)
+    ball.draw(dz.surface,cam)
+    #dz.surface.blit(shadow_image, cam.proj([player.pos[0],player.pos[1],0],shadow_image.get_width(),shadow_image.get_height()))
+    #dz.surface.blit(player.image, cam.proj(player.pos,player.image.get_width(),player.image.get_height()+3))
     
-    dz.surface.blit(shadow_image, cam.proj([ball.pos[0],ball.pos[1],0],shadow_image.get_width(),shadow_image.get_height()))   
-    dz.surface.blit(ball.image, cam.proj(ball.pos,ball.image.get_width(),ball.image.get_height()+3))
+    #dz.surface.blit(shadow_image, cam.proj([ball.pos[0],ball.pos[1],0],shadow_image.get_width(),shadow_image.get_height()))   
+    #dz.surface.blit(ball.image, cam.proj(ball.pos,ball.image.get_width(),ball.image.get_height()+3))
     
     dz.update()
     mainClock.tick(40)

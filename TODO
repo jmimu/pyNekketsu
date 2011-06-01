@@ -1,4 +1,5 @@
- - add a ball !
+ - add ball physics
  - create a HumanPlayer class
  - add lot of players !
+ - draw sprites in right order (incl. goal)
 

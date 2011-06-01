@@ -4,20 +4,17 @@
 import pygame
 import os
 
+from sprite import Sprite
 
-class Player(object):
+class Player(Sprite):
     
     def __init__(self):
-        self.images=[]
-        self.image=0
+        Sprite.__init__(self)
         self.anim_index=0
         self.direction=1# +1: right, -1: left
         self.state="walk"
         
-        self.pos = [0, 0, 2]
         self.jump_speed = 0
-
-        
         
         self.anim={}#dictionnary for left and right
         self.anim[1]={} #dictionnary of all animation looking to the right
