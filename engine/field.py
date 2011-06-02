@@ -18,6 +18,7 @@ class Field():
         self.east_goal_height=15
         self.east_goal_latitude=0#where in field width
         self.bounce_damp=0.6#1=perfect
+        self.roll_damp=0.95#1=perfect
     def collide_with_player(self,player): #block a player inside the field
         # If we're at ground level, stop.
         if (player.pos[2] <= self.z):

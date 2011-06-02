@@ -14,6 +14,7 @@ class Inputs():
         self.D=False
         self.A=False
         self.B=False
+        self.C=False
         self.Esc=False
     def update(self):
         # check for events
@@ -36,6 +37,8 @@ class Inputs():
                     self.B = True
                 if event.key == ord('x'):
                     self.A = True
+                if event.key == ord('c'):
+                    self.C = True
             if event.type == KEYUP:
                 if event.key == K_ESCAPE:
                     self.Esc = False
@@ -51,3 +54,6 @@ class Inputs():
                     self.B = False
                 if event.key == ord('x'):
                     self.A = False
+                if event.key == ord('c'):
+                    self.C = False
+

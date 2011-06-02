@@ -28,7 +28,7 @@ class PersoPlayer(Perso):
             if (match.inputs.L or match.inputs.R or match.inputs.U or match.inputs.D):
                 self.anim_index += 0.2
             # Jump if the player taps the A button
-            if (match.inputs.A and self.pos[2] == 0):
+            if (match.inputs.C and self.pos[2] == 0):
                 self.jump_speed = 2.5
                 self.state="jump"
                 self.anim_index=0
@@ -36,6 +36,9 @@ class PersoPlayer(Perso):
             if (match.inputs.B):
                 if (self.has_ball!=0):
                     self.shoot(match)
+            if (match.inputs.A):
+                if (self.has_ball==0):
+                    self.attack(match)
        
 
 

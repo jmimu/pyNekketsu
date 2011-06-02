@@ -32,6 +32,10 @@ class Perso(Sprite):
         self.anim[1]["shoot"].append(pygame.image.load("data/shoot_A.png"))
         self.anim[1]["shoot"].append(pygame.image.load("data/shoot_B.png"))
         self.anim[1]["shoot"].append(pygame.image.load("data/shoot_C.png"))
+        self.anim[1]["attack"]=[]
+        self.anim[1]["attack"].append(pygame.image.load("data/attack_A.png"))
+        self.anim[1]["hurt"]=[]
+        self.anim[1]["hurt"].append(pygame.image.load("data/hurt_A.png"))
         
         #flip all anims to look left
         self.anim[-1]={}
@@ -54,22 +58,34 @@ class Perso(Sprite):
             self.state="jump"
             self.anim_index=1
 
-        match.field.collide_with_player(self)
 
         if (self.state=="shoot"):
             self.anim_index += 0.2
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
+        if (self.state=="attack"):
+            self.anim_index += 0.1
+            self.pos[0]+=self.direction/5.0
+            if (self.anim_index>=len(self.anim[self.direction][self.state])):
+                self.anim_index=0
+                self.state="walk"
+        if (self.state=="hurt"):
+            self.anim_index += 0.05
+            self.pos[0]-=self.direction/10.0
+            if (self.anim_index>=len(self.anim[self.direction][self.state])):
+                self.anim_index=0
+                self.state="walk"
             
         #try to catch the ball 
-        if (match.ball.owner==0):
-            if (0<(match.ball.pos[0]-self.pos[0])*self.direction<3) \
-                and (abs(match.ball.pos[1]-self.pos[1])<3) \
-                and (abs(match.ball.pos[2]-self.pos[2])<3):
+        if (self.state=="walk") and (match.ball.owner==0):
+            if (0<(match.ball.pos[0]-self.pos[0])*self.direction<4) \
+                and (abs(match.ball.pos[1]-self.pos[1])<5) \
+                and (abs(match.ball.pos[2]-self.pos[2])<5):
                 match.ball.owner=self
                 self.has_ball=match.ball
                 match.ball.speed=[0,0,0]
+            
 
         #update animation
         if (self.anim_index>=len(self.anim[self.direction][self.state])):
@@ -77,6 +93,7 @@ class Perso(Sprite):
         self.image = self.anim[self.direction][self.state][int(self.anim_index)]
  
 
+        match.field.collide_with_player(self)
 
 
 
@@ -92,9 +109,27 @@ class Perso(Sprite):
 
         match.ball.speed[0]=(self.pos[0]-self.previous_pos[0])*5 + 5*self.direction
         match.ball.speed[1]=(self.pos[1]-self.previous_pos[1])*5
-        match.ball.speed[2]=4
+        match.ball.speed[2]=5
 
         match.ball.owner=0
         self.has_ball=0
 
+
+    def attack(self,match):
+        self.state="attack"
+        self.anim_index=0
+
+        for p in match.perso_list:
+            if (p!=self):
+                if (0<(p.pos[0]-self.pos[0])*self.direction<6) \
+                    and (abs(p.pos[1]-self.pos[1])<5) \
+                    and (abs(p.pos[2]-self.pos[2])<5):
+                    #p is attacked !
+                    p.state="hurt"
+                    p.anim_index=0
+                    p.direction=-self.direction
+                    if (p.has_ball != 0):
+                        p.has_ball=0
+                        match.ball.owner=0
+                        match.ball.speed[0]+=5*self.direction
 

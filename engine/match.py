@@ -24,7 +24,7 @@ class Match(object):
         self.field=Field()
         self.ball=Ball()
         self.perso_list=[self.player1]
-        for i in range(0):
+        for i in range(10):
             self.perso_list.append(PersoCPU())
      
     def update(self):

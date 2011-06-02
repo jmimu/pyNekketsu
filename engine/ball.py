@@ -59,6 +59,8 @@ class Ball(Sprite):
         if (self.pos[2] <= field.z):
             self.pos[2] = field.z
             self.speed[2]=abs(self.speed[2])*field.bounce_damp
+            self.speed[0]=self.speed[0]*field.roll_damp
+            self.speed[1]=self.speed[1]*field.roll_damp
             if (abs(self.speed[2])<1.0):
                 self.speed[2]=0
  
