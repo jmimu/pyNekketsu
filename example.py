@@ -9,6 +9,8 @@ import sys
 sys.path.insert(0, "engine")
 
 from perso import Perso
+from perso_cpu import PersoCPU
+from perso_player import PersoPlayer
 from inputs import Inputs
 from displayzoom import DisplayZoom
 from camera import Camera
@@ -27,7 +29,7 @@ WINDOWHEIGHT = 400
 dz=DisplayZoom(3,"Yo!",256, 240)
 #displayzoom.screen = displayzoom.get_surface()
 
-player = Perso() # Create the player
+player = PersoPlayer() # Create the player
 
 inputs=Inputs()
 cam=Camera()
@@ -36,7 +38,7 @@ ball=Ball()
 
 perso_list=[player]
 for i in range(10):
-    perso_list.append(Perso())
+    perso_list.append(PersoCPU())
 
 
 while 1:    

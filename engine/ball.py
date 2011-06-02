@@ -21,12 +21,12 @@ class Ball(Sprite):
         self.anim={}#dictionnary for left and right
         self.anim[1]={} #dictionnary of all animation looking to the right
         self.anim[1]["roll1"]=[]
-        self.anim[1]["roll1"].append(pygame.image.load("data/ball_roll1_A.png"))
-        self.anim[1]["roll1"].append(pygame.image.load("data/ball_roll1_B.png"))
-        self.anim[1]["roll1"].append(pygame.image.load("data/ball_roll1_C.png"))
-        self.anim[1]["roll1"].append(pygame.image.load("data/ball_roll1_D.png"))
-        self.anim[1]["roll1"].append(pygame.image.load("data/ball_roll1_E.png"))
-        self.anim[1]["roll1"].append(pygame.image.load("data/ball_roll1_F.png"))
+        self.anim[1]["roll1"].append(pygame.image.load("data/_ball_roll1_A.png"))
+        self.anim[1]["roll1"].append(pygame.image.load("data/_ball_roll1_B.png"))
+        self.anim[1]["roll1"].append(pygame.image.load("data/_ball_roll1_C.png"))
+        self.anim[1]["roll1"].append(pygame.image.load("data/_ball_roll1_D.png"))
+        self.anim[1]["roll1"].append(pygame.image.load("data/_ball_roll1_E.png"))
+        self.anim[1]["roll1"].append(pygame.image.load("data/_ball_roll1_F.png"))
         
         #flip all anims to look left
         self.anim[-1]={}
