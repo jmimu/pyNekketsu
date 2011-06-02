@@ -12,7 +12,7 @@ class Ball(Sprite):
         Sprite.__init__(self)
 
         self.speed=[4,3,8]
-
+        self.owner=0 #0 if bass is free
 
         self.anim_index=0
         self.direction=1# +1: right, -1: left  TODO : add more directions ?
@@ -71,7 +71,7 @@ class Ball(Sprite):
         if (self.speed[0]<0):
             self.direction=-1
         
-        self.anim_index += (self.speed[0]**2+self.speed[1]**2)/100.0
+        self.anim_index += (self.speed[0]**2+self.speed[1]**2)/50.0
 
         if (self.anim_index>=len(self.anim[self.direction][self.state])):
             self.anim_index=0

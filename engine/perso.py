@@ -14,6 +14,7 @@ class Perso(Sprite):
         self.anim_index=0
         self.direction=1# +1: right, -1: left
         self.state="walk"
+        self.has_ball=0 #the ball if is in "hands"
         
         self.jump_speed = 0
         
