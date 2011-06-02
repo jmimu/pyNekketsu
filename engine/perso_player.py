@@ -11,29 +11,33 @@ class PersoPlayer(Perso):
     def __init__(self):
         Perso.__init__(self)
         
-    def update(self,inputs,field):
-        if inputs.L:
-            self.pos[0] -= 1
-            self.direction = -1
-        if inputs.R:
-            self.pos[0] += 1
-            self.direction = +1
-        if inputs.U:
-            self.pos[1] += 1
-        if inputs.D:
-            self.pos[1] -= 1
-        if (inputs.L or inputs.R or inputs.U or inputs.D):
-            if (self.state=="walk"):
+    def update(self,match):
+        Perso.update(self,match) 
+
+        if (self.state=="walk"):
+            if match.inputs.L:
+                self.pos[0] -= 1
+                self.direction = -1
+            if match.inputs.R:
+                self.pos[0] += 1
+                self.direction = +1
+            if match.inputs.U:
+                self.pos[1] += 1
+            if match.inputs.D:
+                self.pos[1] -= 1
+            if (match.inputs.L or match.inputs.R or match.inputs.U or match.inputs.D):
                 self.anim_index += 0.2
-        
-        if (self.anim_index>=len(self.anim[self.direction][self.state])):
-            self.anim_index=0
-        self.image = self.anim[self.direction][self.state][int(self.anim_index)]
-        
-        # Jump if the player taps the A button
-        if (inputs.A and self.pos[2] == 0):
-            self.jump_speed = 2.5
-            self.state="jump"
-            self.anim_index=0
-            
-        Perso.update(self,inputs,field) 
+            # Jump if the player taps the A button
+            if (match.inputs.A and self.pos[2] == 0):
+                self.jump_speed = 2.5
+                self.state="jump"
+                self.anim_index=0
+                
+            if (match.inputs.B):
+                if (self.has_ball!=0):
+                    self.shoot(match)
+       
+
+
+
+

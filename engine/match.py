@@ -4,6 +4,7 @@
 import pygame
 import os
 
+import sys
 from perso import Perso
 from perso_cpu import PersoCPU
 from perso_player import PersoPlayer
@@ -23,21 +24,20 @@ class Match(object):
         self.field=Field()
         self.ball=Ball()
         self.perso_list=[self.player1]
-        for i in range(10):
+        for i in range(0):
             self.perso_list.append(PersoCPU())
      
     def update(self):
         self.inputs.update()
-        if (self.inputs.Esc):
-            pygame.quit()
-            sys.exit()
-
         for p in self.perso_list:    
-            p.update(self.inputs,self.field)
+            p.update(self)
 
         self.ball.update(self.field)
         
-        self.cam.aim_to(self.player1.pos,self.player1.direction,5)
+        if (self.ball.owner==0):
+            self.cam.aim_to(self.ball.pos,0,5)
+        else:
+            self.cam.aim_to(self.ball.pos,self.ball.owner.direction,5)
 
 
     def draw(self,surface):

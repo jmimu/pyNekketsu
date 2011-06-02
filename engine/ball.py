@@ -39,32 +39,43 @@ class Ball(Sprite):
         
         
     def update(self,field):
+        if (self.owner!=0):
+            self.speed[0]=(self.owner.pos[0]+4*self.owner.direction-self.pos[0])*4
+            self.speed[1]=(self.owner.pos[1]-self.pos[1])*4
+
+        if (abs(self.speed[0])<0.2):
+            self.speed[0]=0
+        if (abs(self.speed[1])<0.2):
+            self.speed[1]=0
+ 
         self.pos[0]+=self.speed[0]*0.2
         self.pos[1]+=self.speed[1]*0.2
         self.pos[2]+=self.speed[2]*0.2
         self.speed[2]+=-2*0.2
-    
+
+   
 
         #bounce
         if (self.pos[2] <= field.z):
             self.pos[2] = field.z
             self.speed[2]=abs(self.speed[2])*field.bounce_damp
-            if (abs(self.speed[2])<0.1):
+            if (abs(self.speed[2])<1.0):
                 self.speed[2]=0
-        
+ 
+       
         # Keep in bounds
         if self.pos[0] < -field.half_length:
             self.pos[0] = -field.half_length
-            self.speed[0]*=-1
+            self.speed[0]*=-0.8
         if self.pos[0] > field.half_length:
             self.pos[0] = field.half_length
-            self.speed[0]*=-1
+            self.speed[0]*=-0.8
         if self.pos[1] < -field.half_width:
             self.pos[1] = -field.half_width
-            self.speed[1]*=-1
+            self.speed[1]*=-0.8
         if self.pos[1] > field.half_width:
             self.pos[1] = field.half_width
-            self.speed[1]*=-1
+            self.speed[1]*=-0.8
 
 
         self.direction=1

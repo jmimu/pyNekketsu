@@ -11,6 +11,7 @@ class Sprite(object):
     def __init__(self):
         self.image=0
         self.pos = [0, 0, 0]
+        self.previous_pos = [0, 0, 0]
         
     def draw(self,surface,camera,is_shadow=True):
         if (is_shadow):
