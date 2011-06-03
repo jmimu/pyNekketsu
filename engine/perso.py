@@ -5,11 +5,13 @@ import pygame
 import os
 import random
 from sprite import Sprite
+from inputs import Inputs
 
 class Perso(Sprite):
     
     def __init__(self):
         Sprite.__init__(self)
+        self.inputs=0 #class Inputs, constructor differs if PersoCPU or PersoPlayer
         self.pos=[random.randint(-80, 80),random.randint(-40, 40),2]
         self.anim_index=0
         self.direction=1# +1: right, -1: left
@@ -49,11 +51,27 @@ class Perso(Sprite):
         
         
     def update(self,match):
-        self.previous_pos[:]=self.pos[:]
-         # Increase the y position by the jump speed
+
+        self.handle_inputs(match)
+
+
+        if (self.state=="jump"): #if jumping, continue to go in previous direction
+            jump_speed_x=(self.pos[0]-self.previous_pos[0])
+            jump_speed_y=(self.pos[1]-self.previous_pos[1])
+            self.pos[0]+=jump_speed_x
+            self.pos[1]+=jump_speed_y
+            self.previous_pos[0]+=jump_speed_x
+            self.previous_pos[1]+=jump_speed_y
+        else:
+            self.previous_pos[:]=self.pos[:] #be careful with that...
+        
+        
+        
+        # Increase the y position by the jump speed
         self.pos[2] += self.jump_speed
         self.jump_speed -= 0.4
         
+       
         if (self.jump_speed < -0.5):
             self.state="jump"
             self.anim_index=1
@@ -132,4 +150,35 @@ class Perso(Sprite):
                         p.has_ball=0
                         match.ball.owner=0
                         match.ball.speed[0]+=5*self.direction
+
+    def handle_inputs(self,match):
+        if (self.state=="walk"):
+            if self.inputs.L:
+                self.pos[0] -= 1
+                self.direction = -1
+            if self.inputs.R:
+                self.pos[0] += 1
+                self.direction = +1
+            if self.inputs.U:
+                self.pos[1] += 1
+            if self.inputs.D:
+                self.pos[1] -= 1
+            if (self.inputs.L or self.inputs.R or self.inputs.U or self.inputs.D):
+                self.anim_index += 0.2
+            # Jump if the player presses the A button
+            if (self.inputs.C and self.pos[2] == 0):
+                self.jump_speed = 2.5
+                self.state="jump"
+                self.anim_index=0
+                
+            if (self.inputs.B):
+                if (self.has_ball!=0):
+                    self.shoot(match)
+            if (self.inputs.A):
+                if (self.has_ball==0):
+                    self.attack(match)
+            
+        self.inputs.update() #read the new keys or clear inputs for CPU
+
+
 

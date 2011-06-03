@@ -27,6 +27,7 @@ class Field():
             if (player.state=="jump"):
                 player.state="walk"
                 player.anim_index=0
+                player.previous_pos[:]=player.pos[:]
         
         # Keep the player in bounds
         if player.pos[0] < -self.half_length:

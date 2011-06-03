@@ -19,7 +19,7 @@ dz=DisplayZoom(3,"Yo!",256, 240)
 match=Match()
 
 while 1:    
-    if (match.inputs.Esc):
+    if (match.player1.inputs.Esc):
         pygame.quit()
         sys.exit()
 

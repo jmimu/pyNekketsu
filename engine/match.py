@@ -19,7 +19,6 @@ from sprite import Sprite
 class Match(object):
     def __init__(self):
         self.player1 = PersoPlayer() # Create the player
-        self.inputs=Inputs()
         self.cam=Camera()
         self.field=Field()
         self.ball=Ball()
@@ -28,7 +27,6 @@ class Match(object):
             self.perso_list.append(PersoCPU())
      
     def update(self):
-        self.inputs.update()
         for p in self.perso_list:    
             p.update(self)
 
