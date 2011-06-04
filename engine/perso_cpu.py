@@ -7,6 +7,9 @@ import random
 from perso import Perso
 from inputs import Inputs
 
+difficulty=9 #out of 10
+
+
 class PersoCPU(Perso):
     
     def __init__(self,team):
@@ -32,17 +35,18 @@ class PersoCPU(Perso):
             if (random.randint(0, int(abs(self.team.wing*match.field.half_length-self.pos[0])))==0):#depends on the distance to the goal
                 self.inputs.B=True
         else:
-            if (self.pos[0]<match.ball.pos[0]-2):
+            if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 20)<10+difficulty):
                 self.inputs.R=True
-            if (self.pos[0]>match.ball.pos[0]+2):
+            if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 20)<10+difficulty):
                 self.inputs.L=True
-            if (self.pos[1]<match.ball.pos[1]-2):
+            if (self.pos[1]<match.ball.pos[1]-5) and (random.randint(0, 20)<10+difficulty):
                 self.inputs.U=True
-            if (self.pos[1]>match.ball.pos[1]+2):
+            if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 20)<10+difficulty):
                 self.inputs.D=True
             for p in match.perso_list:
                 if (p!=self):
-                    if (abs(p.pos[0]-self.pos[0])<5 and abs(p.pos[1]-self.pos[1])<5):
-                        if (random.randint(0, 80)==0) or (p.has_ball!=0):
-                            self.inputs.A=True
-            
+                    if (p.team!=self.team):#attack!
+                        if (abs(p.pos[0]-self.pos[0])<5 and abs(p.pos[1]-self.pos[1])<5):
+                            if (random.randint(0, 80)==0) or (p.has_ball!=0):
+                                self.inputs.A=True
+                

@@ -18,6 +18,9 @@ from team import Team
 
 class Match(object):
     def __init__(self):
+        self.goal_image=pygame.image.load("data/goal.png")
+        self.goaldrawing_time=0
+        
         self.cam=Camera()
         self.field=Field()
         self.ball=Ball()
@@ -29,19 +32,22 @@ class Match(object):
         self.teamB=Team("data/teamB.png","Les Klass",-1,2)
         self.perso_list+=self.teamB.persos
         
-        for p in self.perso_list:
-            print(p)
     
     def update(self):
-        for p in self.perso_list:    
-            p.update(self)
+        if (self.goaldrawing_time<10):
+            if (self.goaldrawing_time>0):
+                self.goaldrawing_time-=1
+            for p in self.perso_list:
+                p.update(self)
 
-        self.ball.update(self)
-        
-        if (self.ball.owner==0):
-            self.cam.aim_to(self.ball.pos,0,5)
+            self.ball.update(self)
+            
+            if (self.ball.owner==0):
+                self.cam.aim_to([self.ball.pos[0],self.ball.pos[1],self.ball.pos[2]/2],0,50)
+            else:
+                self.cam.aim_to([self.ball.pos[0],self.ball.pos[1],self.ball.pos[2]/2],self.ball.owner.direction,5)
         else:
-            self.cam.aim_to(self.ball.pos,self.ball.owner.direction,5)
+            self.goaldrawing_time-=1
 
 
     def draw(self,surface):
@@ -50,6 +56,10 @@ class Match(object):
         sprite_list=sorted( [self.ball]+self.perso_list,   key=lambda Sprite: -Sprite.pos[1]) #sort all the sprites list with y pos
         for s in sprite_list:
             s.draw(surface,self.cam)
+        
+        if (self.goaldrawing_time!=0):
+            surface.blit(self.goal_image, [0,0])
+    
 
 
 

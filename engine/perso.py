@@ -156,16 +156,28 @@ class Perso(Sprite):
 
     def handle_inputs(self,match):
         if (self.state=="walk"):
-            if self.inputs.L:
-                self.pos[0] -= 1
-                self.direction = -1
-            if self.inputs.R:
-                self.pos[0] += 1
-                self.direction = +1
-            if self.inputs.U:
-                self.pos[1] += 1
-            if self.inputs.D:
-                self.pos[1] -= 1
+            if (self.has_ball!=0):
+                if self.inputs.L:
+                    self.pos[0] -= 1
+                    self.direction = -1
+                if self.inputs.R:
+                    self.pos[0] += 1
+                    self.direction = +1
+                if self.inputs.U:
+                    self.pos[1] += 1
+                if self.inputs.D:
+                    self.pos[1] -= 1
+            else:#don't have ball
+                if self.inputs.L:
+                    self.pos[0] -= 1.2
+                    self.direction = -1
+                if self.inputs.R:
+                    self.pos[0] += 1.2
+                    self.direction = +1
+                if self.inputs.U:
+                    self.pos[1] += 1.2
+                if self.inputs.D:
+                    self.pos[1] -= 1.2
             if (self.inputs.L or self.inputs.R or self.inputs.U or self.inputs.D):
                 self.anim_index += 0.2
             # Jump if the player presses the A button
