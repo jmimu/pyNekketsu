@@ -11,12 +11,17 @@ class Field():
         self.half_length=100
         self.half_width=50
         self.z=0.0
-        self.west_goal_half_width=20
-        self.west_goal_height=15
-        self.west_goal_latitude=0#where in field width
-        self.east_goal_half_width=20
-        self.east_goal_height=15
-        self.east_goal_latitude=0#where in field width
+        
+        self.goal_half_width={}#-1: west goal, +1: east goal
+        self.goal_height={}
+        self.goal_latitude={}
+        
+        self.goal_half_width[-1]=20#west goal
+        self.goal_height[-1]=15
+        self.goal_latitude[-1]=0#where the goal center is inside field width
+        self.goal_half_width[1]=20#east goal
+        self.goal_height[1]=15
+        self.goal_latitude[1]=0#where the goal center is inside field width
         self.bounce_damp=0.6#1=perfect
         self.roll_damp=0.95#1=perfect
     def collide_with_player(self,player): #block a player inside the field
@@ -58,19 +63,19 @@ class Field():
         pygame.draw.line(surface, (225, 230, 255), camera.proj([self.half_length,-self.half_width,self.z]), camera.proj([-self.half_length,-self.half_width,self.z]), 3)
      
         #goals
-        pygame.draw.line(surface, (245, 180, 165), camera.proj([-self.half_length,self.west_goal_latitude-self.west_goal_half_width,self.z+self.west_goal_height]),
-           camera.proj([-self.half_length,self.west_goal_latitude+self.west_goal_half_width,self.z+self.west_goal_height]), 5)
-        pygame.draw.line(surface, (245, 180, 165), camera.proj([-self.half_length,self.west_goal_latitude-self.west_goal_half_width,self.z]),
-           camera.proj([-self.half_length,self.west_goal_latitude-self.west_goal_half_width,self.z+self.west_goal_height]), 5)
-        pygame.draw.line(surface, (245, 180, 165), camera.proj([-self.half_length,self.west_goal_latitude+self.west_goal_half_width,self.z]),
-           camera.proj([-self.half_length,self.west_goal_latitude+self.west_goal_half_width,self.z+self.west_goal_height]), 5)
+        pygame.draw.line(surface, (245, 180, 165), camera.proj([-self.half_length,self.goal_latitude[-1]-self.goal_half_width[-1],self.z+self.goal_height[-1]]),
+           camera.proj([-self.half_length,self.goal_latitude[-1]+self.goal_half_width[-1],self.z+self.goal_height[-1]]), 5)
+        pygame.draw.line(surface, (245, 180, 165), camera.proj([-self.half_length,self.goal_latitude[-1]-self.goal_half_width[-1],self.z]),
+           camera.proj([-self.half_length,self.goal_latitude[-1]-self.goal_half_width[-1],self.z+self.goal_height[-1]]), 5)
+        pygame.draw.line(surface, (245, 180, 165), camera.proj([-self.half_length,self.goal_latitude[-1]+self.goal_half_width[-1],self.z]),
+           camera.proj([-self.half_length,self.goal_latitude[-1]+self.goal_half_width[-1],self.z+self.goal_height[-1]]), 5)
 
-        pygame.draw.line(surface, (245, 180, 165), camera.proj([self.half_length,self.east_goal_latitude-self.east_goal_half_width,self.z+self.east_goal_height]),
-           camera.proj([self.half_length,self.east_goal_latitude+self.east_goal_half_width,self.z+self.east_goal_height]), 5)
-        pygame.draw.line(surface, (245, 180, 165), camera.proj([self.half_length,self.east_goal_latitude-self.east_goal_half_width,self.z]),
-           camera.proj([self.half_length,self.east_goal_latitude-self.east_goal_half_width,self.z+self.east_goal_height]), 5)
-        pygame.draw.line(surface, (245, 180, 165), camera.proj([self.half_length,self.east_goal_latitude+self.east_goal_half_width,self.z]),
-           camera.proj([self.half_length,self.east_goal_latitude+self.east_goal_half_width,self.z+self.east_goal_height]), 5)
+        pygame.draw.line(surface, (245, 180, 165), camera.proj([self.half_length,self.goal_latitude[1]-self.goal_half_width[1],self.z+self.goal_height[1]]),
+           camera.proj([self.half_length,self.goal_latitude[1]+self.goal_half_width[1],self.z+self.goal_height[1]]), 5)
+        pygame.draw.line(surface, (245, 180, 165), camera.proj([self.half_length,self.goal_latitude[1]-self.goal_half_width[1],self.z]),
+           camera.proj([self.half_length,self.goal_latitude[1]-self.goal_half_width[1],self.z+self.goal_height[1]]), 5)
+        pygame.draw.line(surface, (245, 180, 165), camera.proj([self.half_length,self.goal_latitude[1]+self.goal_half_width[1],self.z]),
+           camera.proj([self.half_length,self.goal_latitude[1]+self.goal_half_width[1],self.z+self.goal_height[1]]), 5)
 
 
 

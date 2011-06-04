@@ -9,8 +9,9 @@ from inputs import Inputs
 
 class Perso(Sprite):
     
-    def __init__(self):
+    def __init__(self, team):
         Sprite.__init__(self)
+        self.team=team
         self.inputs=0 #class Inputs, constructor differs if PersoCPU or PersoPlayer
         self.pos=[random.randint(-80, 80),random.randint(-40, 40),2]
         self.anim_index=0
@@ -109,12 +110,14 @@ class Perso(Sprite):
         if (self.anim_index>=len(self.anim[self.direction][self.state])):
             self.anim_index=0
         self.image = self.anim[self.direction][self.state][int(self.anim_index)]
- 
-
+    
+    
         match.field.collide_with_player(self)
-
-
-
+    
+    def draw(self,surface,camera,is_shadow=True):
+        Sprite.draw(self,surface,camera,is_shadow)
+        surface.blit(self.team.image, camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*3))
+    
     def shoot(self,match):
         if (match.ball.owner==0) or (self.has_ball==0):
             print("Error on shoot!")

@@ -38,7 +38,7 @@ class Ball(Sprite):
         self.image = self.anim[self.direction][self.state][int(self.anim_index)] #this is how we get the current picture
         
         
-    def update(self,field):
+    def update(self,match):
         if (self.owner!=0):
             self.speed[0]=(self.owner.pos[0]+4*self.owner.direction-self.pos[0])*4
             self.speed[1]=(self.owner.pos[1]-self.pos[1])*4
@@ -56,30 +56,38 @@ class Ball(Sprite):
    
 
         #bounce
-        if (self.pos[2] <= field.z):
-            self.pos[2] = field.z
-            self.speed[2]=abs(self.speed[2])*field.bounce_damp
-            self.speed[0]=self.speed[0]*field.roll_damp
-            self.speed[1]=self.speed[1]*field.roll_damp
+        if (self.pos[2] <= match.field.z):
+            self.pos[2] = match.field.z
+            self.speed[2]=abs(self.speed[2])*match.field.bounce_damp
+            self.speed[0]=self.speed[0]*match.field.roll_damp
+            self.speed[1]=self.speed[1]*match.field.roll_damp
             if (abs(self.speed[2])<1.0):
                 self.speed[2]=0
- 
-       
+        
+        
         # Keep in bounds
-        if self.pos[0] < -field.half_length:
-            self.pos[0] = -field.half_length
+        if self.pos[0] < -match.field.half_length:
+            if (abs(self.pos[1]-match.field.goal_latitude[-1])<match.field.goal_half_width[-1]) \
+                and (self.pos[2]<match.field.z+match.field.goal_height[-1]):#goal!
+                match.teamB.nb_goals+=1
+                print("Score: %d - %d"%(match.teamA.nb_goals,match.teamB.nb_goals))
+            self.pos[0] = -match.field.half_length
             self.speed[0]*=-0.8
-        if self.pos[0] > field.half_length:
-            self.pos[0] = field.half_length
+        if self.pos[0] > match.field.half_length:
+            if (abs(self.pos[1]-match.field.goal_latitude[1])<match.field.goal_half_width[1]) \
+                and (self.pos[2]<match.field.z+match.field.goal_height[1]):#goal!
+                match.teamA.nb_goals+=1
+                print("Score: %d - %d"%(match.teamA.nb_goals,match.teamB.nb_goals))
+            self.pos[0] = match.field.half_length
             self.speed[0]*=-0.8
-        if self.pos[1] < -field.half_width:
-            self.pos[1] = -field.half_width
+        if self.pos[1] < -match.field.half_width:
+            self.pos[1] = -match.field.half_width
             self.speed[1]*=-0.8
-        if self.pos[1] > field.half_width:
-            self.pos[1] = field.half_width
+        if self.pos[1] > match.field.half_width:
+            self.pos[1] = match.field.half_width
             self.speed[1]*=-0.8
-
-
+        
+        
         self.direction=1
         if (self.speed[0]<0):
             self.direction=-1

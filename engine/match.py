@@ -13,24 +13,30 @@ from camera import Camera
 from field import Field
 from ball import Ball
 from sprite import Sprite
-
+from team import Team
 
 
 class Match(object):
     def __init__(self):
-        self.player1 = PersoPlayer() # Create the player
         self.cam=Camera()
         self.field=Field()
         self.ball=Ball()
-        self.perso_list=[self.player1]
-        for i in range(10):
-            self.perso_list.append(PersoCPU())
-     
+        self.perso_list=[]
+        self.teamA=Team("data/teamA.png","Les Bogoss",1,1)
+        self.player1 = PersoPlayer(self.teamA) # Create the player
+        self.teamA.persos.append(self.player1)
+        self.perso_list+=self.teamA.persos
+        self.teamB=Team("data/teamB.png","Les Klass",-1,2)
+        self.perso_list+=self.teamB.persos
+        
+        for p in self.perso_list:
+            print(p)
+    
     def update(self):
         for p in self.perso_list:    
             p.update(self)
 
-        self.ball.update(self.field)
+        self.ball.update(self)
         
         if (self.ball.owner==0):
             self.cam.aim_to(self.ball.pos,0,5)

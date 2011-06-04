@@ -9,8 +9,8 @@ from inputs import Inputs
 
 class PersoPlayer(Perso):
     
-    def __init__(self):
-        Perso.__init__(self)
+    def __init__(self,team):
+        Perso.__init__(self,team)
         self.inputs=Inputs(1) #key config: player 1
         
     def update(self,match):

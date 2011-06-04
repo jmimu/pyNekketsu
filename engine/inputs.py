@@ -19,7 +19,7 @@ class Inputs():
         self.C=False
         self.Esc=False
     def update(self):#read corresponding key for human player, of just release keys for CPU
-        if (self.num_player==1):
+        if (self.num_player==1):#it won't work this way... have to hanlde all events at the same time, instead they are lost (won't work with 2 players)
             # check for events
             for event in pygame.event.get():
                 if event.type == QUIT:
