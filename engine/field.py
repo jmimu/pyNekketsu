@@ -61,6 +61,7 @@ class Field():
         pygame.draw.line(surface, (225, 230, 255), camera.proj([-self.half_length,self.half_width,self.z]), camera.proj([self.half_length,self.half_width,self.z]), 3)
         pygame.draw.line(surface, (225, 230, 255), camera.proj([self.half_length,self.half_width,self.z]), camera.proj([self.half_length,-self.half_width,self.z]), 3)
         pygame.draw.line(surface, (225, 230, 255), camera.proj([self.half_length,-self.half_width,self.z]), camera.proj([-self.half_length,-self.half_width,self.z]), 3)
+        pygame.draw.line(surface, (225, 230, 255), camera.proj([0,self.half_width,self.z]), camera.proj([0,-self.half_width,self.z]), 3)
      
         #goals
         pygame.draw.line(surface, (245, 180, 165), camera.proj([-self.half_length,self.goal_latitude[-1]-self.goal_half_width[-1],self.z+self.goal_height[-1]]),

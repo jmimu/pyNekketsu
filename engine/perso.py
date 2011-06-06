@@ -98,9 +98,10 @@ class Perso(Sprite):
             
         #try to catch the ball 
         if (self.state=="walk") and (match.ball.owner==0):
-            if (0<(match.ball.pos[0]-self.pos[0])*self.direction<4) \
+            #if (0<(match.ball.pos[0]-self.pos[0])*self.direction<5) \
+            if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
                 and (abs(match.ball.pos[1]-self.pos[1])<5) \
-                and (abs(match.ball.pos[2]-self.pos[2])<5):
+                and (abs(match.ball.pos[2]-self.pos[2])<4):
                 match.ball.owner=self
                 self.has_ball=match.ball
                 match.ball.speed=[0,0,0]

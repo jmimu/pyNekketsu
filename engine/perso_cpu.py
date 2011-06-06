@@ -7,7 +7,7 @@ import random
 from perso import Perso
 from inputs import Inputs
 
-difficulty=9 #out of 10
+difficulty=8 #out of 10
 
 
 class PersoCPU(Perso):
