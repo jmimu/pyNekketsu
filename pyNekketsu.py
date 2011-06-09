@@ -10,6 +10,7 @@ sys.path.insert(0, "engine")
 
 from displayzoom import DisplayZoom
 from match import Match
+from inputs import Inputs
 
 # set up pygame
 pygame.init()
@@ -19,7 +20,7 @@ dz=DisplayZoom(3,"pyNekketsu",256, 240)
 match=Match()
 
 while 1:
-    if (match.player1.inputs.Esc):#pb: what to do if no player1 in game ?
+    if (Inputs.player1_Esc or Inputs.player2_Esc):#pb: what to do if no player1 in game ?
         pygame.quit()
         sys.exit()
 
