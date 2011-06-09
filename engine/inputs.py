@@ -61,6 +61,22 @@ class Inputs():
                     cls.player1_A = True
                 if event.key == ord('c'):
                     cls.player1_C = True
+                if event.key == K_ESCAPE:
+                    cls.player2_Esc = True
+                if event.key == K_LEFT:
+                    cls.player2_L = True
+                if event.key == K_RIGHT:
+                    cls.player2_R = True
+                if event.key == K_UP:
+                    cls.player2_U = True
+                if event.key == K_DOWN:
+                    cls.player2_D = True
+                if event.key == ord('w'):
+                    cls.player2_B = True
+                if event.key == ord('x'):
+                    cls.player2_A = True
+                if event.key == ord('c'):
+                    cls.player2_C = True
             if event.type == KEYUP:
                 if event.key == K_ESCAPE:
                     cls.player1_Esc = False
@@ -78,6 +94,23 @@ class Inputs():
                     cls.player1_A = False
                 if event.key == ord('c'):
                     cls.player1_C = False
+                if event.key == K_ESCAPE:
+                    cls.player2_Esc = False
+                if event.key == K_LEFT:
+                    cls.player2_L = False
+                if event.key == K_RIGHT:
+                    cls.player2_R = False
+                if event.key == K_UP:
+                    cls.player2_U = False
+                if event.key == K_DOWN:
+                    cls.player2_D = False
+                if event.key == ord('w'):
+                    cls.player2_B = False
+                if event.key == ord('x'):
+                    cls.player2_A = False
+                if event.key == ord('c'):
+                    cls.player2_C = False
+
 
     def update(self):#read corresponding key for human player, of just release keys for CPU
         if (self.num_player==1):#it won't work this way... have to hanlde all events at the same time, instead they are lost (won't work with 2 players)

@@ -25,9 +25,11 @@ class Match(object):
         self.field=Field()
         self.ball=Ball()
         self.perso_list=[]
-        self.teamA=Team("data/teamA.png","Les Bogoss",1,1)
-        self.player1 = PersoPlayer(self.teamA) # Create the player
+        self.teamA=Team("data/teamA.png","Les Bogoss",1,0)
+        self.player1 = PersoPlayer(self.teamA,1,"data/1.png") # Create player1
+        self.player2 = PersoPlayer(self.teamA,2,"data/2.png") # Create player2
         self.teamA.persos.append(self.player1)
+        self.teamA.persos.append(self.player2)
         self.perso_list+=self.teamA.persos
         self.teamB=Team("data/teamB.png","Les Klass",-1,2)
         self.perso_list+=self.teamB.persos
