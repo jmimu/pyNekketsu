@@ -1,5 +1,21 @@
+# -*- coding: utf-8 -*-
 #! /usr/bin/python
 
+#    pyNekketsu
+#    Copyright (C) 2011  JM Muller
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import pygame
 import os
@@ -17,7 +33,9 @@ from team import Team
 
 
 class Match(object):
-    def __init__(self):
+    def __init__(self,nbr_players_teamA,nbr_persos_teamA,nbr_players_teamB,nbr_persos_teamB,difficulty=8):
+        PersoCPU.difficulty=difficulty
+
         self.goal_image=pygame.image.load("data/goal.png")
         self.goaldrawing_time=0
         
@@ -25,13 +43,28 @@ class Match(object):
         self.field=Field()
         self.ball=Ball()
         self.perso_list=[]
-        self.teamA=Team("data/teamA.png","Les Bogoss",1,0)
-        self.player1 = PersoPlayer(self.teamA,1,"data/1.png") # Create player1
-        self.player2 = PersoPlayer(self.teamA,2,"data/2.png") # Create player2
-        self.teamA.persos.append(self.player1)
-        self.teamA.persos.append(self.player2)
+        self.teamA=Team("data/teamA.png","Les Bogoss",1,nbr_persos_teamA-nbr_players_teamA)
+        if (nbr_players_teamA>0):
+            self.player1 = PersoPlayer(self.teamA,1,"data/1.png") # Create player1
+            self.teamA.persos.append(self.player1)
+        if (nbr_players_teamA>1):
+            self.player2 = PersoPlayer(self.teamA,2,"data/2.png") # Create player2
+            self.teamA.persos.append(self.player2)
+
         self.perso_list+=self.teamA.persos
-        self.teamB=Team("data/teamB.png","Les Klass",-1,2)
+        self.teamB=Team("data/teamB.png","Les Klass",-1,nbr_persos_teamB-nbr_players_teamB)
+        if (nbr_players_teamA>0):
+            if (nbr_players_teamB>0):
+                self.player2 = PersoPlayer(self.teamB,2,"data/2.png") # Create player2
+                self.teamB.persos.append(self.player2)
+        else:
+            if (nbr_players_teamB>0):
+                self.player1 = PersoPlayer(self.teamB,1,"data/1.png") # Create player1
+                self.teamB.persos.append(self.player2)
+            if (nbr_players_teamB>1):
+                self.player2 = PersoPlayer(self.teamB,2,"data/2.png") # Create player2
+                self.teamB.persos.append(self.player2)
+ 
         self.perso_list+=self.teamB.persos
         
     

@@ -1,4 +1,21 @@
+# -*- coding: utf-8 -*-
 #! /usr/bin/python
+
+#    pyNekketsu
+#    Copyright (C) 2011  JM Muller
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 import pygame
@@ -11,7 +28,7 @@ class PersoPlayer(Perso):
     
     def __init__(self,team,num_player=1,num_player_image_name="data/1.png"):
         Perso.__init__(self,team)
-        self.inputs=Inputs(1) #key config: player 1
+        self.inputs=Inputs(num_player) #key config: player num_player
         self.num_player=num_player
         self.num_player_image=pygame.image.load(num_player_image_name)
         

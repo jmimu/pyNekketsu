@@ -1,4 +1,43 @@
-pyNekketsu
+pyNekketsu v0.02
 
-Inspire by Technous Japan's game "Nekketsu Koukou Dodgeball Bu: Soccer Hen".
+Copyright (C) 2011  JM Muller
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+////////////////////////////////////////////////////////////////////////
+
+
+
+Inspired by Technous Japan's game "Nekketsu Koukou Dodgeball Bu: Soccer Hen".
+
+
+
+How to play:
+ P1: arrows(for moving) + K(for kicking), L(for attacking)
+ P2: F, G, H(for moving) +  A(for kicking), Z(for attacking)
+
+How to change options:
+  In file pyNekketsu.py, change the line "match=Match(1,3,0,3,5)".
+  The Match parameters are: (nbr_players_teamA,nbr_persos_teamA,nbr_players_teamB,nbr_persos_teamB,difficulty),
+  where "player" refers only to human players, and "perso" to human or computer players.
+  Maximum human players is 2, difficulty is an interger from 0 to 10.
+  For more information, see examples below.
+
+  Examples:
+   * to let the computer play alone in 4 vs 4 teams (high AI): match=Match(0,4,0,4,10)
+   * to play versus computer in 3 vs 3 teams (medium AI): match=Match(1,4,0,4,5)
+   * to play human vs human (only): match=Match(1,1,1,1,0)
+   * to play human vs human in 2 vs 5 teams (low AI): match=Match(1,2,1,5,3)
 

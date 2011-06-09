@@ -1,4 +1,21 @@
+# -*- coding: utf-8 -*-
 #! /usr/bin/python
+
+#    pyNekketsu
+#    Copyright (C) 2011  JM Muller
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import pygame,sys
 
@@ -55,27 +72,27 @@ class Inputs():
                     cls.player1_U = True
                 if event.key == K_DOWN:
                     cls.player1_D = True
-                if event.key == ord('w'):
+                if event.key == ord('k'):
                     cls.player1_B = True
-                if event.key == ord('x'):
+                if event.key == ord('l'):
                     cls.player1_A = True
-                if event.key == ord('c'):
+                if event.key == ord('m'):
                     cls.player1_C = True
                 if event.key == K_ESCAPE:
                     cls.player2_Esc = True
-                if event.key == K_LEFT:
+                if event.key == ord('f'):
                     cls.player2_L = True
-                if event.key == K_RIGHT:
+                if event.key == ord('h'):
                     cls.player2_R = True
-                if event.key == K_UP:
+                if event.key == ord('t'):
                     cls.player2_U = True
-                if event.key == K_DOWN:
+                if event.key == ord('g'):
                     cls.player2_D = True
-                if event.key == ord('w'):
+                if event.key == ord('a'):
                     cls.player2_B = True
-                if event.key == ord('x'):
+                if event.key == ord('z'):
                     cls.player2_A = True
-                if event.key == ord('c'):
+                if event.key == ord('e'):
                     cls.player2_C = True
             if event.type == KEYUP:
                 if event.key == K_ESCAPE:
@@ -88,27 +105,27 @@ class Inputs():
                     cls.player1_U = False
                 if event.key == K_DOWN:
                     cls.player1_D = False
-                if event.key == ord('w'):
+                if event.key == ord('k'):
                     cls.player1_B = False
-                if event.key == ord('x'):
+                if event.key == ord('l'):
                     cls.player1_A = False
-                if event.key == ord('c'):
+                if event.key == ord('m'):
                     cls.player1_C = False
                 if event.key == K_ESCAPE:
                     cls.player2_Esc = False
-                if event.key == K_LEFT:
+                if event.key == ord('f'):
                     cls.player2_L = False
-                if event.key == K_RIGHT:
+                if event.key == ord('h'):
                     cls.player2_R = False
-                if event.key == K_UP:
+                if event.key == ord('t'):
                     cls.player2_U = False
-                if event.key == K_DOWN:
+                if event.key == ord('g'):
                     cls.player2_D = False
-                if event.key == ord('w'):
+                if event.key == ord('a'):
                     cls.player2_B = False
-                if event.key == ord('x'):
+                if event.key == ord('z'):
                     cls.player2_A = False
-                if event.key == ord('c'):
+                if event.key == ord('e'):
                     cls.player2_C = False
 
 
