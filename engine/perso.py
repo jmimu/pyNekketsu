@@ -125,11 +125,13 @@ class Perso(Sprite):
             if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
                 and (abs(match.ball.pos[1]-self.pos[1])<5)  \
                 and (abs(match.ball.pos[2]-self.pos[2])<7): #Z
-                if (match.ball.speed[0]*self.direction<10):#speed X must be slow or in opposite direction
-                    if (match.ball.speed[0]*self.direction<-10):#too much in opposite direction : KO
-                        self.state="hurt"
-                        self.anim_index=0
-                    else:#ok, catch the ball
+                if (abs(match.ball.speed[0])>10):#too much in opposite direction : KO
+                    self.state="hurt"
+                    self.anim_index=0
+                    match.ball.speed[0]*=-0.6
+                    match.ball.speed[2]+=match.ball.pos[2]
+                else:#not enought to hurt...
+                    if (match.ball.speed[0]*self.direction<10):#speed X must be slow or in opposite direction
                         match.ball.owner=self
                         self.has_ball=match.ball
                         match.ball.speed=[0,0,0]
@@ -157,8 +159,8 @@ class Perso(Sprite):
         self.state="shoot"
         self.anim_index=0
 
-        match.ball.speed[0]=(self.pos[0]-self.previous_pos[0])*5 + 8*self.direction
-        match.ball.speed[1]=(self.pos[1]-self.previous_pos[1])*5
+        match.ball.speed[0]=(self.pos[0]-self.previous_pos[0])*2 + 12*self.direction
+        match.ball.speed[1]=(self.pos[1]-self.previous_pos[1])*6
         match.ball.speed[2]=5
 
         match.ball.owner=0

@@ -34,7 +34,7 @@ class PersoCPU(Perso):
         
     def update(self,match):
         Perso.update(self,match) 
-        self.think(match)
+#        self.think(match)
 
     def think(self,match):#press on virtual keys
         if (self.has_ball!=0):
