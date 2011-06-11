@@ -69,7 +69,9 @@ class Match(object):
         
     
     def update(self):
-        Inputs.readkeys()#read all the keys
+        Inputs.readkeys()#read all the actual keys
+        
+        #write "Goal!" after a... goal
         if (self.goaldrawing_time<10):
             if (self.goaldrawing_time>0):
                 self.goaldrawing_time-=1

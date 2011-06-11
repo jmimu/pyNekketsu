@@ -21,20 +21,20 @@
 import pygame
 import os
 import random
-from perso import Perso
+from perso_non_GK import Perso_non_GK
 from inputs import Inputs
 
 
-
-class PersoCPU(Perso):
+#CPU-controlled players (not for GK)
+class PersoCPU(Perso_non_GK):
     difficulty=8 #out of 10
     def __init__(self,team,head):
-        Perso.__init__(self,team,head)
+        Perso_non_GK.__init__(self,team,head)
         self.inputs=Inputs(0)
         
     def update(self,match):
-        Perso.update(self,match) 
-#        self.think(match)
+        Perso_non_GK.update(self,match) 
+        self.think(match)
 
     def think(self,match):#press on virtual keys
         if (self.has_ball!=0):
@@ -48,7 +48,7 @@ class PersoCPU(Perso):
             if (match.field.goal_latitude[self.team.wing]+10<self.pos[1]) or (random.randint(0, 4)==0):
                 self.inputs.D=True
             #shoot!
-            if (random.randint(0, int(abs(self.team.wing*match.field.half_length-self.pos[0])))==0):#depends on the distance to the goal
+            if (random.randint(0, int(abs(self.team.wing*match.field.half_length-self.pos[0])/4))==0):#depends on the distance to the goal
                 self.inputs.B=True
         else:
             if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 20)<10+PersoCPU.difficulty):

@@ -113,29 +113,7 @@ class Perso(Sprite):
                 self.anim_index=0
                 self.state="walk"
             
-        #try to catch the ball 
- #       if (self.state=="walk") and (match.ball.owner==0):
- #           if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
- #               and (abs(match.ball.pos[1]-self.pos[1])<5) \
- #               and (abs(match.ball.pos[2]-self.pos[2])<4):
- #               match.ball.owner=self
- #               self.has_ball=match.ball
- #               match.ball.speed=[0,0,0]
-
-        if (self.state=="walk") and (match.ball.owner==0):
-            if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
-                and (abs(match.ball.pos[1]-self.pos[1])<5)  \
-                and (abs(match.ball.pos[2]-self.pos[2])<7): #Z
-                if (abs(match.ball.speed[0])>8):#too much in opposite direction : KO
-                    self.state="hurt"
-                    self.anim_index=0
-                    match.ball.speed[0]*=-0.6
-                    match.ball.speed[2]+=match.ball.pos[2]
-                else:#not enought to hurt...
-                    if (match.ball.speed[0]*self.direction<10):#speed X must be slow or in opposite direction
-                        match.ball.owner=self
-                        self.has_ball=match.ball
-                        match.ball.speed=[0,0,0]
+        #try to catch the ball  : see perso_GK and perso_non_GK
                 
 
         #update animation
@@ -160,9 +138,9 @@ class Perso(Sprite):
         self.state="shoot"
         self.anim_index=0
 
-        match.ball.speed[0]=(self.pos[0]-self.previous_pos[0])*2 + 12*self.direction
-        match.ball.speed[1]=(self.pos[1]-self.previous_pos[1])*6
-        match.ball.speed[2]=5
+        match.ball.speed[0]=(self.pos[0]-self.previous_pos[0])*5 + 6*self.direction
+        match.ball.speed[1]=(self.pos[1]-self.previous_pos[1])*8
+        match.ball.speed[2]=6-(self.pos[0]-self.previous_pos[0])*3
 
         match.ball.owner=0
         self.has_ball=0

@@ -21,6 +21,7 @@
 import pygame
 import os
 from perso_cpu import PersoCPU
+from perso_GK import Perso_GK
 import random
 
 
@@ -36,7 +37,11 @@ class Team(object):
         self.nb_goals=0
         self.wing=wing
         self.persos=[]
+        #add the GK
+        self.persos.append(Perso_GK(self,random.randint(1, nbr_heads)))
+        #add the other players
         for i in range(nb_players_cpu):
             self.persos.append(PersoCPU(self,random.randint(1, nbr_heads)))
+
 
 

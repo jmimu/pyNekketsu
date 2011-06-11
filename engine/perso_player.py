@@ -21,22 +21,22 @@
 import pygame
 import os
 import random
-from perso import Perso
+from perso_non_GK import Perso_non_GK
 from inputs import Inputs
 
-class PersoPlayer(Perso):
+class PersoPlayer(Perso_non_GK):
     
     def __init__(self,team,head,num_player=1,num_player_image_name="data/1.png"):
-        Perso.__init__(self,team,head)
+        Perso_non_GK.__init__(self,team,head)
         self.inputs=Inputs(num_player) #key config: player num_player
         self.num_player=num_player
         self.num_player_image=pygame.image.load(num_player_image_name)
         
     def update(self,match):
-        Perso.update(self,match) 
+        Perso_non_GK.update(self,match) 
         
     def draw(self,surface,camera,is_shadow=True):
-        Perso.draw(self,surface,camera,is_shadow)
+        Perso_non_GK.draw(self,surface,camera,is_shadow)
         projection=camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*0)
         surface.blit(self.num_player_image, camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*0))
         has_to_draw_arrow=False

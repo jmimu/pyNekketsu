@@ -80,9 +80,11 @@ class Ball(Sprite):
             self.speed[2]=abs(self.speed[2])*match.field.bounce_damp
             self.speed[0]=self.speed[0]*match.field.roll_damp
             self.speed[1]=self.speed[1]*match.field.roll_damp
-            if (abs(self.speed[2])<1.0):
+            if (self.speed[2]<1.5):
                 self.speed[2]=0
-        
+            else:
+                self.speed[0]=self.speed[0]*match.field.roll_damp#damp is stronger if rebounce
+                self.speed[1]=self.speed[1]*match.field.roll_damp
         
         # Keep in bounds
         if self.pos[0] < -match.field.half_length:

@@ -39,9 +39,9 @@ class Sprite(object):
 
 #merge head and body pictures
 def compileimage(which_team,body_img,which_head,head_img,head_pos):
-    body_filename="data2/bodies/team"+str(which_team)+"/"+body_img
+    body_filename="data/bodies/team"+str(which_team)+"/"+body_img
     body_image=pygame.image.load(body_filename)
-    head_filename="data2/heads/head"+str(which_head)+"/"+head_img
+    head_filename="data/heads/head"+str(which_head)+"/"+head_img
     head_image=pygame.image.load(head_filename)
 
     #total_surface=pygame.Surface(body_image.get_rect()[2:4]) #create a surface as big as the body image
