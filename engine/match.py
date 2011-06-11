@@ -24,6 +24,7 @@ import sys
 from perso import Perso
 from perso_cpu import PersoCPU
 from perso_player import PersoPlayer
+from perso_GK import Perso_GK
 from inputs import Inputs
 from camera import Camera
 from field import Field
@@ -35,6 +36,7 @@ from team import Team
 class Match(object):
     def __init__(self,nbr_players_teamA,nbr_persos_teamA,nbr_players_teamB,nbr_persos_teamB,difficulty=8):
         PersoCPU.difficulty=difficulty
+        Perso_GK.difficulty=difficulty
 
         self.goal_image=pygame.image.load("data/goal.png")
         self.goaldrawing_time=0

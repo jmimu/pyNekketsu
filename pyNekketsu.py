@@ -33,7 +33,7 @@ pygame.init()
 mainClock = pygame.time.Clock()
 
 dz=DisplayZoom(3,"pyNekketsu",256, 240)
-match=Match(0,2,0,2,5)
+match=Match(1,2,0,2,5)
 
 while 1:
     if (Inputs.player1_Esc or Inputs.player2_Esc):#pb: what to do if no player1 in game ?
