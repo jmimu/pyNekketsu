@@ -26,8 +26,8 @@ from inputs import Inputs
 
 class PersoPlayer(Perso):
     
-    def __init__(self,team,num_player=1,num_player_image_name="data/1.png"):
-        Perso.__init__(self,team)
+    def __init__(self,team,head,num_player=1,num_player_image_name="data/1.png"):
+        Perso.__init__(self,team,head)
         self.inputs=Inputs(num_player) #key config: player num_player
         self.num_player=num_player
         self.num_player_image=pygame.image.load(num_player_image_name)

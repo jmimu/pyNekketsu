@@ -21,16 +21,22 @@
 import pygame
 import os
 from perso_cpu import PersoCPU
+import random
+
+
+nbr_heads=2
+
 
 #
 class Team(object):
-    def __init__(self, img_team, name_team, wing, nb_players_cpu):#wing: -1 (west) or +1 (east)
+    def __init__(self, number, img_team, name_team, wing, nb_players_cpu):#wing: -1 (west) or +1 (east)
+        self.number=number
         self.image=pygame.image.load(img_team)
         self.name=name_team
         self.nb_goals=0
         self.wing=wing
         self.persos=[]
         for i in range(nb_players_cpu):
-            self.persos.append(PersoCPU(self))
+            self.persos.append(PersoCPU(self,random.randint(1, nbr_heads)))
 
 

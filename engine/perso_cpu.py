@@ -28,8 +28,8 @@ from inputs import Inputs
 
 class PersoCPU(Perso):
     difficulty=8 #out of 10
-    def __init__(self,team):
-        Perso.__init__(self,team)
+    def __init__(self,team,head):
+        Perso.__init__(self,team,head)
         self.inputs=Inputs(0)
         
     def update(self,match):

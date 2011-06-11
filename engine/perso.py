@@ -21,11 +21,12 @@ import pygame
 import os
 import random
 from sprite import Sprite
+from sprite import compileimage
 from inputs import Inputs
 
 class Perso(Sprite):
     
-    def __init__(self, team):
+    def __init__(self, team, head):
         Sprite.__init__(self)
         self.team=team
         self.inputs=0 #class Inputs, constructor differs if PersoCPU or PersoPlayer
@@ -36,25 +37,25 @@ class Perso(Sprite):
         self.has_ball=0 #the ball if is in "hands"
         
         self.jump_speed = 0
-        
+
         self.anim={}#dictionnary for left and right
         self.anim[1]={} #dictionnary of all animation looking to the right
         self.anim[1]["walk"]=[]
-        self.anim[1]["walk"].append(pygame.image.load("data/walk_A.png"))
-        self.anim[1]["walk"].append(pygame.image.load("data/walk_B.png"))
-        self.anim[1]["walk"].append(pygame.image.load("data/walk_C.png"))
-        self.anim[1]["walk"].append(pygame.image.load("data/walk_D.png"))
+        self.anim[1]["walk"].append(compileimage(self.team.number,"walk_A.png",head,"normal.png",(2,0)))
+        self.anim[1]["walk"].append(compileimage(self.team.number,"walk_B.png",head,"normal.png",(2,0)))
+        self.anim[1]["walk"].append(compileimage(self.team.number,"walk_C.png",head,"normal.png",(2,0)))
+        self.anim[1]["walk"].append(compileimage(self.team.number,"walk_D.png",head,"normal.png",(2,0)))
         self.anim[1]["jump"]=[]
-        self.anim[1]["jump"].append(pygame.image.load("data/jump_A.png"))
-        self.anim[1]["jump"].append(pygame.image.load("data/jump_B.png"))
+        self.anim[1]["jump"].append(compileimage(self.team.number,"jump_A.png",head,"normal.png",(2,0)))
+        self.anim[1]["jump"].append(compileimage(self.team.number,"jump_A.png",head,"normal.png",(2,0)))
         self.anim[1]["shoot"]=[]
-        self.anim[1]["shoot"].append(pygame.image.load("data/shoot_A.png"))
-        self.anim[1]["shoot"].append(pygame.image.load("data/shoot_B.png"))
-        self.anim[1]["shoot"].append(pygame.image.load("data/shoot_C.png"))
+        self.anim[1]["shoot"].append(compileimage(self.team.number,"shoot_A.png",head,"back.png",(14,0)))
+        self.anim[1]["shoot"].append(compileimage(self.team.number,"shoot_B.png",head,"normal.png",(6,1)))
+        self.anim[1]["shoot"].append(compileimage(self.team.number,"shoot_C.png",head,"normal.png",(6,0)))
         self.anim[1]["attack"]=[]
-        self.anim[1]["attack"].append(pygame.image.load("data/attack_A.png"))
+        self.anim[1]["attack"].append(compileimage(self.team.number,"attack_A.png",head,"angry.png",(9,1)))
         self.anim[1]["hurt"]=[]
-        self.anim[1]["hurt"].append(pygame.image.load("data/hurt_A.png"))
+        self.anim[1]["hurt"].append(compileimage(self.team.number,"hurt_A.png",head,"hurt.png",(1,1)))
         
         #flip all anims to look left
         self.anim[-1]={}
@@ -125,7 +126,7 @@ class Perso(Sprite):
             if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
                 and (abs(match.ball.pos[1]-self.pos[1])<5)  \
                 and (abs(match.ball.pos[2]-self.pos[2])<7): #Z
-                if (abs(match.ball.speed[0])>10):#too much in opposite direction : KO
+                if (abs(match.ball.speed[0])>8):#too much in opposite direction : KO
                     self.state="hurt"
                     self.anim_index=0
                     match.ball.speed[0]*=-0.6

@@ -37,4 +37,17 @@ class Sprite(object):
         else:
             surface.blit(self.image, camera.proj(self.pos,self.image.get_width(),self.image.get_height()))
 
+#merge head and body pictures
+def compileimage(which_team,body_img,which_head,head_img,head_pos):
+    body_filename="data2/bodies/team"+str(which_team)+"/"+body_img
+    body_image=pygame.image.load(body_filename)
+    head_filename="data2/heads/head"+str(which_head)+"/"+head_img
+    head_image=pygame.image.load(head_filename)
+
+    #total_surface=pygame.Surface(body_image.get_rect()[2:4]) #create a surface as big as the body image
+    total_surface=body_image.copy() #create a surface as big as the body image
+    total_surface.blit(head_image,head_pos)
+    total_surface.blit(body_image,(0,0))
+
+    return total_surface
 
