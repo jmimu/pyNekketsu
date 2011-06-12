@@ -25,7 +25,8 @@ from perso_GK import Perso_GK
 import random
 
 
-nbr_heads=2
+#number of differents heads 
+nbr_heads=3
 
 
 #
