@@ -47,7 +47,7 @@ class Match(object):
         self.perso_list=[]
         self.teamA=Team(1,"data/teamA.png","Les Bogoss",1,nbr_persos_teamA-nbr_players_teamA)
         if (nbr_players_teamA>0):
-            self.player1 = PersoPlayer(self.teamA,1,1,"data/1.png") # Create player1
+            self.player1 = PersoPlayer(self.teamA,3,1,"data/1.png") # Create player1
             self.teamA.persos.append(self.player1)
         if (nbr_players_teamA>1):
             self.player2 = PersoPlayer(self.teamA,2,2,"data/2.png") # Create player2

@@ -98,23 +98,23 @@ class Perso_GK(Perso):
                     between_pos_y=match.ball.pos[1]
                 else:
                     between_pos_y=goal_position[1]+(self.pos[0]-goal_position[0])*(match.ball.pos[1]-goal_position[1])/(match.ball.pos[0]-goal_position[0])
-                    between_pos_y+=random.randint(Perso_GK.difficulty,20)-random.randint(Perso_GK.difficulty,20)
+                    between_pos_y+=random.randint(Perso_GK.difficulty,15)-random.randint(Perso_GK.difficulty,15)
 
-                if (self.pos[1]<between_pos_y-3) and (random.randint(0, 20)<10+Perso_GK.difficulty):
+                if (self.pos[1]<between_pos_y-3) and (random.randint(0, 15)<5+Perso_GK.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>between_pos_y+3) and (random.randint(0, 20)<10+Perso_GK.difficulty):
+                if (self.pos[1]>between_pos_y+3) and (random.randint(0, 15)<5+Perso_GK.difficulty):
                     self.inputs.D=True
 
                     
             else:
                 #ball is between GK and the goal
-                if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 20)<10+Perso_GK.difficulty):
+                if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 15)<5+Perso_GK.difficulty):
                     self.inputs.R=True
-                if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 20)<10+Perso_GK.difficulty):
+                if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 15)<5+Perso_GK.difficulty):
                     self.inputs.L=True
-                if (self.pos[1]<match.ball.pos[1]-5) and (random.randint(0, 20)<10+Perso_GK.difficulty):
+                if (self.pos[1]<match.ball.pos[1]-5) and (random.randint(0, 15)<5+Perso_GK.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 20)<10+Perso_GK.difficulty):
+                if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 15)<5+Perso_GK.difficulty):
                     self.inputs.D=True
      
 
