@@ -66,7 +66,8 @@ class Field():
         #background
         horizon_x,horizon_y=camera.proj([0,200,self.z])
         pygame.draw.rect(surface, ( 200, 200, 255), (0, 0,256,horizon_y))
-        pygame.draw.rect(surface, ( 50, 100,   0), (0, horizon_y, 256, 241-horizon_y))
+        #pygame.draw.rect(surface, ( 50, 100,   0), (0, horizon_y, 256, 241-horizon_y))
+        pygame.draw.rect(surface, ( 13, 83,  19), (0, horizon_y, 256, 241-horizon_y))
         pygame.draw.rect(surface, (255, 200, 185), (0, horizon_y+2, 256,  1), 1)
         
         #hz lines
