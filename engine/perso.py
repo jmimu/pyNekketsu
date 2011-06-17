@@ -138,9 +138,9 @@ class Perso(Sprite):
         self.state="shoot"
         self.anim_index=0
 
-        match.ball.speed[0]=(self.pos[0]-self.previous_pos[0])*4 + 8*self.direction
-        match.ball.speed[1]=(self.pos[1]-self.previous_pos[1])*8
-        match.ball.speed[2]=6-(self.pos[0]-self.previous_pos[0])*3
+        match.ball.speed[0]=int(self.inputs.R)*4 - int(self.inputs.L)*4 + 8*self.direction
+        match.ball.speed[1]=int(self.inputs.D)*8 - int(self.inputs.U)*8
+        match.ball.speed[2]=8-int(self.inputs.R)*4 - int(self.inputs.L)*4
 
         match.ball.owner=0
         self.has_ball=0

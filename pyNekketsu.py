@@ -47,12 +47,12 @@ nesfont = font.Font(NES_FONT, (255, 255, 255))
 screen = display.get_surface()
 
 difficulty=5
-
-difficulty=call_menu(display,nesfont,mainClock)
+nb_persos_team=1
+difficulty,nb_persos_team=call_menu(display,nesfont,mainClock)
 
 
 #dz=DisplayZoom(2,"pyNekketsu",256, 240)
-match=Match(1,1,0,1,difficulty)
+match=Match(1,nb_persos_team,0,nb_persos_team,difficulty)
 
 
 while 1:
