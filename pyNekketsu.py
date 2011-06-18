@@ -46,13 +46,15 @@ nesfont = font.Font(NES_FONT, (255, 255, 255))
 # Get the surface from the NES game library
 screen = display.get_surface()
 
+players_teamA=1
+players_teamB=0
 difficulty=5
 nb_persos_team=1
-difficulty,nb_persos_team=call_menu(display,nesfont,mainClock)
+players_teamA,players_teamB,difficulty,nb_persos_team=call_menu(display,nesfont,mainClock)
 
 
 #dz=DisplayZoom(2,"pyNekketsu",256, 240)
-match=Match(1,nb_persos_team,0,nb_persos_team,difficulty)
+match=Match(players_teamA,nb_persos_team,players_teamB,nb_persos_team,difficulty)
 
 
 while 1:

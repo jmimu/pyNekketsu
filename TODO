@@ -4,4 +4,5 @@
  - add health?
  - make players able to fall
 
- - show score!
+ - menu: add match length
+ - be able to change key config

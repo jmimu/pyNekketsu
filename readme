@@ -1,4 +1,4 @@
-pyNekketsu v0.03
+pyNekketsu v0.04
 
 Copyright (C) 2011  JM Muller
 
@@ -25,20 +25,8 @@ Based on retrogamelib (http://code.google.com/p/retrogamelib/) for screen and di
 
 
 How to play:
-  P1: arrows(for moving) + K(for kicking), L(for attacking)
-  P2: F, G, H(for moving) +  A(for kicking), Z(for attacking)
+  P1: arrows (to move) + K (to kick), L (to attack)
+  P2: F, G, H (to move) +  A (to kick), Z (to attack)
 
-How to change options:
-  In file pyNekketsu.py, change the line "match=Match(1,3,0,3,5)".
-  The Match parameters are: (nbr_players_teamA,nbr_persos_teamA,nbr_players_teamB,nbr_persos_teamB,difficulty),
-  where "player" refers only to human players, and "perso" to human or computer players.
-  Maximum human players is 2, difficulty is an interger from 0 to 10.
-  Goalkeepers are not counted in nbr_persos_team.
-  For more information, see examples below.
 
-  Examples:
-   * to let the computer play alone in 4 vs 4 teams (high AI): match=Match(0,4,0,4,10)
-   * to play versus computer in 3 vs 3 teams (medium AI): match=Match(1,4,0,4,5)
-   * to play human vs human (only): match=Match(1,1,1,1,0)
-   * to play human vs human in 2 vs 5 teams (low AI): match=Match(1,2,1,5,3)
 
