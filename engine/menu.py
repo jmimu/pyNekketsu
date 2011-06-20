@@ -39,15 +39,15 @@ def call_menu(display,font,mainClock):
     dialogbox = dialog.DialogBox((240, 51), (0, 0, 0),(255, 255, 255), font)
     dialogbox.set_dialog([
         "Welcome to pyNekketsu!      Press L to continue.", 
-        "P1 controls are: arrows (to move) + K (to kick), L (to attack)        Press L to continue.", 
-        "P2 controls are: F, G, H (to move) +  A (to kick), Z (to attack)      Press L to continue.", 
-        "Please select mode, difficulty and number of persos per team.         Press L to continue."])
-    menu_players = dialog.Menu(font, ["No human player", "Player 1 VS CPU","Player 1 VS Player 2",
-        "Player 1 + Player 2 VS CPU"])
+        "Player1 controls:           arrows (to move),           K (to kick),                L (to attack)", 
+        "Player2 controls:           F, G, H (to move),          A (to kick),                Z (to attack)"])
+    menu_players = dialog.Menu(font, ["No human player", "Player1 VS CPU","Player1 VS Player2",
+        "Player1 + Player2 VS CPU"])
     menu_diff = dialog.Menu(font, ["too easy", "easy","medium", "hard", "too hard"])
     menu_nb_play_team = dialog.Menu(font, ["1", "2","3", "4", "5"])
 
     menu_players_finished=False
+    menu_players.move_cursor(1)
     menu_diff_finished=False
     menu_nb_play_team_finished=False
     title_image=pygame.image.load("data/title.png")
@@ -131,7 +131,7 @@ def call_menu(display,font,mainClock):
             screen.blit(ren, (8, 112))
             menu_diff.draw(screen, (96, 128), background=(0, 0, 0), border=(255, 255, 255))
         else:
-            ren = font.render("Number of persos per team:")
+            ren = font.render("Number of players per team:")
             screen.blit(ren, (8, 112))
             menu_nb_play_team.draw(screen, (100, 128), background=(0, 0, 0), border=(255, 255, 255))
 
