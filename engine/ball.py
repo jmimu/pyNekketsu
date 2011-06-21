@@ -125,6 +125,9 @@ class Ball(Sprite):
         if (self.speed[0]<0):
             self.direction=-1
         
+        self.animation()
+
+    def animation(self):
         self.anim_index += (self.speed[0]**2+self.speed[1]**2)/50.0
 
         if (self.anim_index>=len(self.anim[self.direction][self.state])):

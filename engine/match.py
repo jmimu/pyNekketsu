@@ -41,6 +41,7 @@ class Match(object):
         self.goal_image=pygame.image.load("data/goal.png")
         self.goaldrawing_time=0
         
+        self.match_time=60
         self.pause=False
         self.cam=Camera()
         self.field=Field()
@@ -79,6 +80,7 @@ class Match(object):
         if (not self.pause):
             #write "Goal!" after a... goal
             if (self.goaldrawing_time<10):
+                self.match_time-=1.0/30 #30 FPS
                 if (self.goaldrawing_time>0):
                     self.goaldrawing_time-=1
                 for p in self.perso_list:
@@ -94,6 +96,9 @@ class Match(object):
             else:
                 self.goaldrawing_time-=1
 
+        else:#during pause the ball continues to roll
+            self.ball.animation()
+
 
     def draw(self,surface,font):
         self.field.draw(surface,self.cam)
@@ -105,7 +110,7 @@ class Match(object):
         if (self.goaldrawing_time!=0):
             surface.blit(self.goal_image, [0,0])
     
-        ren = font.render("Score: "+str(self.teamA.nb_goals)+" - "+str(self.teamB.nb_goals))
+        ren = font.render("Score: "+str(self.teamA.nb_goals)+" - "+str(self.teamB.nb_goals)+"       TIME: "+str(int(self.match_time)))
         surface.blit(ren, (8, 8))
 
         if (self.pause):

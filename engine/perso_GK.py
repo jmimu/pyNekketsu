@@ -75,16 +75,16 @@ class Perso_GK(Perso):
 
                 #stay close to the goal 
                 if (self.team.wing==1):
-                    if ((self.pos[0]-goal_position[0])>20):
+                    if ((self.pos[0]-goal_position[0])>25):
                         self.inputs.L=True
-                    if ((self.pos[0]-goal_position[0])<15):
+                    if ((self.pos[0]-goal_position[0])<22):
                         self.inputs.R=True
                     elif (self.direction==-1):
                         self.direction=1#change player without button... just for this time!
                 else:
-                    if (-(self.pos[0]-goal_position[0])>20):
+                    if (-(self.pos[0]-goal_position[0])>25):
                         self.inputs.R=True
-                    if (-(self.pos[0]-goal_position[0])<15):
+                    if (-(self.pos[0]-goal_position[0])<22):
                         self.inputs.L=True
                     elif (self.direction==1):
                         self.direction=-1#change player without button... just for this time!
@@ -100,9 +100,9 @@ class Perso_GK(Perso):
                     between_pos_y=goal_position[1]+(self.pos[0]-goal_position[0])*(match.ball.pos[1]-goal_position[1])/(match.ball.pos[0]-goal_position[0])
                     between_pos_y+=random.randint(Perso_GK.difficulty,15)-random.randint(Perso_GK.difficulty,15)
 
-                if (self.pos[1]<between_pos_y-3) and (random.randint(0, 15)<5+Perso_GK.difficulty):
+                if (self.pos[1]<between_pos_y-2) and (random.randint(0, 13)<3+Perso_GK.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>between_pos_y+3) and (random.randint(0, 15)<5+Perso_GK.difficulty):
+                if (self.pos[1]>between_pos_y+2) and (random.randint(0, 13)<3+Perso_GK.difficulty):
                     self.inputs.D=True
 
                     
