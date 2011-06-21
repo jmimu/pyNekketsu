@@ -33,6 +33,7 @@ class Inputs():
     player1_B=False
     player1_C=False
     player1_Esc=False
+    player1_Start=False
     player2_R=False
     player2_L=False
     player2_U=False
@@ -41,6 +42,7 @@ class Inputs():
     player2_B=False
     player2_C=False
     player2_Esc=False
+    player2_Start=False
  
     player1_just_R=False
     player1_just_L=False
@@ -50,6 +52,7 @@ class Inputs():
     player1_just_B=False
     player1_just_C=False
     player1_just_Esc=False
+    player1_just_Start=False
     player2_just_R=False
     player2_just_L=False
     player2_just_U=False
@@ -58,6 +61,7 @@ class Inputs():
     player2_just_B=False
     player2_just_C=False
     player2_just_Esc=False
+    player2_just_Start=False
     
     def __init__(self, num_player=0):#num_player: to handle key configs (0=CPU)
         self.num_player=num_player
@@ -69,6 +73,7 @@ class Inputs():
         self.B=False
         self.C=False
         self.Esc=False
+        self.Start=False
 
 
     @classmethod
@@ -82,6 +87,7 @@ class Inputs():
         cls.player1_just_B=False
         cls.player1_just_C=False
         cls.player1_just_Esc=False
+        cls.player1_just_Start=False
         cls.player2_just_R=False
         cls.player2_just_L=False
         cls.player2_just_U=False
@@ -90,6 +96,7 @@ class Inputs():
         cls.player2_just_B=False
         cls.player2_just_C=False
         cls.player2_just_Esc=False
+        cls.player2_just_Start=False
         # check for events
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -128,6 +135,10 @@ class Inputs():
 		    if (not cls.player1_C):
                         cls.player1_just_C=True
                     cls.player1_C = True
+                if event.key == ord('p'):
+		    if (not cls.player1_Start):
+                        cls.player1_just_Start=True
+                    cls.player1_Start = True
                 if event.key == K_ESCAPE:
 		    if (not cls.player2_Esc):
                         cls.player2_just_Esc=True
@@ -160,6 +171,10 @@ class Inputs():
 		    if (not cls.player2_C):
                         cls.player2_just_C=True
                     cls.player2_C = True
+                if event.key == ord('r'):
+		    if (not cls.player2_Start):
+                        cls.player2_just_Start=True
+                    cls.player2_Start = True
             if event.type == KEYUP:
                 if event.key == K_ESCAPE:
                     cls.player1_Esc = False
@@ -177,6 +192,8 @@ class Inputs():
                     cls.player1_A = False
                 if event.key == ord('m'):
                     cls.player1_C = False
+                if event.key == ord('p'):
+                    cls.player1_Start = False
                 if event.key == K_ESCAPE:
                     cls.player2_Esc = False
                 if event.key == ord('f'):
@@ -193,6 +210,8 @@ class Inputs():
                     cls.player2_A = False
                 if event.key == ord('e'):
                     cls.player2_C = False
+                if event.key == ord('r'):
+                    cls.player2_Start = False
 
 
     def update(self):#read corresponding key for human player, of just release keys for CPU
@@ -205,6 +224,7 @@ class Inputs():
             self.B=Inputs.player1_B
             self.C=Inputs.player1_C
             self.Esc=Inputs.player1_Esc
+            self.Start=Inputs.player1_Start
         if (self.num_player==2):#it won't work this way... have to hanlde all events at the same time, instead they are lost (won't work with 2 players)
             self.R=Inputs.player2_R
             self.L=Inputs.player2_L
@@ -214,6 +234,7 @@ class Inputs():
             self.B=Inputs.player2_B
             self.C=Inputs.player2_C
             self.Esc=Inputs.player2_Esc
+            self.Start=Inputs.player2_Start
                     
         if (self.num_player==0):#CPU: the inputs are trigged in PlayerCPU code
             self.R=False
@@ -224,5 +245,6 @@ class Inputs():
             self.B=False
             self.C=False
             self.Esc=False
+            self.Start=False
                     
 

@@ -41,6 +41,7 @@ class Match(object):
         self.goal_image=pygame.image.load("data/goal.png")
         self.goaldrawing_time=0
         
+        self.pause=False
         self.cam=Camera()
         self.field=Field()
         self.ball=Ball()
@@ -72,25 +73,29 @@ class Match(object):
     
     def update(self):
         Inputs.readkeys()#read all the actual keys
+        if (Inputs.player1_just_Start or Inputs.player2_just_Start):
+            self.pause=not self.pause
         
-        #write "Goal!" after a... goal
-        if (self.goaldrawing_time<10):
-            if (self.goaldrawing_time>0):
-                self.goaldrawing_time-=1
-            for p in self.perso_list:
-                p.update(self)
+        if (not self.pause):
+            #write "Goal!" after a... goal
+            if (self.goaldrawing_time<10):
+                if (self.goaldrawing_time>0):
+                    self.goaldrawing_time-=1
+                for p in self.perso_list:
+                    p.update(self)
 
-            self.ball.update(self)
-            
-            if (self.ball.owner==0):
-                self.cam.aim_to([self.ball.pos[0],self.ball.pos[1],self.ball.pos[2]/2],0,50)
+                self.ball.update(self)
+                
+                if (self.ball.owner==0):
+                    self.cam.aim_to([self.ball.pos[0],self.ball.pos[1],self.ball.pos[2]/2],0,50)
+                else:
+                    self.cam.aim_to([self.ball.pos[0],self.ball.pos[1],self.ball.pos[2]/2],self.ball.owner.direction,5)
+
             else:
-                self.cam.aim_to([self.ball.pos[0],self.ball.pos[1],self.ball.pos[2]/2],self.ball.owner.direction,5)
-        else:
-            self.goaldrawing_time-=1
+                self.goaldrawing_time-=1
 
 
-    def draw(self,surface):
+    def draw(self,surface,font):
         self.field.draw(surface,self.cam)
 
         sprite_list=sorted( [self.ball]+self.perso_list,   key=lambda Sprite: -Sprite.pos[1]) #sort all the sprites list with y pos
@@ -100,6 +105,10 @@ class Match(object):
         if (self.goaldrawing_time!=0):
             surface.blit(self.goal_image, [0,0])
     
+        ren = font.render("Score: "+str(self.teamA.nb_goals)+" - "+str(self.teamB.nb_goals))
+        surface.blit(ren, (8, 8))
 
-
+        if (self.pause):
+            ren = font.render(" --- PAUSE --- ")
+            surface.blit(ren, (8, 16))
 

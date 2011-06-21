@@ -39,8 +39,8 @@ def call_menu(display,font,mainClock):
     dialogbox = dialog.DialogBox((240, 51), (0, 0, 0),(255, 255, 255), font)
     dialogbox.set_dialog([
         "Welcome to pyNekketsu!      Press L to continue.", 
-        "Player1 controls:           arrows (to move),           K (to kick),                L (to attack)", 
-        "Player2 controls:           F, G, H (to move),          A (to kick),                Z (to attack)"])
+        "Player1 controls:           arrows (to move),           K (to kick), L (to attack),  P (for pause)", 
+        "Player2 controls:           F, G, H (to move),          A (to kick), Z (to attack),  R (for pause)"])
     menu_players = dialog.Menu(font, ["No human player", "Player1 VS CPU","Player1 VS Player2",
         "Player1 + Player2 VS CPU"])
     menu_diff = dialog.Menu(font, ["too easy", "easy","medium", "hard", "too hard"])

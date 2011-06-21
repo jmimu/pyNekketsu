@@ -52,10 +52,7 @@ difficulty=5
 nb_persos_team=1
 players_teamA,players_teamB,difficulty,nb_persos_team=call_menu(display,nesfont,mainClock)
 
-
-#dz=DisplayZoom(2,"pyNekketsu",256, 240)
 match=Match(players_teamA,nb_persos_team,players_teamB,nb_persos_team,difficulty)
-
 
 while 1:
     screen = display.get_surface()
@@ -67,10 +64,7 @@ while 1:
 
     match.update()
 
-    match.draw(screen)
-
-    ren = nesfont.render("Score: "+str(match.teamA.nb_goals)+" - "+str(match.teamB.nb_goals))
-    screen.blit(ren, (8, 8))
+    match.draw(screen,nesfont)
 
     display.update()
     mainClock.tick(30)
