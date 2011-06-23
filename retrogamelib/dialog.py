@@ -65,6 +65,7 @@ class DialogBox(object):
         self.scroll_delay = 1
         self.frame = 0
         self.down_arrow = arrow_image(font.color)
+        self.curr_dialog=0
     
     def set_scrolldelay(self, delay):
         self.scroll_delay = delay
@@ -82,7 +83,9 @@ class DialogBox(object):
             (0, 0, self.size[0]-1, self.size[1]-1), 1)
     
     def progress(self):
-        if self.text_pos >= len(self.curr_dialog):
+        if (self.curr_dialog==0):
+            return
+        if (self.text_pos >= len(self.curr_dialog)):
             if self.page < self.pages-1:
                 self.page += 1
                 self.text_pos = 0

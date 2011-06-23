@@ -8,3 +8,8 @@
 
  - menu: add match length
  - be able to change key config
+
+
+Retrogamelib bugs :
+ - menu size
+ - dialog progress too soon
