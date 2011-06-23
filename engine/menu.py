@@ -30,17 +30,45 @@ from retrogamelib.constants import *
 from retrogamelib import dialog
 
 
+def call_info(display,font,mainClock):
+    title_image=pygame.image.load("data/title.png")
+
+    dialogbox = dialog.DialogBox((240, 51), (0, 0, 0),(255, 255, 255), font)
+    dialogbox.set_dialog([
+        "Welcome to pyNekketsu!      Press L to continue.", 
+        "Player1 controls:           arrows (to move),           K (to kick), L (to attack),  P (for pause)", 
+        "Player2 controls:           F, G, H (to move),          A (to kick), Z (to attack),  R (for pause)"])
+
+    while not dialogbox.over():
+        mainClock.tick(30)
+        
+        Inputs.readkeys()#read all the actual keys
+          
+        if (Inputs.player1_Esc or Inputs.player2_Esc):
+            pygame.quit()
+            sys.exit()
+
+        if Inputs.player1_just_A:
+            dialogbox.progress()
+        
+        # Get the surface from the NES game library
+        screen = display.get_surface()
+        screen.blit(title_image,(0,0))
+        
+        dialogbox.draw(screen, (8, 128))
+
+        # Update and draw the display
+        display.update()
+ 
+
+
+
 def call_menu(display,font,mainClock):
     difficulty=5
     nb_perso_team=1
     players_teamA=1
     players_teamB=0
     #ask for options
-    dialogbox = dialog.DialogBox((240, 51), (0, 0, 0),(255, 255, 255), font)
-    dialogbox.set_dialog([
-        "Welcome to pyNekketsu!      Press L to continue.", 
-        "Player1 controls:           arrows (to move),           K (to kick), L (to attack),  P (for pause)", 
-        "Player2 controls:           F, G, H (to move),          A (to kick), Z (to attack),  R (for pause)"])
     menu_players = dialog.Menu(font, ["No human player", "Player1 VS CPU","Player1 VS Player2",
         "Player1 + Player2 VS CPU"])
     menu_diff = dialog.Menu(font, ["too easy", "easy","medium", "hard", "too hard"])
@@ -61,11 +89,7 @@ def call_menu(display,font,mainClock):
             pygame.quit()
             sys.exit()
 
-        # If displaying dialog, do events for dialog!
-        if not dialogbox.over():
-            if Inputs.player1_just_A:
-                dialogbox.progress()
-        elif not menu_players_finished:
+        if not menu_players_finished:
             # Move the menu cursor if you press up or down    
             if Inputs.player1_just_U:
                 menu_players.move_cursor(-1)
@@ -119,10 +143,8 @@ def call_menu(display,font,mainClock):
         screen = display.get_surface()
         screen.blit(title_image,(0,0))
         
-        # Draw the dialog and menu boxes
-        if not dialogbox.over():
-            dialogbox.draw(screen, (8, 128))
-        elif not menu_players_finished:
+        # Draw the menu boxes
+        if not menu_players_finished:
             ren = font.render("Select game mode:")
             screen.blit(ren, (8, 112))
             menu_players.draw(screen, (16, 128), background=(0, 0, 0), border=(255, 255, 255))
@@ -139,3 +161,4 @@ def call_menu(display,font,mainClock):
         display.update()
     
     return players_teamA,players_teamB,difficulty,nb_perso_team
+

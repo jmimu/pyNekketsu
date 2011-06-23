@@ -86,40 +86,41 @@ class Ball(Sprite):
                 self.speed[0]=self.speed[0]*match.field.roll_damp#damp is stronger if rebounce
                 self.speed[1]=self.speed[1]*match.field.roll_damp
         
-        # Keep in bounds
-        if self.pos[0] < -match.field.half_length:
-            self.pos[0] = -match.field.half_length
-            self.speed[0]*=-0.8
-            if (abs(self.pos[1]-match.field.goal_latitude[-1])<match.field.goal_half_width[-1]) \
-                and (self.pos[2]<match.field.z+match.field.goal_height[-1]):#goal!
-                match.teamB.nb_goals+=1
-                if (self.owner!=0):
-                    self.owner.has_ball=0
-                    self.owner=0
-                self.pos[2]=35
-                self.speed[:]=[6,random.randint(-6,6),6]
-                print("Score: %d - %d"%(match.teamA.nb_goals,match.teamB.nb_goals))
-                match.goaldrawing_time=20
-        if self.pos[0] > match.field.half_length:
-            self.pos[0] = match.field.half_length
-            self.speed[0]*=-0.8
-            if (abs(self.pos[1]-match.field.goal_latitude[1])<match.field.goal_half_width[1]) \
-                and (self.pos[2]<match.field.z+match.field.goal_height[1]):#goal!
-                match.teamA.nb_goals+=1
-                if (self.owner!=0):
-                    self.owner.has_ball=0
-                    self.owner=0
-                self.pos[2]=35
-                self.speed[:]=[-6,random.randint(-6,6),6]
-                print("Score: %d - %d"%(match.teamA.nb_goals,match.teamB.nb_goals))
-                match.goaldrawing_time=20
-        if self.pos[1] < -match.field.half_width:
-            self.pos[1] = -match.field.half_width
-            self.speed[1]*=-0.8
-        if self.pos[1] > match.field.half_width:
-            self.pos[1] = match.field.half_width
-            self.speed[1]*=-0.8
-        
+        # Keep in bounds if match not finished
+        if (match.match_time>0):
+            if self.pos[0] < -match.field.half_length:
+                self.pos[0] = -match.field.half_length
+                self.speed[0]*=-0.8
+                if (abs(self.pos[1]-match.field.goal_latitude[-1])<match.field.goal_half_width[-1]) \
+                    and (self.pos[2]<match.field.z+match.field.goal_height[-1]):#goal!
+                    match.teamB.nb_goals+=1
+                    if (self.owner!=0):
+                        self.owner.has_ball=0
+                        self.owner=0
+                    self.pos[2]=35
+                    self.speed[:]=[6,random.randint(-6,6),6]
+                    print("Score: %d - %d"%(match.teamA.nb_goals,match.teamB.nb_goals))
+                    match.goaldrawing_time=20
+            if self.pos[0] > match.field.half_length:
+                self.pos[0] = match.field.half_length
+                self.speed[0]*=-0.8
+                if (abs(self.pos[1]-match.field.goal_latitude[1])<match.field.goal_half_width[1]) \
+                    and (self.pos[2]<match.field.z+match.field.goal_height[1]):#goal!
+                    match.teamA.nb_goals+=1
+                    if (self.owner!=0):
+                        self.owner.has_ball=0
+                        self.owner=0
+                    self.pos[2]=35
+                    self.speed[:]=[-6,random.randint(-6,6),6]
+                    print("Score: %d - %d"%(match.teamA.nb_goals,match.teamB.nb_goals))
+                    match.goaldrawing_time=20
+            if self.pos[1] < -match.field.half_width:
+                self.pos[1] = -match.field.half_width
+                self.speed[1]*=-0.8
+            if self.pos[1] > match.field.half_width:
+                self.pos[1] = match.field.half_width
+                self.speed[1]*=-0.8
+            
         
         self.direction=1
         if (self.speed[0]<0):

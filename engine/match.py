@@ -40,8 +40,9 @@ class Match(object):
 
         self.goal_image=pygame.image.load("data/goal.png")
         self.goaldrawing_time=0
+        self.is_finished=False
         
-        self.match_time=60
+        self.match_time=60/10
         self.pause=False
         self.cam=Camera()
         self.field=Field()
@@ -76,15 +77,19 @@ class Match(object):
         Inputs.readkeys()#read all the actual keys
         if (Inputs.player1_just_Start or Inputs.player2_just_Start):
             self.pause=not self.pause
+            if (self.match_time<=0):
+                self.is_finished=True
         
         if (not self.pause):
             #write "Goal!" after a... goal
             if (self.goaldrawing_time<10):
-                self.match_time-=1.0/30 #30 FPS
                 if (self.goaldrawing_time>0):
                     self.goaldrawing_time-=1
-                for p in self.perso_list:
-                    p.update(self)
+
+                if (self.match_time>0):#when time is out, players stop
+                    self.match_time-=1.0/30 #30 FPS
+                    for p in self.perso_list:
+                        p.update(self)
 
                 self.ball.update(self)
                 
@@ -98,6 +103,7 @@ class Match(object):
 
         else:#during pause the ball continues to roll
             self.ball.animation()
+        
 
 
     def draw(self,surface,font):
@@ -117,3 +123,18 @@ class Match(object):
             ren = font.render(" --- PAUSE --- ")
             surface.blit(ren, (8, 16))
 
+        if (self.match_time<=0):
+            winner_name=self.teamA.name
+            if (self.teamA.nb_goals<self.teamB.nb_goals):
+                winner_name=self.teamB.name
+            if (self.teamA.nb_goals!=self.teamB.nb_goals):
+                ren = font.render(winner_name+" won!")
+            else:
+                ren = font.render("Draw")
+            surface.blit(ren, (32, 32))
+            
+            ren = font.render("Press Start (P or R)")
+            surface.blit(ren, (32, 48))
+
+            ren = font.render("to continue...")
+            surface.blit(ren, (64, 56))
