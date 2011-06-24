@@ -1,14 +1,12 @@
- - add match length
-
  - add players' reference point
  - add kick-off
 
  - add health?
  - make players able to fall
 
- - menu: add match length
  - be able to change key config
 
+ - choose teams and fields (described in xml files)
 
 Retrogamelib bugs :
  - menu size

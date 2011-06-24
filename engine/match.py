@@ -34,7 +34,7 @@ from team import Team
 
 
 class Match(object):
-    def __init__(self,nbr_players_teamA,nbr_persos_teamA,nbr_players_teamB,nbr_persos_teamB,difficulty=8):
+    def __init__(self,nbr_players_teamA,nbr_persos_teamA,nbr_players_teamB,nbr_persos_teamB,difficulty=8,length=60):
         PersoCPU.difficulty=difficulty
         Perso_GK.difficulty=difficulty
 
@@ -42,7 +42,7 @@ class Match(object):
         self.goaldrawing_time=0
         self.is_finished=False
         
-        self.match_time=60
+        self.match_time=length
         self.pause=False
         self.cam=Camera()
         self.field=Field()

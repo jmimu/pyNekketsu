@@ -63,10 +63,11 @@ class Perso_GK(Perso):
                 self.inputs.R=True
             else:
                 self.inputs.L=True
-            if (match.field.goal_latitude[self.team.wing]-10>self.pos[1]) or (random.randint(0, 4)==0):
-                self.inputs.U=True
-            if (match.field.goal_latitude[self.team.wing]+10<self.pos[1]) or (random.randint(0, 4)==0):
+            #aim in the opposite direction of his goal, to avoid bad rebounce
+            if (match.field.goal_latitude[-self.team.wing]-10>self.pos[1]) or (random.randint(0, 4)==0):
                 self.inputs.D=True
+            if (match.field.goal_latitude[-self.team.wing]+10<self.pos[1]) or (random.randint(0, 4)==0):
+                self.inputs.U=True
             #shoot!
             self.inputs.B=True
         else:#do not have the ball

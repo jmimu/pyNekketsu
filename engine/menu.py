@@ -34,6 +34,8 @@ default_options=[]
 default_options.append(1)
 default_options.append(0)
 default_options.append(0)
+default_options.append(1)
+
 
 def call_info(display,font,mainClock):
     title_image=pygame.image.load("data/title.png")
@@ -102,19 +104,21 @@ def call_a_menu(menu,default_option,info,display,font,mainClock):
 
 
 def call_all_menus(display,font,mainClock):
-    menu_players = dialog.Menu(font, ["No human player", "Player1 VS CPU","Player1 VS Player2",
-        "Player1 + Player2 VS CPU"])
+    menu_players = dialog.Menu(font, ["No human player", "Player1 VS CPU","Player1 VS Player2","Player1 + Player2 VS CPU"])
     menu_diff = dialog.Menu(font, ["too easy", "easy","medium", "hard", "too hard"])
     menu_nb_play_team = dialog.Menu(font, ["1", "2","3", "4", "5"])
+    menu_match_length = dialog.Menu(font, ["30", "60","120", "300", "450"])
 
     menus=[]
     menus.append(menu_players)
     menus.append(menu_diff)
     menus.append(menu_nb_play_team)
+    menus.append(menu_match_length)
     info=[]
     info.append("Select game mode:")
     info.append("Select game difficulty:")
     info.append("Number of players per team:")
+    info.append("Match length in seconds:")
 
     current_menu=0 #index in "menus"
 
@@ -141,8 +145,10 @@ def call_all_menus(display,font,mainClock):
                 difficulty=2+option*2 
             elif (current_menu==2): #about nbr players
                 nb_perso_team=int(text)
+            elif (current_menu==3): #about match length
+                match_length=int(text)
 
             current_menu+=1
     
-    return players_teamA,players_teamB,difficulty,nb_perso_team
+    return players_teamA,players_teamB,difficulty,nb_perso_team,match_length
 

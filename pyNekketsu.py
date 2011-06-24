@@ -50,14 +50,15 @@ players_teamA=1
 players_teamB=0
 difficulty=5
 nb_persos_team=1
+match_length=60
 
 call_info(display,nesfont,mainClock)
 
 while 1:
 
-    players_teamA,players_teamB,difficulty,nb_persos_team=call_all_menus(display,nesfont,mainClock)
+    players_teamA,players_teamB,difficulty,nb_persos_team,match_length=call_all_menus(display,nesfont,mainClock)
 
-    match=Match(players_teamA,nb_persos_team,players_teamB,nb_persos_team,difficulty)
+    match=Match(players_teamA,nb_persos_team,players_teamB,nb_persos_team,difficulty,match_length)
 
     while not match.is_finished:
         screen = display.get_surface()
