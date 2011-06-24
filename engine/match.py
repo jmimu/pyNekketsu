@@ -42,7 +42,7 @@ class Match(object):
         self.goaldrawing_time=0
         self.is_finished=False
         
-        self.match_time=60/10
+        self.match_time=60
         self.pause=False
         self.cam=Camera()
         self.field=Field()

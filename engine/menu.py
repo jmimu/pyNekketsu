@@ -29,6 +29,11 @@ from retrogamelib.constants import *
 
 from retrogamelib import dialog
 
+#Global variables, to have options saved during all session
+default_options=[]
+default_options.append(1)
+default_options.append(0)
+default_options.append(0)
 
 def call_info(display,font,mainClock):
     title_image=pygame.image.load("data/title.png")
@@ -36,8 +41,8 @@ def call_info(display,font,mainClock):
     dialogbox = dialog.DialogBox((240, 51), (0, 0, 0),(255, 255, 255), font)
     dialogbox.set_dialog([
         "Welcome to pyNekketsu!      Press L to continue.", 
-        "Player1 controls:           arrows (to move),           K (to kick), L (to attack),  P (for pause/start)", 
-        "Player2 controls:           F, G, H (to move),          A (to kick), Z (to attack),  R (for pause/start)"])
+        "Player1 controls:           arrows (to move),           K (to kick), L (to attack),  P (for pause and start)", 
+        "Player2 controls:           F, G, H (to move),          A (to kick), Z (to attack),  R (for pause and start)"])
 
     while not dialogbox.over():
         mainClock.tick(30)
@@ -62,42 +67,64 @@ def call_info(display,font,mainClock):
  
 
 
+def call_a_menu(menu,default_option,info,display,font,mainClock):
+    menu.option=default_option
+    title_image=pygame.image.load("data/title.png")
+    while 1:
+        mainClock.tick(30)
+        Inputs.readkeys()#read all the actual keys
+        if (Inputs.player1_Esc or Inputs.player2_Esc):
+            pygame.quit()
+            sys.exit()
+        # Move the menu cursor if you press up or down    
+        if Inputs.player1_just_U:
+            menu.move_cursor(-1)
+        if Inputs.player1_just_D:
+            menu.move_cursor(1)
+        # If you press A, check which option you're on!
+        if Inputs.player1_just_A:
+            option, text = menu.get_option()
+            return option, text
+        # If you press B, cancel 
+        if Inputs.player1_just_B:
+            return -1, ""
+        
+        # Get the surface from the NES game library
+        screen = display.get_surface()
+        screen.blit(title_image,(0,0))
+        
+        # Draw the menu boxes
+        ren = font.render(info)
+        screen.blit(ren, (8, 112))
+        menu.draw(screen, (16, 128), background=(0, 0, 0), border=(255, 255, 255))
+        # Update and draw the display
+        display.update()
 
-def call_menu(display,font,mainClock):
-    difficulty=5
-    nb_perso_team=1
-    players_teamA=1
-    players_teamB=0
-    #ask for options
+
+def call_all_menus(display,font,mainClock):
     menu_players = dialog.Menu(font, ["No human player", "Player1 VS CPU","Player1 VS Player2",
         "Player1 + Player2 VS CPU"])
     menu_diff = dialog.Menu(font, ["too easy", "easy","medium", "hard", "too hard"])
     menu_nb_play_team = dialog.Menu(font, ["1", "2","3", "4", "5"])
 
-    menu_players_finished=False
-    menu_players.move_cursor(1)
-    menu_diff_finished=False
-    menu_nb_play_team_finished=False
-    title_image=pygame.image.load("data/title.png")
-    
-    while not menu_nb_play_team_finished:
-        mainClock.tick(30)
-        
-        Inputs.readkeys()#read all the actual keys
-          
-        if (Inputs.player1_Esc or Inputs.player2_Esc):
-            pygame.quit()
-            sys.exit()
+    menus=[]
+    menus.append(menu_players)
+    menus.append(menu_diff)
+    menus.append(menu_nb_play_team)
+    info=[]
+    info.append("Select game mode:")
+    info.append("Select game difficulty:")
+    info.append("Number of players per team:")
 
-        if not menu_players_finished:
-            # Move the menu cursor if you press up or down    
-            if Inputs.player1_just_U:
-                menu_players.move_cursor(-1)
-            if Inputs.player1_just_D:
-                menu_players.move_cursor(1)
-            # If you press A, check which option you're on!
-            if Inputs.player1_just_A:
-                option, text = menu_players.get_option()
+    current_menu=0 #index in "menus"
+
+    while current_menu<len(menus):
+        option, text=call_a_menu(menus[current_menu],default_options[current_menu],info[current_menu],display,font,mainClock)
+        if (option==-1) and (current_menu>0):
+            current_menu-=1
+        else:
+            default_options[current_menu]=option #save for later...
+            if (current_menu==0):#about game mode
                 if (option==0):
                     players_teamA=0
                     players_teamB=0
@@ -110,55 +137,12 @@ def call_menu(display,font,mainClock):
                 if (option==3):
                     players_teamA=2
                     players_teamB=0
-                menu_players_finished=True
-        elif not menu_diff_finished:
-            # Move the menu cursor if you press up or down    
-            if Inputs.player1_just_U:
-                menu_diff.move_cursor(-1)
-            if Inputs.player1_just_D:
-                menu_diff.move_cursor(1)
-            # If you press A, check which option you're on!
-            if Inputs.player1_just_A:
-                option, text = menu_diff.get_option()
-                difficulty=2+option*2
-                menu_diff_finished=True
-            if Inputs.player1_just_B:
-                menu_players_finished=False
-        else:
-            # Move the menu cursor if you press up or down    
-            if Inputs.player1_just_U:
-                menu_nb_play_team.move_cursor(-1)
-            if Inputs.player1_just_D:
-                menu_nb_play_team.move_cursor(1)
-            # If you press A, check which option you're on!
-            if Inputs.player1_just_A:
-                option, text = menu_nb_play_team.get_option()
+            elif (current_menu==1): #about difficulty
+                difficulty=2+option*2 
+            elif (current_menu==2): #about nbr players
                 nb_perso_team=int(text)
-                menu_nb_play_team_finished=True 
-            if Inputs.player1_just_B:
-                menu_diff_finished=False
-        
-        
-        # Get the surface from the NES game library
-        screen = display.get_surface()
-        screen.blit(title_image,(0,0))
-        
-        # Draw the menu boxes
-        if not menu_players_finished:
-            ren = font.render("Select game mode:")
-            screen.blit(ren, (8, 112))
-            menu_players.draw(screen, (16, 128), background=(0, 0, 0), border=(255, 255, 255))
-        elif not menu_diff_finished:
-            ren = font.render("Select game difficulty:")
-            screen.blit(ren, (8, 112))
-            menu_diff.draw(screen, (96, 128), background=(0, 0, 0), border=(255, 255, 255))
-        else:
-            ren = font.render("Number of players per team:")
-            screen.blit(ren, (8, 112))
-            menu_nb_play_team.draw(screen, (100, 128), background=(0, 0, 0), border=(255, 255, 255))
 
-        # Update and draw the display
-        display.update()
+            current_menu+=1
     
     return players_teamA,players_teamB,difficulty,nb_perso_team
 

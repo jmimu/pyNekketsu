@@ -26,7 +26,7 @@ sys.path.insert(0, "engine")
 
 from displayzoom import DisplayZoom
 from match import Match
-from menu import call_menu, call_info
+from menu import call_all_menus, call_info
 from inputs import Inputs
 
 from retrogamelib import display
@@ -55,13 +55,12 @@ call_info(display,nesfont,mainClock)
 
 while 1:
 
-    players_teamA,players_teamB,difficulty,nb_persos_team=call_menu(display,nesfont,mainClock)
+    players_teamA,players_teamB,difficulty,nb_persos_team=call_all_menus(display,nesfont,mainClock)
 
     match=Match(players_teamA,nb_persos_team,players_teamB,nb_persos_team,difficulty)
 
     while not match.is_finished:
         screen = display.get_surface()
-
 
         if (Inputs.player1_Esc or Inputs.player2_Esc):
             pygame.quit()
