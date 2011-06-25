@@ -33,11 +33,13 @@ class Perso(Sprite):
         #perso characteristics
         self.init_pos[0,0,0]
         self.speed=1
-        self.kick=1
-        self.punch=1
-        self.jump_strenght=1
+        self.endurance=1 #before speed decreases
+        self.resistance=1 #before going KO
+        self.kick=1 #for shooting
+        self.punch=1 #for attacking
+        self.jump_hight=1 
         #IA characteristics
-        self.agressivity=1
+        self.agressivity=1 
         self.precision=1
 
 
