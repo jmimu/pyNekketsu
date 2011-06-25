@@ -29,6 +29,18 @@ class Perso(Sprite):
     def __init__(self, team, head):
         Sprite.__init__(self)
         self.team=team
+
+        #perso characteristics
+        self.init_pos[0,0,0]
+        self.speed=1
+        self.kick=1
+        self.punch=1
+        self.jump_strenght=1
+        #IA characteristics
+        self.agressivity=1
+        self.precision=1
+
+
         self.inputs=0 #class Inputs, constructor differs if PersoCPU or PersoPlayer
         self.pos=[random.randint(-80, 80),random.randint(-40, 40),2]
         self.anim_index=0
