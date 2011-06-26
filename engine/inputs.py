@@ -63,8 +63,8 @@ class Inputs():
     player2_just_Esc=False
     player2_just_Start=False
     
-    def __init__(self, num_player=0):#num_player: to handle key configs (0=CPU)
-        self.num_player=num_player
+    def __init__(self, num_player_human=0):#num_player_human: to handle key configs (0=CPU)
+        self.num_player_human=num_player_human
         self.R=False
         self.L=False
         self.U=False
@@ -215,7 +215,7 @@ class Inputs():
 
 
     def update(self):#read corresponding key for human player, of just release keys for CPU
-        if (self.num_player==1):#it won't work this way... have to hanlde all events at the same time, instead they are lost (won't work with 2 players)
+        if (self.num_player_human==1):#it won't work this way... have to hanlde all events at the same time, instead they are lost (won't work with 2 players)
             self.R=Inputs.player1_R
             self.L=Inputs.player1_L
             self.U=Inputs.player1_U
@@ -225,7 +225,7 @@ class Inputs():
             self.C=Inputs.player1_C
             self.Esc=Inputs.player1_Esc
             self.Start=Inputs.player1_Start
-        if (self.num_player==2):#it won't work this way... have to hanlde all events at the same time, instead they are lost (won't work with 2 players)
+        if (self.num_player_human==2):#it won't work this way... have to hanlde all events at the same time, instead they are lost (won't work with 2 players)
             self.R=Inputs.player2_R
             self.L=Inputs.player2_L
             self.U=Inputs.player2_U
@@ -236,7 +236,7 @@ class Inputs():
             self.Esc=Inputs.player2_Esc
             self.Start=Inputs.player2_Start
                     
-        if (self.num_player==0):#CPU: the inputs are trigged in PlayerCPU code
+        if (self.num_player_human==0):#CPU: the inputs are trigged in PlayerCPU code
             self.R=False
             self.L=False
             self.U=False

@@ -38,7 +38,7 @@ default_options.append(1)
 default_options.append(1)
 
 
-def call_info(display,font,mainClock):
+def write_info(display,font,mainClock):
     title_image=pygame.image.load("data/title.png")
 
     dialogbox = dialog.DialogBox((240, 51), (0, 0, 0),(255, 255, 255), font)
@@ -131,25 +131,25 @@ def call_all_menus(display,font,mainClock):
             default_options[current_menu]=option #save for later...
             if (current_menu==0):#about game mode
                 if (option==0):
-                    players_teamA=0
-                    players_teamB=0
+                    players_human_teamA=0
+                    players_human_teamB=0
                 if (option==1):
-                    players_teamA=1
-                    players_teamB=0
+                    players_human_teamA=1
+                    players_human_teamB=0
                 if (option==2):
-                    players_teamA=1
-                    players_teamB=1
+                    players_human_teamA=1
+                    players_human_teamB=1
                 if (option==3):
-                    players_teamA=2
-                    players_teamB=0
+                    players_human_teamA=2
+                    players_human_teamB=0
             elif (current_menu==1): #about difficulty
                 difficulty=2+option*2 
             elif (current_menu==2): #about nbr players
-                nb_perso_team=int(text)
+                nb_player_team=int(text)
             elif (current_menu==3): #about match length
                 match_length=int(text)
 
             current_menu+=1
     
-    return players_teamA,players_teamB,difficulty,nb_perso_team,match_length
+    return players_human_teamA,players_human_teamB,difficulty,nb_player_team,match_length
 

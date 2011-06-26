@@ -20,8 +20,8 @@
 
 import pygame
 import os
-from perso_cpu import PersoCPU
-from perso_GK import Perso_GK
+from player_cpu import Player_CPU
+from player_GK import Player_GK
 import random
 
 
@@ -37,19 +37,19 @@ class Team(object):
         self.name=name_team
         self.nb_goals=0
         self.wing=wing #wing for target, -wing for own goal
-        self.persos=[]
-        self.persos_ordered_dist_to_ball=[]
+        self.players=[]
+        self.players_ordered_dist_to_ball=[]
         #add the GK
-        self.persos.append(Perso_GK(self,random.randint(1, nbr_heads), [-self.wing*field.half_length, field.goal_latitude[-self.wing],0 ],field.half_length))
+        self.players.append(Player_GK(self,random.randint(1, nbr_heads), [-self.wing*field.half_length, field.goal_latitude[-self.wing],0 ],field.half_length))
         #add the other players
         for i in range(nb_players_cpu):
-            self.persos.append(PersoCPU(self,random.randint(1, nbr_heads),[-self.wing*field.half_length*((i+1.0)/(nb_players_cpu+1.0)), random.randint(-field.half_width,field.half_width),0],field.half_length))
+            self.players.append(Player_CPU(self,random.randint(1, nbr_heads),[-self.wing*field.half_length*((i+1.0)/(nb_players_cpu+1.0)), random.randint(-field.half_width,field.half_width),0],field.half_length))
     
-        self.persos_ordered_dist_to_ball[:]=self.persos[1:]
+        self.players_ordered_dist_to_ball[:]=self.players[1:]
     
     def update(self,match):
-        for p in self.persos:
+        for p in self.players:
             p.update(match)
 
-        self.persos_ordered_dist_to_ball=sorted( self.persos_ordered_dist_to_ball,   key=lambda Perso: Perso.dist2_to_ball) #sort all the perses list with dist2_to_ball
+        self.players_ordered_dist_to_ball=sorted( self.players_ordered_dist_to_ball,   key=lambda Player: Player.dist2_to_ball) #sort all the perses list with dist2_to_ball
 

@@ -21,10 +21,10 @@ import pygame
 import os
 
 import sys
-from perso import Perso
-from perso_cpu import PersoCPU
-from perso_player import PersoPlayer
-from perso_GK import Perso_GK
+from player import Player
+from player_cpu import Player_CPU
+from player_human import Player_Human
+from player_GK import Player_GK
 from inputs import Inputs
 from camera import Camera
 from field import Field
@@ -34,9 +34,9 @@ from team import Team
 
 
 class Match(object):
-    def __init__(self,nbr_players_teamA,nbr_persos_teamA,nbr_players_teamB,nbr_persos_teamB,difficulty=8,length=60):
-        PersoCPU.difficulty=difficulty
-        Perso_GK.difficulty=difficulty
+    def __init__(self,nbr_players_human_teamA,nbr_players_teamA,nbr_players_human_teamB,nbr_players_teamB,difficulty=8,length=60):
+        Player_CPU.difficulty=difficulty
+        Player_GK.difficulty=difficulty
 
         self.goal_image=pygame.image.load("data/goal.png")
         self.goaldrawing_time=0
@@ -47,36 +47,36 @@ class Match(object):
         self.cam=Camera()
         self.field=Field()
         self.ball=Ball()
-        self.perso_list=[]
+        self.player_list=[]
         self.team={}#
-        self.team[-1]=Team(1,"data/teamA.png","Les Bogoss",1,self.field,nbr_persos_teamA-nbr_players_teamA)
-        if (nbr_players_teamA>0):
-            self.player1 = PersoPlayer(self.team[-1],3,[0, 0, 0],self.field.half_length,1,"data/1.png") # Create player1
-            self.team[-1].persos.append(self.player1)#add the player to the team
-            self.team[-1].persos_ordered_dist_to_ball.append(self.player1)#add the player to closest to ball order
-        if (nbr_players_teamA>1):
-            self.player2 = PersoPlayer(self.team[-1],2,[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
-            self.team[-1].persos.append(self.player2)
-            self.team[-1].persos_ordered_dist_to_ball.append(self.player2)
+        self.team[-1]=Team(1,"data/teamA.png","Les Bogoss",1,self.field,nbr_players_teamA-nbr_players_human_teamA)
+        if (nbr_players_human_teamA>0):
+            self.player1 = Player_Human(self.team[-1],3,[0, 0, 0],self.field.half_length,1,"data/1.png") # Create player1
+            self.team[-1].players.append(self.player1)#add the player to the team
+            self.team[-1].players_ordered_dist_to_ball.append(self.player1)#add the player to closest to ball order
+        if (nbr_players_human_teamA>1):
+            self.player2 = Player_Human(self.team[-1],2,[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
+            self.team[-1].players.append(self.player2)
+            self.team[-1].players_ordered_dist_to_ball.append(self.player2)
 
-        self.perso_list+=self.team[-1].persos
-        self.team[1]=Team(2,"data/teamB.png","Les Klass",-1,self.field,nbr_persos_teamB-nbr_players_teamB)
-        if (nbr_players_teamA>0):
-            if (nbr_players_teamB>0):
-                self.player2 = PersoPlayer(self.team[1],2,[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
-                self.team[1].persos.append(self.player2)
-                self.team[1].persos_ordered_dist_to_ball.append(self.player2)
+        self.player_list+=self.team[-1].players
+        self.team[1]=Team(2,"data/teamB.png","Les Klass",-1,self.field,nbr_players_teamB-nbr_players_human_teamB)
+        if (nbr_players_human_teamA>0):
+            if (nbr_players_human_teamB>0):
+                self.player2 = Player_Human(self.team[1],2,[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
+                self.team[1].players.append(self.player2)
+                self.team[1].players_ordered_dist_to_ball.append(self.player2)
         else:
-            if (nbr_players_teamB>0):
-                self.player1 = PersoPlayer(self.team[1],1,[0, 0, 0],self.field.half_length,1,"data/1.png") # Create player1
-                self.team[1].persos.append(self.player1)
-                self.team[1].persos_ordered_dist_to_ball.append(self.player1)
-            if (nbr_players_teamB>1):
-                self.player2 = PersoPlayer(self.team[1],2,[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
-                self.team[1].persos.append(self.player2)
-                self.team[1].persos_ordered_dist_to_ball.append(self.player2)
- 
-        self.perso_list+=self.team[1].persos
+            if (nbr_players_human_teamB>0):
+                self.player1 = Player_Human(self.team[1],1,[0, 0, 0],self.field.half_length,1,"data/1.png") # Create player1
+                self.team[1].players.append(self.player1)
+                self.team[1].players_ordered_dist_to_ball.append(self.player1)
+            if (nbr_players_human_teamB>1):
+                self.player2 = Player_Human(self.team[1],2,[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
+                self.team[1].players.append(self.player2)
+                self.team[1].players_ordered_dist_to_ball.append(self.player2)
+        
+        self.player_list+=self.team[1].players
         
     
     def update(self):
@@ -115,7 +115,7 @@ class Match(object):
     def draw(self,surface,font):
         self.field.draw(surface,self.cam)
 
-        sprite_list=sorted( [self.ball]+self.perso_list,   key=lambda Sprite: -Sprite.pos[1]) #sort all the sprites list with y pos
+        sprite_list=sorted( [self.ball]+self.player_list,   key=lambda Sprite: -Sprite.pos[1]) #sort all the sprites list with y pos
         for s in sprite_list:
             s.draw(surface,self.cam)
         

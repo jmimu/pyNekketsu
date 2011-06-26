@@ -21,19 +21,19 @@
 import pygame
 import os
 import random
-from perso_non_GK import Perso_non_GK
+from player_non_GK import Player_non_GK
 from inputs import Inputs
 
 
 #CPU-controlled players (not for GK)
-class PersoCPU(Perso_non_GK):
+class Player_CPU(Player_non_GK):
     difficulty=8 #out of 10
     def __init__(self,team,head,pos_init,field_half_length):
-        Perso_non_GK.__init__(self,team,head,pos_init,field_half_length)
+        Player_non_GK.__init__(self,team,head,pos_init,field_half_length)
         self.inputs=Inputs(0)
         
     def update(self,match):
-        Perso_non_GK.update(self,match) 
+        Player_non_GK.update(self,match) 
         self.think(match)
 
     def think(self,match):#press on virtual keys
@@ -52,26 +52,26 @@ class PersoCPU(Perso_non_GK):
                 self.inputs.B=True
         else:
             #move in ball direction (only if closest player of the team)
-            if (self.team.persos_ordered_dist_to_ball[0]==self):
-                if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+            if (self.team.players_ordered_dist_to_ball[0]==self):
+                if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.R=True
-                if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.L=True
-                if (self.pos[1]<match.ball.pos[1]-5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                if (self.pos[1]<match.ball.pos[1]-5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.D=True
             else:#if not the closest to the ball, return to pos_ref
-                if (self.pos[0]<self.pos_ref[0]-2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                if (self.pos[0]<self.pos_ref[0]-2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.R=True
-                if (self.pos[0]>self.pos_ref[0]+2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                if (self.pos[0]>self.pos_ref[0]+2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.L=True
-                if (self.pos[1]<self.pos_ref[1]-5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                if (self.pos[1]<self.pos_ref[1]-5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>self.pos_ref[1]+5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                if (self.pos[1]>self.pos_ref[1]+5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.D=True
 
-            for p in match.perso_list:
+            for p in match.player_list:
                 if (p!=self):
                     if (p.team!=self.team):#attack!
                         if (abs(p.pos[0]-self.pos[0])<6 and abs(p.pos[1]-self.pos[1])<6):

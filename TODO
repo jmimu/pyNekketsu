@@ -1,4 +1,3 @@
- - rename perso to player and player to human_player
  - add pass
  - add health?
  - make players able to fall
@@ -12,4 +11,4 @@ Retrogamelib bugs :
  - dialog progress too soon
 
 
- => use characteristics for persos
+ => use characteristics for players

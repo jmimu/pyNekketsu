@@ -23,15 +23,15 @@ import random
 from sprite import Sprite
 from sprite import compileimage
 from inputs import Inputs
-from perso import Perso
+from player import Player
 
 
 #For the goal keeper (GK)
 #always AI-controlled
-class Perso_GK(Perso):
+class Player_GK(Player):
     difficulty=2 #out of 10
     def __init__(self, team, head,pos_init,field_half_length):
-        Perso.__init__(self,team,head,pos_init,field_half_length)
+        Player.__init__(self,team,head,pos_init,field_half_length)
         self.inputs=Inputs(0)
     def update(self,match):
         #try to catch the ball 
@@ -50,7 +50,7 @@ class Perso_GK(Perso):
                         self.has_ball=match.ball
                         match.ball.speed=[0,0,0]
                 
-        Perso.update(self,match) 
+        Player.update(self,match) 
         self.think(match)
 
     def think(self,match):#press on virtual keys
@@ -99,28 +99,28 @@ class Perso_GK(Perso):
                     between_pos_y=match.ball.pos[1]
                 else:
                     between_pos_y=goal_position[1]+(self.pos[0]-goal_position[0])*(match.ball.pos[1]-goal_position[1])/(match.ball.pos[0]-goal_position[0])
-                    between_pos_y+=random.randint(Perso_GK.difficulty,15)-random.randint(Perso_GK.difficulty,15)
+                    between_pos_y+=random.randint(Player_GK.difficulty,15)-random.randint(Player_GK.difficulty,15)
 
-                if (self.pos[1]<between_pos_y-2) and (random.randint(0, 13)<3+Perso_GK.difficulty):
+                if (self.pos[1]<between_pos_y-2) and (random.randint(0, 13)<3+Player_GK.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>between_pos_y+2) and (random.randint(0, 13)<3+Perso_GK.difficulty):
+                if (self.pos[1]>between_pos_y+2) and (random.randint(0, 13)<3+Player_GK.difficulty):
                     self.inputs.D=True
 
                     
             else:
                 #ball is between GK and the goal
-                if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 15)<5+Perso_GK.difficulty):
+                if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 15)<5+Player_GK.difficulty):
                     self.inputs.R=True
-                if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 15)<5+Perso_GK.difficulty):
+                if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 15)<5+Player_GK.difficulty):
                     self.inputs.L=True
-                if (self.pos[1]<match.ball.pos[1]-5) and (random.randint(0, 15)<5+Perso_GK.difficulty):
+                if (self.pos[1]<match.ball.pos[1]-5) and (random.randint(0, 15)<5+Player_GK.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 15)<5+Perso_GK.difficulty):
+                if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 15)<5+Player_GK.difficulty):
                     self.inputs.D=True
      
 
 
-            for p in match.perso_list:
+            for p in match.player_list:
                 if (p!=self):
                     if (p.team!=self.team):#attack!
                         if (abs(p.pos[0]-self.pos[0])<6 and abs(p.pos[1]-self.pos[1])<6):

@@ -46,31 +46,24 @@ nesfont = font.Font(NES_FONT, (255, 255, 255))
 # Get the surface from the NES game library
 screen = display.get_surface()
 
-players_teamA=1
-players_teamB=0
-difficulty=5
-nb_persos_team=1
-match_length=60
-
-call_info(display,nesfont,mainClock)
+write_info(display,nesfont,mainClock)
 
 while 1:
-
-    players_teamA,players_teamB,difficulty,nb_persos_team,match_length=call_all_menus(display,nesfont,mainClock)
-
-    match=Match(players_teamA,nb_persos_team,players_teamB,nb_persos_team,difficulty,match_length)
-
+    players_human_teamA,players_human_teamB,difficulty,nb_players_team,match_length=call_all_menus(display,nesfont,mainClock)
+    
+    match=Match(players_human_teamA,nb_players_team,players_human_teamB,nb_players_team,difficulty,match_length)
+    
     while not match.is_finished:
         screen = display.get_surface()
-
+        
         if (Inputs.player1_Esc or Inputs.player2_Esc):
             pygame.quit()
             sys.exit()
-
+        
         match.update()
-
+        
         match.draw(screen,nesfont)
-
+        
         display.update()
         mainClock.tick(30)
 

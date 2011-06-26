@@ -23,12 +23,12 @@ import random
 from sprite import Sprite
 from sprite import compileimage
 from inputs import Inputs
-from perso import Perso
+from player import Player
 
-class Perso_non_GK(Perso):
+class Player_non_GK(Player):
     
     def __init__(self, team, head,pos_init,field_half_length):
-        Perso.__init__(self,team,head,pos_init,field_half_length)
+        Player.__init__(self,team,head,pos_init,field_half_length)
         
         
     def update(self,match):
@@ -51,6 +51,6 @@ class Perso_non_GK(Perso):
                         match.ball.speed=[0,0,0]
                 
 
-        Perso.update(self,match)
+        Player.update(self,match)
 
 

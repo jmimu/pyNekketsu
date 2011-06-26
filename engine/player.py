@@ -24,13 +24,13 @@ from sprite import Sprite
 from sprite import compileimage
 from inputs import Inputs
 
-class Perso(Sprite):
+class Player(Sprite):
     #  pos_init is "expanded" to the whole field with field_half_length
     def __init__(self, team, head,pos_init,field_half_length):
         Sprite.__init__(self)
         self.team=team
 
-        #perso characteristics
+        #player characteristics
         self.pos_ref=[]
         self.speed=1
         self.endurance=1 #before speed decreases
@@ -47,7 +47,7 @@ class Perso(Sprite):
         self.pos_ref[:]=pos_init[:]
         self.pos_ref[0]=self.pos_ref[0]*2+team.wing*field_half_length
 
-        self.inputs=0 #class Inputs, constructor differs if PersoCPU or PersoPlayer
+        self.inputs=0 #class Inputs, constructor differs if Player_CPU or Player_Human
         self.pos[:]=pos_init[:]#[random.randint(-80, 80),random.randint(-40, 40),2]
         self.anim_index=0
         self.direction=1# +1: right, -1: left
@@ -126,7 +126,7 @@ class Perso(Sprite):
                 self.anim_index=0
                 self.state="walk"
             
-        #try to catch the ball  : see perso_GK and perso_non_GK
+        #try to catch the ball  : see player_GK and player_non_GK
 
         #update animation
         if (self.anim_index>=len(self.anim[self.direction][self.state])):
@@ -164,7 +164,7 @@ class Perso(Sprite):
         self.state="attack"
         self.anim_index=0
 
-        for p in match.perso_list:
+        for p in match.player_list:
             if (p!=self):
                 if (0<(p.pos[0]-self.pos[0])*self.direction<6) \
                     and (abs(p.pos[1]-self.pos[1])<5) \
