@@ -38,7 +38,7 @@ default_options.append(1)
 default_options.append(1)
 
 
-def write_info(display,font,mainClock):
+def show_info(display,font,mainClock):
     title_image=pygame.image.load("data/title.png")
 
     dialogbox = dialog.DialogBox((240, 51), (0, 0, 0),(255, 255, 255), font)

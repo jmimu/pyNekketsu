@@ -26,7 +26,7 @@ sys.path.insert(0, "engine")
 
 from displayzoom import DisplayZoom
 from match import Match
-from menu import call_all_menus, call_info
+from menu import call_all_menus, show_info
 from inputs import Inputs
 
 from retrogamelib import display
@@ -46,7 +46,7 @@ nesfont = font.Font(NES_FONT, (255, 255, 255))
 # Get the surface from the NES game library
 screen = display.get_surface()
 
-write_info(display,nesfont,mainClock)
+show_info(display,nesfont,mainClock)
 
 while 1:
     players_human_teamA,players_human_teamB,difficulty,nb_players_team,match_length=call_all_menus(display,nesfont,mainClock)

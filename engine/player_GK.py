@@ -39,7 +39,7 @@ class Player_GK(Player):
             if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
                 and (abs(match.ball.pos[1]-self.pos[1])<5)  \
                 and ((match.ball.pos[2]-self.pos[2])<7): #Z
-                if (abs(match.ball.speed[0])>8):#too much in opposite direction : KO
+                if (abs(match.ball.speed[0])>8*self.control):#too much in opposite direction : KO
                     self.state="hurt"
                     self.anim_index=0
                     match.ball.speed[0]*=-0.6
@@ -101,9 +101,9 @@ class Player_GK(Player):
                     between_pos_y=goal_position[1]+(self.pos[0]-goal_position[0])*(match.ball.pos[1]-goal_position[1])/(match.ball.pos[0]-goal_position[0])
                     between_pos_y+=random.randint(Player_GK.difficulty,15)-random.randint(Player_GK.difficulty,15)
 
-                if (self.pos[1]<between_pos_y-2) and (random.randint(0, 13)<3+Player_GK.difficulty):
+                if (self.pos[1]<between_pos_y-2) and (random.randint(0, 13/self.precision)<3+Player_GK.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>between_pos_y+2) and (random.randint(0, 13)<3+Player_GK.difficulty):
+                if (self.pos[1]>between_pos_y+2) and (random.randint(0, 13/self.precision)<3+Player_GK.difficulty):
                     self.inputs.D=True
 
                     
@@ -124,7 +124,7 @@ class Player_GK(Player):
                 if (p!=self):
                     if (p.team!=self.team):#attack!
                         if (abs(p.pos[0]-self.pos[0])<6 and abs(p.pos[1]-self.pos[1])<6):
-                            if (random.randint(0, 80)==0) or (p.has_ball!=0):
+                            if (random.randint(0, 80/self.agressivity)==0) or (p.has_ball!=0):
                                 self.inputs.A=True
 
 

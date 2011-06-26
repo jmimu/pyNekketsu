@@ -43,9 +43,9 @@ class Player_CPU(Player_non_GK):
                 self.inputs.R=True
             else:
                 self.inputs.L=True
-            if (match.field.goal_latitude[self.team.wing]-10>self.pos[1]) or (random.randint(0, 4)==0):
+            if (match.field.goal_latitude[self.team.wing]-10/self.precision>self.pos[1]) or (random.randint(0, 4)==0):
                 self.inputs.U=True
-            if (match.field.goal_latitude[self.team.wing]+10<self.pos[1]) or (random.randint(0, 4)==0):
+            if (match.field.goal_latitude[self.team.wing]+10/self.precision<self.pos[1]) or (random.randint(0, 4)==0):
                 self.inputs.D=True
             #shoot!
             if (random.randint(0, int(abs(self.team.wing*match.field.half_length-self.pos[0])/4))==0):#depends on the distance to the goal
@@ -75,7 +75,7 @@ class Player_CPU(Player_non_GK):
                 if (p!=self):
                     if (p.team!=self.team):#attack!
                         if (abs(p.pos[0]-self.pos[0])<6 and abs(p.pos[1]-self.pos[1])<6):
-                            if (random.randint(0, 80)==0) or (p.has_ball!=0):
+                            if (random.randint(0, 80/self.agressivity)==0) or (p.has_ball!=0):
                                 self.inputs.A=True
 
 

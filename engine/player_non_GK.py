@@ -30,16 +30,13 @@ class Player_non_GK(Player):
     def __init__(self, team, head,pos_init,field_half_length):
         Player.__init__(self,team,head,pos_init,field_half_length)
         
-        
     def update(self,match):
-
-            
         #try to catch the ball 
         if (self.state=="walk") and (match.ball.owner==0):
             if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
                 and (abs(match.ball.pos[1]-self.pos[1])<5)  \
                 and ((match.ball.pos[2]-self.pos[2])<7): #Z
-                if (abs(match.ball.speed[0])>8):#too much in opposite direction : KO
+                if (abs(match.ball.speed[0])>8*self.control):#too much in opposite direction : KO
                     self.state="hurt"
                     self.anim_index=0
                     match.ball.speed[0]*=-0.6
@@ -49,8 +46,5 @@ class Player_non_GK(Player):
                         match.ball.owner=self
                         self.has_ball=match.ball
                         match.ball.speed=[0,0,0]
-                
-
         Player.update(self,match)
-
 

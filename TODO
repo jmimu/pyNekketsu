@@ -1,6 +1,6 @@
  - add pass
- - add health?
  - make players able to fall
+ - use health and endurance
 
  - be able to change key config
 
@@ -10,5 +10,3 @@ Retrogamelib bugs :
  - menu size
  - dialog progress too soon
 
-
- => use characteristics for players

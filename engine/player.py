@@ -33,7 +33,8 @@ class Player(Sprite):
         #player characteristics
         self.pos_ref=[]
         self.speed=1
-        self.endurance=1 #before speed decreases
+        self.health=100
+        self.max_energy=1000 #before speed decreases
         self.resistance=1 #before going KO
         self.control=1 #before being hurt by ball
         self.kick=1 #for shooting
@@ -41,7 +42,7 @@ class Player(Sprite):
         self.jump_hight=1 
         #IA characteristics
         self.agressivity=1 
-        self.precision=1
+        self.precision=1 #almost only for GK
 
 
         self.pos_ref[:]=pos_init[:]
@@ -56,6 +57,7 @@ class Player(Sprite):
         self.dist2_to_ball=0 #square of planar dist to ball
         
         self.jump_speed = 0
+        self.energy=self.max_energy
 
         self.anim={}#dictionnary for left and right
         self.anim[1]={} #dictionnary of all animation looking to the right
@@ -152,8 +154,8 @@ class Player(Sprite):
         self.state="shoot"
         self.anim_index=0
 
-        match.ball.speed[0]=int(self.inputs.R)*4 - int(self.inputs.L)*4 + 8*self.direction
-        match.ball.speed[1]=int(self.inputs.U)*8 - int(self.inputs.D)*8
+        match.ball.speed[0]=int(self.inputs.R)*4*self.kick - int(self.inputs.L)*4*self.kick + 8*self.direction*self.kick
+        match.ball.speed[1]=int(self.inputs.U)*8*self.kick - int(self.inputs.D)*8*self.kick
         match.ball.speed[2]=8-int(self.inputs.R)*4 - int(self.inputs.L)*4
 
         match.ball.owner=0
@@ -173,6 +175,9 @@ class Player(Sprite):
                     p.state="hurt"
                     p.anim_index=0
                     p.direction=-self.direction
+                    p.health-=5*self.punch/p.resistance
+                    if (p.health<0):
+                        p.health=0
                     if (p.has_ball != 0):
                         p.has_ball=0
                         match.ball.owner=0
@@ -183,14 +188,18 @@ class Player(Sprite):
             if (self.has_ball!=0): #with ball: slower
                 if self.inputs.L:
                     self.pos[0] -= self.speed*0.8
+                    self.energy -= 1
                     self.direction = -1
                 if self.inputs.R:
                     self.pos[0] += self.speed*0.8
+                    self.energy -= 1
                     self.direction = +1
                 if self.inputs.U:
                     self.pos[1] += self.speed*0.8
+                    self.energy -= 1
                 if self.inputs.D:
                     self.pos[1] -= self.speed*0.8
+                    self.energy -= 1
             else:#don't have ball
                 if self.inputs.L:
                     self.pos[0] -= self.speed
@@ -206,7 +215,7 @@ class Player(Sprite):
                 self.anim_index += 0.2
             # Jump if the player presses the A button
             if (self.inputs.C and self.pos[2] == 0):
-                self.jump_speed = 2.5
+                self.jump_speed = 2.5*self.jump_hight
                 self.state="jump"
                 self.anim_index=0
                 
