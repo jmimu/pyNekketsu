@@ -20,6 +20,7 @@
 import pygame
 import os
 import random
+import math
 from sprite import Sprite
 from sprite import compileimage
 from inputs import Inputs
@@ -162,6 +163,60 @@ class Player(Sprite):
         self.has_ball=0
 
 
+    def pass_ball(self,match):
+        if (match.ball.owner==0) or (self.has_ball==0):
+            print("Error on shoot!")
+            match.ball.owner=0
+            self.has_ball=0
+            return
+
+        self.state="shoot"
+        self.anim_index=0
+
+        #angle 0: north, 1: north-east ...
+        aiming_angle=0
+        #TODO... find a good way to compute angle
+
+        #find whom to pass the ball
+        best_teammate=0 #closer to the ball in good angle
+        best_teammate_az=0
+        best_teammate2=0 #closer to the ball in next angle
+        best_teammate2_az=0
+        for p in self.team.players_ordered_dist_to_ball:
+            if (p!=self):
+                az=math.atan2(p.pos[0]-self.pos[0],p.pos[1]-self.pos[1])
+                az_int=int((az+math.pi/8)/(math.pi/4))+8
+                print(az,az_int)
+                if ((az_int%8)==aiming_angle):
+                    best_teammate=p
+                    best_teammate_az=az
+                    print("ok!")
+                    break
+                if ((((az_int+1)%8)==aiming_angle) or (((az_int+7)%8)==aiming_angle)):
+                    best_teammate2=p
+                    best_teammate2_az=az
+                    print("bof.")
+        
+        if (best_teammate==0):
+            if (best_teammate2!=0):
+                best_teammate=best_teammate2
+                best_teammate_az=best_teammate2_az
+            else:
+                return
+
+        #compute pass speed... TODO
+        best_teammate_dist=math.sqrt((best_teammate.pos[0]-self.pos[0])**2+(best_teammate.pos[1]-self.pos[1])**2)
+        power=min(best_teammate_dist,8*self.kick)
+
+
+        match.ball.speed[0]=math.sin(best_teammate_az)*power
+        match.ball.speed[1]=math.cos(best_teammate_az)*power
+        match.ball.speed[2]=power/2
+
+        match.ball.owner=0
+        self.has_ball=0
+
+
     def attack(self,match):
         self.state="attack"
         self.anim_index=0
@@ -225,6 +280,9 @@ class Player(Sprite):
             if (self.inputs.B):
                 if (self.has_ball!=0):
                     self.shoot(match)
+            if (self.inputs.A):
+                if (self.has_ball!=0):
+                    self.pass_ball(match)
             
         self.inputs.update() #read the new keys or clear inputs for CPU
 
