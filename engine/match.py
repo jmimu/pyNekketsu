@@ -48,26 +48,27 @@ class Match(object):
         self.field=Field()
         self.ball=Ball()
         self.perso_list=[]
-        self.teamA=Team(1,"data/teamA.png","Les Bogoss",1,nbr_persos_teamA-nbr_players_teamA)
+        self.team={}#
+        self.teamA=Team(1,"data/teamA.png","Les Bogoss",1,self.field,nbr_persos_teamA-nbr_players_teamA)
         if (nbr_players_teamA>0):
-            self.player1 = PersoPlayer(self.teamA,3,1,"data/1.png") # Create player1
+            self.player1 = PersoPlayer(self.teamA,3,[0, 0, 0],1,"data/1.png") # Create player1
             self.teamA.persos.append(self.player1)
         if (nbr_players_teamA>1):
-            self.player2 = PersoPlayer(self.teamA,2,2,"data/2.png") # Create player2
+            self.player2 = PersoPlayer(self.teamA,2,[0, 0, 0],2,"data/2.png") # Create player2
             self.teamA.persos.append(self.player2)
 
         self.perso_list+=self.teamA.persos
-        self.teamB=Team(2,"data/teamB.png","Les Klass",-1,nbr_persos_teamB-nbr_players_teamB)
+        self.teamB=Team(2,"data/teamB.png","Les Klass",-1,self.field,nbr_persos_teamB-nbr_players_teamB)
         if (nbr_players_teamA>0):
             if (nbr_players_teamB>0):
-                self.player2 = PersoPlayer(self.teamB,2,2,"data/2.png") # Create player2
+                self.player2 = PersoPlayer(self.teamB,2,[0, 0, 0],2,"data/2.png") # Create player2
                 self.teamB.persos.append(self.player2)
         else:
             if (nbr_players_teamB>0):
-                self.player1 = PersoPlayer(self.teamB,1,1,"data/1.png") # Create player1
+                self.player1 = PersoPlayer(self.teamB,1,[0, 0, 0],1,"data/1.png") # Create player1
                 self.teamB.persos.append(self.player2)
             if (nbr_players_teamB>1):
-                self.player2 = PersoPlayer(self.teamB,2,"data/2.png") # Create player2
+                self.player2 = PersoPlayer(self.teamB,2,2,[0, 0, 0],"data/2.png") # Create player2
                 self.teamB.persos.append(self.player2)
  
         self.perso_list+=self.teamB.persos
@@ -88,8 +89,8 @@ class Match(object):
 
                 if (self.match_time>0):#when time is out, players stop
                     self.match_time-=1.0/30 #30 FPS
-                    for p in self.perso_list:
-                        p.update(self)
+                    self.teamA.update(self)
+                    self.teamB.update(self)
 
                 self.ball.update(self)
                 

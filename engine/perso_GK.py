@@ -30,8 +30,8 @@ from perso import Perso
 #always AI-controlled
 class Perso_GK(Perso):
     difficulty=2 #out of 10
-    def __init__(self, team, head):
-        Perso.__init__(self,team,head)
+    def __init__(self, team, head,pos_init):
+        Perso.__init__(self,team,head,pos_init)
         self.inputs=Inputs(0)
     def update(self,match):
         #try to catch the ball 

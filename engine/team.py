@@ -31,18 +31,24 @@ nbr_heads=3
 
 #
 class Team(object):
-    def __init__(self, number, img_team, name_team, wing, nb_players_cpu):#wing: -1 (west) or +1 (east)
+    def __init__(self, number, img_team, name_team, wing, field, nb_players_cpu):#wing where they look: -1 (west) or +1 (east)
         self.number=number
         self.image=pygame.image.load(img_team)
         self.name=name_team
         self.nb_goals=0
-        self.wing=wing
+        self.wing=wing #wing for target, -wing for own goal
         self.persos=[]
+        self.persos_ordered_dist_to_ball=[]
         #add the GK
-        self.persos.append(Perso_GK(self,random.randint(1, nbr_heads)))
+        self.persos.append(Perso_GK(self,random.randint(1, nbr_heads), [-self.wing*field.half_length, field.goal_latitude[-self.wing],0 ]))
         #add the other players
         for i in range(nb_players_cpu):
-            self.persos.append(PersoCPU(self,random.randint(1, nbr_heads)))
+            self.persos.append(PersoCPU(self,random.randint(1, nbr_heads),[-self.wing*field.half_length, field.goal_latitude[-self.wing],0 ]))
+    
+    
+    def update(self,match):
+        for p in self.persos:
+            p.update(match)
 
-
+        persos_ordered_dist_to_ball=sorted( self.persos,   key=lambda Perso: -Perso.dist2_to_ball) #sort all the perses list with dist2_to_ball
 

@@ -28,8 +28,8 @@ from inputs import Inputs
 #CPU-controlled players (not for GK)
 class PersoCPU(Perso_non_GK):
     difficulty=8 #out of 10
-    def __init__(self,team,head):
-        Perso_non_GK.__init__(self,team,head)
+    def __init__(self,team,head,pos_init):
+        Perso_non_GK.__init__(self,team,head,pos_init)
         self.inputs=Inputs(0)
         
     def update(self,match):

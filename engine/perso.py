@@ -26,12 +26,12 @@ from inputs import Inputs
 
 class Perso(Sprite):
     
-    def __init__(self, team, head):
+    def __init__(self, team, head,pos_init):
         Sprite.__init__(self)
         self.team=team
 
         #perso characteristics
-        self.init_pos[0,0,0]
+        self.pos_init=pos_init
         self.speed=1
         self.endurance=1 #before speed decreases
         self.resistance=1 #before going KO
@@ -44,11 +44,12 @@ class Perso(Sprite):
 
 
         self.inputs=0 #class Inputs, constructor differs if PersoCPU or PersoPlayer
-        self.pos=[random.randint(-80, 80),random.randint(-40, 40),2]
+        self.pos=self.pos_init#[random.randint(-80, 80),random.randint(-40, 40),2]
         self.anim_index=0
         self.direction=1# +1: right, -1: left
         self.state="walk"
         self.has_ball=0 #the ball if is in "hands"
+        self.dist2_to_ball=0 #square of planar dist to ball
         
         self.jump_speed = 0
 
@@ -83,9 +84,7 @@ class Perso(Sprite):
         
         
     def update(self,match):
-
         self.handle_inputs(match)
-
 
         if (self.state=="jump"): #if jumping, continue to go in previous direction
             jump_speed_x=(self.pos[0]-self.previous_pos[0])
@@ -97,17 +96,13 @@ class Perso(Sprite):
         else:
             self.previous_pos[:]=self.pos[:] #be careful with that...
         
-        
-        
         # Increase the y position by the jump speed
         self.pos[2] += self.jump_speed
         self.jump_speed -= 0.4
         
-       
         if (self.jump_speed < -0.5):
             self.state="jump"
             self.anim_index=1
-
 
         if (self.state=="shoot"):
             self.anim_index += 0.2
@@ -128,15 +123,16 @@ class Perso(Sprite):
                 self.state="walk"
             
         #try to catch the ball  : see perso_GK and perso_non_GK
-                
 
         #update animation
         if (self.anim_index>=len(self.anim[self.direction][self.state])):
             self.anim_index=0
         self.image = self.anim[self.direction][self.state][int(self.anim_index)]
     
-    
         match.field.collide_with_player(self)
+        
+        self.dist2_to_ball=(self.pos[0]-match.ball.pos[0])**2+(self.pos[1]-match.ball.pos[1])**2 #square of planar dist to ball
+
     
     def draw(self,surface,camera,is_shadow=True):
         Sprite.draw(self,surface,camera,is_shadow)
@@ -180,28 +176,28 @@ class Perso(Sprite):
 
     def handle_inputs(self,match):
         if (self.state=="walk"):
-            if (self.has_ball!=0):
+            if (self.has_ball!=0): #with ball: slower
                 if self.inputs.L:
-                    self.pos[0] -= 1
+                    self.pos[0] -= self.speed*0.8
                     self.direction = -1
                 if self.inputs.R:
-                    self.pos[0] += 1
+                    self.pos[0] += self.speed*0.8
                     self.direction = +1
                 if self.inputs.U:
-                    self.pos[1] += 1
+                    self.pos[1] += self.speed*0.8
                 if self.inputs.D:
-                    self.pos[1] -= 1
+                    self.pos[1] -= self.speed*0.8
             else:#don't have ball
                 if self.inputs.L:
-                    self.pos[0] -= 1.2
+                    self.pos[0] -= self.speed
                     self.direction = -1
                 if self.inputs.R:
-                    self.pos[0] += 1.2
+                    self.pos[0] += self.speed
                     self.direction = +1
                 if self.inputs.U:
-                    self.pos[1] += 1.2
+                    self.pos[1] += self.speed
                 if self.inputs.D:
-                    self.pos[1] -= 1.2
+                    self.pos[1] -= self.speed
             if (self.inputs.L or self.inputs.R or self.inputs.U or self.inputs.D):
                 self.anim_index += 0.2
             # Jump if the player presses the A button
