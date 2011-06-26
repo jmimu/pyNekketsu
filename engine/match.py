@@ -49,29 +49,34 @@ class Match(object):
         self.ball=Ball()
         self.perso_list=[]
         self.team={}#
-        self.teamA=Team(1,"data/teamA.png","Les Bogoss",1,self.field,nbr_persos_teamA-nbr_players_teamA)
+        self.team[-1]=Team(1,"data/teamA.png","Les Bogoss",1,self.field,nbr_persos_teamA-nbr_players_teamA)
         if (nbr_players_teamA>0):
-            self.player1 = PersoPlayer(self.teamA,3,[0, 0, 0],1,"data/1.png") # Create player1
-            self.teamA.persos.append(self.player1)
+            self.player1 = PersoPlayer(self.team[-1],3,[0, 0, 0],1,"data/1.png") # Create player1
+            self.team[-1].persos.append(self.player1)#add the player to the team
+            self.team[-1].persos_ordered_dist_to_ball.append(self.player1)#add the player to closest to ball order
         if (nbr_players_teamA>1):
-            self.player2 = PersoPlayer(self.teamA,2,[0, 0, 0],2,"data/2.png") # Create player2
-            self.teamA.persos.append(self.player2)
+            self.player2 = PersoPlayer(self.team[-1],2,[0, 0, 0],2,"data/2.png") # Create player2
+            self.team[-1].persos.append(self.player2)
+            self.team[-1].persos_ordered_dist_to_ball.append(self.player2)
 
-        self.perso_list+=self.teamA.persos
-        self.teamB=Team(2,"data/teamB.png","Les Klass",-1,self.field,nbr_persos_teamB-nbr_players_teamB)
+        self.perso_list+=self.team[-1].persos
+        self.team[1]=Team(2,"data/teamB.png","Les Klass",-1,self.field,nbr_persos_teamB-nbr_players_teamB)
         if (nbr_players_teamA>0):
             if (nbr_players_teamB>0):
-                self.player2 = PersoPlayer(self.teamB,2,[0, 0, 0],2,"data/2.png") # Create player2
-                self.teamB.persos.append(self.player2)
+                self.player2 = PersoPlayer(self.team[1],2,[0, 0, 0],2,"data/2.png") # Create player2
+                self.team[1].persos.append(self.player2)
+                self.team[1].persos_ordered_dist_to_ball.append(self.player2)
         else:
             if (nbr_players_teamB>0):
-                self.player1 = PersoPlayer(self.teamB,1,[0, 0, 0],1,"data/1.png") # Create player1
-                self.teamB.persos.append(self.player2)
+                self.player1 = PersoPlayer(self.team[1],1,[0, 0, 0],1,"data/1.png") # Create player1
+                self.team[1].persos.append(self.player1)
+                self.team[1].persos_ordered_dist_to_ball.append(self.player1)
             if (nbr_players_teamB>1):
-                self.player2 = PersoPlayer(self.teamB,2,2,[0, 0, 0],"data/2.png") # Create player2
-                self.teamB.persos.append(self.player2)
+                self.player2 = PersoPlayer(self.team[1],2,2,[0, 0, 0],"data/2.png") # Create player2
+                self.team[1].persos.append(self.player2)
+                self.team[1].persos_ordered_dist_to_ball.append(self.player2)
  
-        self.perso_list+=self.teamB.persos
+        self.perso_list+=self.team[1].persos
         
     
     def update(self):
@@ -89,8 +94,8 @@ class Match(object):
 
                 if (self.match_time>0):#when time is out, players stop
                     self.match_time-=1.0/30 #30 FPS
-                    self.teamA.update(self)
-                    self.teamB.update(self)
+                    self.team[-1].update(self)
+                    self.team[1].update(self)
 
                 self.ball.update(self)
                 
@@ -117,7 +122,7 @@ class Match(object):
         if (self.goaldrawing_time!=0):
             surface.blit(self.goal_image, [0,0])
     
-        ren = font.render("Score: "+str(self.teamA.nb_goals)+" - "+str(self.teamB.nb_goals)+"       TIME: "+str(int(self.match_time)))
+        ren = font.render("Score: "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals)+"       TIME: "+str(int(self.match_time)))
         surface.blit(ren, (8, 8))
 
         if (self.pause):
@@ -125,10 +130,10 @@ class Match(object):
             surface.blit(ren, (8, 16))
 
         if (self.match_time<=0):
-            winner_name=self.teamA.name
-            if (self.teamA.nb_goals<self.teamB.nb_goals):
-                winner_name=self.teamB.name
-            if (self.teamA.nb_goals!=self.teamB.nb_goals):
+            winner_name=self.team[-1].name
+            if (self.team[-1].nb_goals<self.team[1].nb_goals):
+                winner_name=self.team[1].name
+            if (self.team[-1].nb_goals!=self.team[1].nb_goals):
                 ren = font.render(winner_name+" won!")
             else:
                 ren = font.render("Draw")

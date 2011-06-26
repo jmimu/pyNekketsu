@@ -51,14 +51,16 @@ class PersoCPU(Perso_non_GK):
             if (random.randint(0, int(abs(self.team.wing*match.field.half_length-self.pos[0])/4))==0):#depends on the distance to the goal
                 self.inputs.B=True
         else:
-            if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
-                self.inputs.R=True
-            if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
-                self.inputs.L=True
-            if (self.pos[1]<match.ball.pos[1]-5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
-                self.inputs.U=True
-            if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
-                self.inputs.D=True
+            #move in ball direction (only if closest player of the team)
+            if (self.team.persos_ordered_dist_to_ball[0]==self):
+                if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                    self.inputs.R=True
+                if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                    self.inputs.L=True
+                if (self.pos[1]<match.ball.pos[1]-5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                    self.inputs.U=True
+                if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                    self.inputs.D=True
             for p in match.perso_list:
                 if (p!=self):
                     if (p.team!=self.team):#attack!

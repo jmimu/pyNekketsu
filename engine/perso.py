@@ -35,6 +35,7 @@ class Perso(Sprite):
         self.speed=1
         self.endurance=1 #before speed decreases
         self.resistance=1 #before going KO
+        self.control=1 #before being hurt by ball
         self.kick=1 #for shooting
         self.punch=1 #for attacking
         self.jump_hight=1 

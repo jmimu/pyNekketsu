@@ -45,10 +45,11 @@ class Team(object):
         for i in range(nb_players_cpu):
             self.persos.append(PersoCPU(self,random.randint(1, nbr_heads),[-self.wing*field.half_length, field.goal_latitude[-self.wing],0 ]))
     
+        self.persos_ordered_dist_to_ball[:]=self.persos[1:]
     
     def update(self,match):
         for p in self.persos:
             p.update(match)
 
-        persos_ordered_dist_to_ball=sorted( self.persos,   key=lambda Perso: -Perso.dist2_to_ball) #sort all the perses list with dist2_to_ball
+        self.persos_ordered_dist_to_ball=sorted( self.persos_ordered_dist_to_ball,   key=lambda Perso: Perso.dist2_to_ball) #sort all the perses list with dist2_to_ball
 
