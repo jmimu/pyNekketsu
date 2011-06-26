@@ -51,11 +51,11 @@ class Match(object):
         self.team={}#
         self.team[-1]=Team(1,"data/teamA.png","Les Bogoss",1,self.field,nbr_persos_teamA-nbr_players_teamA)
         if (nbr_players_teamA>0):
-            self.player1 = PersoPlayer(self.team[-1],3,[0, 0, 0],1,"data/1.png") # Create player1
+            self.player1 = PersoPlayer(self.team[-1],3,[0, 0, 0],self.field.half_length,1,"data/1.png") # Create player1
             self.team[-1].persos.append(self.player1)#add the player to the team
             self.team[-1].persos_ordered_dist_to_ball.append(self.player1)#add the player to closest to ball order
         if (nbr_players_teamA>1):
-            self.player2 = PersoPlayer(self.team[-1],2,[0, 0, 0],2,"data/2.png") # Create player2
+            self.player2 = PersoPlayer(self.team[-1],2,[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
             self.team[-1].persos.append(self.player2)
             self.team[-1].persos_ordered_dist_to_ball.append(self.player2)
 
@@ -63,16 +63,16 @@ class Match(object):
         self.team[1]=Team(2,"data/teamB.png","Les Klass",-1,self.field,nbr_persos_teamB-nbr_players_teamB)
         if (nbr_players_teamA>0):
             if (nbr_players_teamB>0):
-                self.player2 = PersoPlayer(self.team[1],2,[0, 0, 0],2,"data/2.png") # Create player2
+                self.player2 = PersoPlayer(self.team[1],2,[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
                 self.team[1].persos.append(self.player2)
                 self.team[1].persos_ordered_dist_to_ball.append(self.player2)
         else:
             if (nbr_players_teamB>0):
-                self.player1 = PersoPlayer(self.team[1],1,[0, 0, 0],1,"data/1.png") # Create player1
+                self.player1 = PersoPlayer(self.team[1],1,[0, 0, 0],self.field.half_length,1,"data/1.png") # Create player1
                 self.team[1].persos.append(self.player1)
                 self.team[1].persos_ordered_dist_to_ball.append(self.player1)
             if (nbr_players_teamB>1):
-                self.player2 = PersoPlayer(self.team[1],2,2,[0, 0, 0],"data/2.png") # Create player2
+                self.player2 = PersoPlayer(self.team[1],2,[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
                 self.team[1].persos.append(self.player2)
                 self.team[1].persos_ordered_dist_to_ball.append(self.player2)
  

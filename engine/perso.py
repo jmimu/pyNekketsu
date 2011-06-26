@@ -25,13 +25,13 @@ from sprite import compileimage
 from inputs import Inputs
 
 class Perso(Sprite):
-    
-    def __init__(self, team, head,pos_init):
+    #  pos_init is "expanded" to the whole field with field_half_length
+    def __init__(self, team, head,pos_init,field_half_length):
         Sprite.__init__(self)
         self.team=team
 
         #perso characteristics
-        self.pos_init=pos_init
+        self.pos_ref=[]
         self.speed=1
         self.endurance=1 #before speed decreases
         self.resistance=1 #before going KO
@@ -44,8 +44,11 @@ class Perso(Sprite):
         self.precision=1
 
 
+        self.pos_ref[:]=pos_init[:]
+        self.pos_ref[0]=self.pos_ref[0]*2+team.wing*field_half_length
+
         self.inputs=0 #class Inputs, constructor differs if PersoCPU or PersoPlayer
-        self.pos[:]=self.pos_init[:]#[random.randint(-80, 80),random.randint(-40, 40),2]
+        self.pos[:]=pos_init[:]#[random.randint(-80, 80),random.randint(-40, 40),2]
         self.anim_index=0
         self.direction=1# +1: right, -1: left
         self.state="walk"

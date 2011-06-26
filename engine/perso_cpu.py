@@ -28,8 +28,8 @@ from inputs import Inputs
 #CPU-controlled players (not for GK)
 class PersoCPU(Perso_non_GK):
     difficulty=8 #out of 10
-    def __init__(self,team,head,pos_init):
-        Perso_non_GK.__init__(self,team,head,pos_init)
+    def __init__(self,team,head,pos_init,field_half_length):
+        Perso_non_GK.__init__(self,team,head,pos_init,field_half_length)
         self.inputs=Inputs(0)
         
     def update(self,match):
@@ -61,14 +61,14 @@ class PersoCPU(Perso_non_GK):
                     self.inputs.U=True
                 if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
                     self.inputs.D=True
-            else:#if not the closest to the ball, return to pos_init
-                if (self.pos[0]<self.pos_init[0]-2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+            else:#if not the closest to the ball, return to pos_ref
+                if (self.pos[0]<self.pos_ref[0]-2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
                     self.inputs.R=True
-                if (self.pos[0]>self.pos_init[0]+2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                if (self.pos[0]>self.pos_ref[0]+2) and (random.randint(0, 20)<10+PersoCPU.difficulty):
                     self.inputs.L=True
-                if (self.pos[1]<self.pos_init[1]-5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                if (self.pos[1]<self.pos_ref[1]-5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>self.pos_init[1]+5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
+                if (self.pos[1]>self.pos_ref[1]+5) and (random.randint(0, 20)<10+PersoCPU.difficulty):
                     self.inputs.D=True
 
             for p in match.perso_list:

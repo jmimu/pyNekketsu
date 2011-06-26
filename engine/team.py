@@ -40,10 +40,10 @@ class Team(object):
         self.persos=[]
         self.persos_ordered_dist_to_ball=[]
         #add the GK
-        self.persos.append(Perso_GK(self,random.randint(1, nbr_heads), [-self.wing*field.half_length, field.goal_latitude[-self.wing],0 ]))
+        self.persos.append(Perso_GK(self,random.randint(1, nbr_heads), [-self.wing*field.half_length, field.goal_latitude[-self.wing],0 ],field.half_length))
         #add the other players
         for i in range(nb_players_cpu):
-            self.persos.append(PersoCPU(self,random.randint(1, nbr_heads),[-self.wing*field.half_length*((i+1.0)/(nb_players_cpu+2.0)), field.goal_latitude[-self.wing],0 ]))
+            self.persos.append(PersoCPU(self,random.randint(1, nbr_heads),[-self.wing*field.half_length*((i+1.0)/(nb_players_cpu+1.0)), random.randint(-field.half_width,field.half_width),0],field.half_length))
     
         self.persos_ordered_dist_to_ball[:]=self.persos[1:]
     

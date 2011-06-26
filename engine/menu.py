@@ -30,10 +30,11 @@ from retrogamelib.constants import *
 from retrogamelib import dialog
 
 #Global variables, to have options saved during all session
+#see menus declaration to understand what those options mean
 default_options=[]
 default_options.append(1)
 default_options.append(0)
-default_options.append(0)
+default_options.append(1)
 default_options.append(1)
 
 

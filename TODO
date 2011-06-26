@@ -1,6 +1,5 @@
- - add players' reference point
- - add kick-off
-
+ - rename perso to player and player to human_player
+ - add pass
  - add health?
  - make players able to fall
 

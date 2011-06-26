@@ -28,8 +28,9 @@ class Ball(Sprite):
     
     def __init__(self):
         Sprite.__init__(self)
+        self.pos=[0,0,15]
 
-        self.speed=[4,3,8]
+        self.speed=[0,20,10]
         self.owner=0 #0 if bass is free
 
         self.anim_index=0

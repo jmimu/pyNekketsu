@@ -27,8 +27,8 @@ from perso import Perso
 
 class Perso_non_GK(Perso):
     
-    def __init__(self, team, head,pos_init):
-        Perso.__init__(self,team,head,pos_init)
+    def __init__(self, team, head,pos_init,field_half_length):
+        Perso.__init__(self,team,head,pos_init,field_half_length)
         
         
     def update(self,match):
