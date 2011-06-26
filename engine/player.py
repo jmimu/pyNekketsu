@@ -173,38 +173,61 @@ class Player(Sprite):
         self.state="shoot"
         self.anim_index=0
 
-        #angle 0: north, 1: north-east ...
-        aiming_angle=0
-        #TODO... find a good way to compute angle
-
-        #find whom to pass the ball
         best_teammate=0 #closer to the ball in good angle
         best_teammate_az=0
         best_teammate2=0 #closer to the ball in next angle
         best_teammate2_az=0
-        for p in self.team.players_ordered_dist_to_ball:
-            if (p!=self):
-                az=math.atan2(p.pos[0]-self.pos[0],p.pos[1]-self.pos[1])
-                az_int=int((az+math.pi/8)/(math.pi/4))+8
-                print(az,az_int)
-                if ((az_int%8)==aiming_angle):
-                    best_teammate=p
-                    best_teammate_az=az
-                    print("ok!")
-                    break
-                if ((((az_int+1)%8)==aiming_angle) or (((az_int+7)%8)==aiming_angle)):
-                    best_teammate2=p
-                    best_teammate2_az=az
-                    print("bof.")
-        
-        if (best_teammate==0):
-            if (best_teammate2!=0):
-                best_teammate=best_teammate2
-                best_teammate_az=best_teammate2_az
-            else:
-                return
 
-        #compute pass speed... TODO
+        if (self.inputs.U or self.inputs.R or self.inputs.D or self.inputs.L):
+            #find player in right direction
+            #angle 0: north, 1: north-east ... 7: north-west
+            if (self.inputs.U):
+                aiming_angle=0
+            if (self.inputs.D):
+                aiming_angle=4
+            if (self.inputs.R):
+                aiming_angle=2
+                if (self.inputs.U):
+                    aiming_angle=1
+                if (self.inputs.D):
+                    aiming_angle=3
+            if (self.inputs.L):
+                aiming_angle=6
+                if (self.inputs.U):
+                    aiming_angle=7
+                if (self.inputs.D):
+                    aiming_angle=5
+            #print("aim: "+str(aiming_angle))
+            #find whom to pass the ball
+            for p in self.team.players_ordered_dist_to_ball:
+                if (p!=self):
+                    az=math.atan2(p.pos[0]-self.pos[0],p.pos[1]-self.pos[1])
+                    az_int=int(((az+math.pi/8)/(math.pi/4))+8) % 8
+                    #print(az*180/math.pi,az_int)
+                    if ((az_int%8)==aiming_angle):
+                        best_teammate=p
+                        best_teammate_az=az
+                        #print("ok!")
+                        break
+                    if ((((az_int+1)%8)==aiming_angle) or (((az_int+7)%8)==aiming_angle)):
+                        best_teammate2=p
+                        best_teammate2_az=az
+                        #print("bof.")
+
+            if (best_teammate==0):
+                if (best_teammate2!=0):
+                    best_teammate=best_teammate2
+                    best_teammate_az=best_teammate2_az
+                else:
+                    return
+        else:#no direction enterded, find closest teammate
+            if (len(self.team.players_ordered_dist_to_ball)<2):
+                return #nobody to bass the ball to
+            best_teammate=self.team.players_ordered_dist_to_ball[1]
+            best_teammate_az=math.atan2(best_teammate.pos[0]-self.pos[0],best_teammate.pos[1]-self.pos[1])
+
+
+        #compute pass speed... 
         best_teammate_dist=math.sqrt((best_teammate.pos[0]-self.pos[0])**2+(best_teammate.pos[1]-self.pos[1])**2)
         power=min(best_teammate_dist,8*self.kick)
 
