@@ -44,8 +44,8 @@ def show_info(display,font,mainClock):
     dialogbox = dialog.DialogBox((240, 51), (0, 0, 0),(255, 255, 255), font)
     dialogbox.set_dialog([
         "Welcome to pyNekketsu!      Press L to continue.", 
-        "Player1 controls:           arrows (to move),           K (to kick), L (to attack),  P (for pause and start)", 
-        "Player2 controls:           F, G, H (to move),          A (to kick), Z (to attack),  R (for pause and start)"])
+        "Player1 controls:           arrows (to move),           K (shoot or attack),        L (pass), P (pause, start)", 
+        "Player2 controls:           F, G, H (to move),          A (shoot or attack),        Z (pass), R (pause, start)"])
 
     while not dialogbox.over():
         mainClock.tick(30)

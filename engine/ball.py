@@ -28,10 +28,11 @@ class Ball(Sprite):
     
     def __init__(self):
         Sprite.__init__(self)
-        self.pos=[0,0,15]
+        self.pos=[0,0,15] #like every other thing, pos is at center bottom
 
         self.speed=[0,20,10]
-        self.owner=0 #0 if bass is free
+        self.size=2 #ball radius, for goal accuracy (used in y, and 2* in z)
+        self.owner=0 #0 if ball is free
 
         self.anim_index=0
         self.direction=1# +1: right, -1: left  TODO : add more directions ?
@@ -92,8 +93,8 @@ class Ball(Sprite):
             if self.pos[0] < -match.field.half_length:
                 self.pos[0] = -match.field.half_length
                 self.speed[0]*=-0.8
-                if (abs(self.pos[1]-match.field.goal_latitude[-1])<match.field.goal_half_width[-1]) \
-                    and (self.pos[2]<match.field.z+match.field.goal_height[-1]):#goal!
+                if (abs(self.pos[1]-match.field.goal_latitude[-1])<match.field.goal_half_width[-1]-self.size) \
+                    and (self.pos[2]<match.field.z+match.field.goal_height[-1]-self.size*2):#goal!
                     match.team[1].nb_goals+=1
                     if (self.owner!=0):
                         self.owner.has_ball=0
@@ -105,8 +106,8 @@ class Ball(Sprite):
             if self.pos[0] > match.field.half_length:
                 self.pos[0] = match.field.half_length
                 self.speed[0]*=-0.8
-                if (abs(self.pos[1]-match.field.goal_latitude[1])<match.field.goal_half_width[1]) \
-                    and (self.pos[2]<match.field.z+match.field.goal_height[1]):#goal!
+                if (abs(self.pos[1]-match.field.goal_latitude[1])<match.field.goal_half_width[1]-self.size) \
+                    and (self.pos[2]<match.field.z+match.field.goal_height[1]-self.size*2):#goal!
                     match.team[-1].nb_goals+=1
                     if (self.owner!=0):
                         self.owner.has_ball=0

@@ -213,18 +213,18 @@ class Player(Sprite):
                     self.pos[1] -= self.speed
             if (self.inputs.L or self.inputs.R or self.inputs.U or self.inputs.D):
                 self.anim_index += 0.2
-            # Jump if the player presses the A button
+            # Jump if the player presses the C button
             if (self.inputs.C and self.pos[2] == 0):
                 self.jump_speed = 2.5*self.jump_hight
                 self.state="jump"
                 self.anim_index=0
                 
             if (self.inputs.B):
-                if (self.has_ball!=0):
-                    self.shoot(match)
-            if (self.inputs.A):
                 if (self.has_ball==0):
                     self.attack(match)
+            if (self.inputs.B):
+                if (self.has_ball!=0):
+                    self.shoot(match)
             
         self.inputs.update() #read the new keys or clear inputs for CPU
 

@@ -125,6 +125,6 @@ class Player_GK(Player):
                     if (p.team!=self.team):#attack!
                         if (abs(p.pos[0]-self.pos[0])<6 and abs(p.pos[1]-self.pos[1])<6):
                             if (random.randint(0, 80/self.agressivity)==0) or (p.has_ball!=0):
-                                self.inputs.A=True
+                                self.inputs.B=True
 
 
