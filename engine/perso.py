@@ -45,7 +45,7 @@ class Perso(Sprite):
 
 
         self.inputs=0 #class Inputs, constructor differs if PersoCPU or PersoPlayer
-        self.pos=self.pos_init#[random.randint(-80, 80),random.randint(-40, 40),2]
+        self.pos[:]=self.pos_init[:]#[random.randint(-80, 80),random.randint(-40, 40),2]
         self.anim_index=0
         self.direction=1# +1: right, -1: left
         self.state="walk"
