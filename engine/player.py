@@ -30,6 +30,7 @@ class Player(Sprite):
     def __init__(self, team, head,pos_init,field_half_length):
         Sprite.__init__(self)
         self.team=team
+        self.number_human_player=0
 
         #player characteristics
         self.pos_ref=[]
@@ -43,7 +44,8 @@ class Player(Sprite):
         self.jump_hight=1 
         #IA characteristics
         self.agressivity=1 
-        self.precision=1 #almost only for GK
+        self.precision=1 #for GK and pass
+        self.listening=1 #when asked for pass (max:2)
 
 
         self.pos_ref[:]=pos_init[:]
@@ -231,6 +233,7 @@ class Player(Sprite):
         best_teammate_dist=math.sqrt((best_teammate.pos[0]-self.pos[0])**2+(best_teammate.pos[1]-self.pos[1])**2)
         power=min(best_teammate_dist,8*self.kick)
 
+        best_teammate_az+=(random.random()-0.5)/1.5*self.precision
 
         match.ball.speed[0]=math.sin(best_teammate_az)*power
         match.ball.speed[1]=math.cos(best_teammate_az)*power

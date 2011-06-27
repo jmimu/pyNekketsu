@@ -31,7 +31,7 @@ class Ball(Sprite):
         self.pos=[0,0,15] #like every other thing, pos is at center bottom
 
         self.speed=[0,20,10]
-        self.size=2 #ball radius, for goal accuracy (used in y, and 2* in z)
+        self.size=1 #ball radius, for goal accuracy (used in y, and 2* in z)
         self.owner=0 #0 if ball is free
 
         self.anim_index=0

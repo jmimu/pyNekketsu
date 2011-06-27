@@ -39,7 +39,7 @@ class Player_GK(Player):
             if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
                 and (abs(match.ball.pos[1]-self.pos[1])<5)  \
                 and ((match.ball.pos[2]-self.pos[2])<7): #Z
-                if (abs(match.ball.speed[0])>8*self.control):#too much in opposite direction : KO
+                if (abs(match.ball.speed[0])>10*self.control):#too much in opposite direction : KO
                     self.state="hurt"
                     self.anim_index=0
                     match.ball.speed[0]*=-0.6

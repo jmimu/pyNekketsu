@@ -29,8 +29,8 @@ class Player_Human(Player_non_GK):
     def __init__(self,team,head,pos_init,field_half_length,num_player=1,num_player_image_name="data/1.png"):
         Player_non_GK.__init__(self,team,head,pos_init,field_half_length)
         self.inputs=Inputs(num_player) #key config: player num_player
-        self.num_player=num_player
         self.num_player_image=pygame.image.load(num_player_image_name)
+        self.number_human_player=num_player
         
     def update(self,match):
         Player_non_GK.update(self,match) 

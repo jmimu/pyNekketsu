@@ -43,6 +43,8 @@ class Match(object):
         self.is_finished=False
         
         self.match_time=length
+        self.player1=0
+        self.player2=0
         self.pause=False
         self.cam=Camera()
         self.field=Field()
@@ -95,7 +97,7 @@ class Match(object):
                 if (self.match_time>0):#when time is out, players stop
                     self.match_time-=1.0/30 #30 FPS
                     self.team[-1].update(self)
-                    #self.team[1].update(self)
+                    self.team[1].update(self)
 
                 self.ball.update(self)
                 

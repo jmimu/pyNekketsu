@@ -22,6 +22,7 @@ import pygame
 import os
 from player_cpu import Player_CPU
 from player_GK import Player_GK
+from inputs import Inputs
 import random
 
 
@@ -37,7 +38,7 @@ class Team(object):
         self.name=name_team
         self.nb_goals=0
         self.wing=wing #wing for target, -wing for own goal
-        self.players=[]
+        self.players=[] #first is GK, last are human players
         self.players_ordered_dist_to_ball=[]
         #add the GK
         self.players.append(Player_GK(self,random.randint(1, nbr_heads), [-self.wing*field.half_length, field.goal_latitude[-self.wing],0 ],field.half_length))
@@ -48,6 +49,26 @@ class Team(object):
         self.players_ordered_dist_to_ball[:]=self.players[1:]
     
     def update(self,match):
+        #if has to pass to player 1
+        if (match.player1!=0) and (match.player1.team==self) and (Inputs.player1_just_A) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
+            if (random.random()<0.35*match.ball.owner.listening):
+                #aim to the player ?
+                match.ball.owner.inputs.A=True
+                match.ball.owner.inputs.U=False
+                match.ball.owner.inputs.D=False
+                match.ball.owner.inputs.L=False
+                match.ball.owner.inputs.R=False
+        if (match.player2!=0) and (match.player2.team==self) and (Inputs.player2_just_A) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
+            if (random.random()<0.35*match.ball.owner.listening):
+                #aim to the player ?
+                match.ball.owner.inputs.A=True
+                match.ball.owner.inputs.U=False
+                match.ball.owner.inputs.D=False
+                match.ball.owner.inputs.L=False
+                match.ball.owner.inputs.R=False
+
+
+
         for p in self.players:
             p.update(match)
 

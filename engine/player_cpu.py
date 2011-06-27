@@ -21,6 +21,7 @@
 import pygame
 import os
 import random
+import math
 from player_non_GK import Player_non_GK
 from inputs import Inputs
 
@@ -48,7 +49,8 @@ class Player_CPU(Player_non_GK):
             if (match.field.goal_latitude[self.team.wing]+10/self.precision<self.pos[1]) or (random.randint(0, 4)==0):
                 self.inputs.D=True
             #shoot!
-            if (random.randint(0, int(abs(self.team.wing*match.field.half_length-self.pos[0])/4))==0):#depends on the distance to the goal
+            #if (random.random()<(math.sqrt(50*abs(self.team.wing*match.field.half_length-self.pos[0])))):#depends on the distance to the goal
+            if (random.random()<(10/((abs(match.team[self.team.wing].players[0].pos[0]-self.pos[0])-10)**2+1))):#depends on the distance to the goal keeper
                 self.inputs.B=True
         else:
             #move in ball direction (only if closest player of the team)
