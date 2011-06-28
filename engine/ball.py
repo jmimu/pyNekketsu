@@ -24,8 +24,9 @@ import random
 
 from sprite import Sprite
 
+
 class Ball(Sprite):
-    
+    snd_bounce = pygame.mixer.Sound("data/sound/etw/shoot2.wav")
     def __init__(self):
         Sprite.__init__(self)
         self.pos=[0,0,15] #like every other thing, pos is at center bottom
@@ -87,6 +88,7 @@ class Ball(Sprite):
             else:
                 self.speed[0]=self.speed[0]*match.field.roll_damp#damp is stronger if rebounce
                 self.speed[1]=self.speed[1]*match.field.roll_damp
+                Ball.snd_bounce.play()
         
         # Keep in bounds if match not finished
         if (match.match_time>0):
@@ -102,7 +104,10 @@ class Ball(Sprite):
                     self.pos[2]=35
                     self.speed[:]=[6,random.randint(-6,6),6]
                     print("Score: %d - %d"%(match.team[-1].nb_goals,match.team[1].nb_goals))
+                    match.snd_whistle.play()
                     match.goaldrawing_time=20
+                else:
+                    Ball.snd_bounce.play()
             if self.pos[0] > match.field.half_length:
                 self.pos[0] = match.field.half_length
                 self.speed[0]*=-0.8
@@ -115,13 +120,18 @@ class Ball(Sprite):
                     self.pos[2]=35
                     self.speed[:]=[-6,random.randint(-6,6),6]
                     print("Score: %d - %d"%(match.team[-1].nb_goals,match.team[1].nb_goals))
+                    match.snd_whistle.play()
                     match.goaldrawing_time=20
+                else:
+                    Ball.snd_bounce.play()
             if self.pos[1] < -match.field.half_width:
                 self.pos[1] = -match.field.half_width
                 self.speed[1]*=-0.8
+                Ball.snd_bounce.play()
             if self.pos[1] > match.field.half_width:
                 self.pos[1] = match.field.half_width
                 self.speed[1]*=-0.8
+                Ball.snd_bounce.play()
             
         
         self.direction=1

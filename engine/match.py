@@ -34,6 +34,8 @@ from team import Team
 
 
 class Match(object):
+    snd_whistle = pygame.mixer.Sound("data/sound/etw/fischiolungo.wav")
+    
     def __init__(self,nbr_players_human_teamA,nbr_players_teamA,nbr_players_human_teamB,nbr_players_teamB,difficulty=8,length=60):
         Player_CPU.difficulty=difficulty
         Player_GK.difficulty=difficulty
@@ -80,6 +82,8 @@ class Match(object):
         
         self.player_list+=self.team[1].players
         
+        Match.snd_whistle.play()
+        
     
     def update(self):
         Inputs.readkeys()#read all the actual keys
@@ -87,6 +91,8 @@ class Match(object):
             self.pause=not self.pause
             if (self.match_time<=0):
                 self.is_finished=True
+            else:
+                Match.snd_whistle.play()
         
         if (not self.pause):
             #write "Goal!" after a... goal
@@ -98,6 +104,8 @@ class Match(object):
                     self.match_time-=1.0/30 #30 FPS
                     self.team[-1].update(self)
                     self.team[1].update(self)
+                if (-1<self.match_time<0):
+                    Match.snd_whistle.play()
 
                 self.ball.update(self)
                 
@@ -124,14 +132,15 @@ class Match(object):
         if (self.goaldrawing_time!=0):
             surface.blit(self.goal_image, [0,0])
     
-        ren = font.render("Score: "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals)+"       TIME: "+str(int(self.match_time)))
-        surface.blit(ren, (8, 8))
 
         if (self.pause):
             ren = font.render(" --- PAUSE --- ")
             surface.blit(ren, (8, 16))
 
         if (self.match_time<=0):
+            self.match_time=-1
+            ren = font.render("Score: "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals))
+            surface.blit(ren, (8, 8))
             winner_name=self.team[-1].name
             if (self.team[-1].nb_goals<self.team[1].nb_goals):
                 winner_name=self.team[1].name
@@ -146,3 +155,6 @@ class Match(object):
 
             ren = font.render("to continue...")
             surface.blit(ren, (64, 56))
+        else:
+            ren = font.render("Score: "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals)+"       TIME: "+str(int(self.match_time)))
+            surface.blit(ren, (8, 8))

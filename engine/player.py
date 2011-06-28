@@ -26,6 +26,10 @@ from sprite import compileimage
 from inputs import Inputs
 
 class Player(Sprite):
+    snd_pass = pygame.mixer.Sound("data/sound/etw/pass.wav")
+    snd_shoot = pygame.mixer.Sound("data/sound/etw/shot.wav")
+    snd_attack = pygame.mixer.Sound("data/sound/stk/parachute.wav")
+    
     #  pos_init is "expanded" to the whole field with field_half_length
     def __init__(self, team, head,pos_init,field_half_length):
         Sprite.__init__(self)
@@ -163,6 +167,7 @@ class Player(Sprite):
 
         match.ball.owner=0
         self.has_ball=0
+        Player.snd_shoot.play()
 
 
     def pass_ball(self,match):
@@ -241,6 +246,7 @@ class Player(Sprite):
 
         match.ball.owner=0
         self.has_ball=0
+        Player.snd_pass.play()
 
 
     def attack(self,match):
@@ -254,6 +260,7 @@ class Player(Sprite):
                     and (abs(p.pos[2]-self.pos[2])<5):
                     #p is attacked !
                     p.state="hurt"
+                    Player.snd_attack.play()
                     p.anim_index=0
                     p.direction=-self.direction
                     p.health-=5*self.punch/p.resistance

@@ -44,6 +44,7 @@ class Player_GK(Player):
                     self.anim_index=0
                     match.ball.speed[0]*=-0.6
                     match.ball.speed[2]+=(match.ball.pos[2]-self.pos[2])
+                    Player.snd_pass.play()
                 else:#not enought to hurt...
                     if (match.ball.speed[0]*self.direction<10):#speed X must be slow or in opposite direction
                         match.ball.owner=self

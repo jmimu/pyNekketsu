@@ -24,17 +24,23 @@ import os
 import sys
 sys.path.insert(0, "engine")
 
-from displayzoom import DisplayZoom
-from match import Match
-from menu import call_all_menus, show_info
-from inputs import Inputs
 
+
+import pygame, sys, time, random
+from pygame.locals import *
 from retrogamelib import display
 from retrogamelib import font
 from retrogamelib.constants import *
 
-
 display.init(scale=2.0, caption="pyNekketsu", res=NESRES)
+
+pygame.mixer.pre_init(22050,8,1,1024)
+
+
+from match import Match
+from menu import call_all_menus, show_info
+from inputs import Inputs
+
 
 
 
