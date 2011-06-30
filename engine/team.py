@@ -67,6 +67,25 @@ class Team(object):
                 match.ball.owner.inputs.L=False
                 match.ball.owner.inputs.R=False
 
+        #if AI player is asked to shoot
+        if (match.player1!=0) and (match.player1.team==self) and (Inputs.player1_just_B) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
+            if (random.random()<0.35*match.ball.owner.listening):
+                #shoot in the direction P1 is aiming at
+                match.ball.owner.inputs.B=True
+                match.ball.owner.inputs.U=Inputs.player1_U
+                match.ball.owner.inputs.D=Inputs.player1_D
+                match.ball.owner.inputs.L=Inputs.player1_L
+                match.ball.owner.inputs.R=Inputs.player1_R
+        if (match.player2!=0) and (match.player2.team==self) and (Inputs.player2_just_B) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
+            if (random.random()<0.35*match.ball.owner.listening):
+                #shoot in the direction P1 is aiming at
+                match.ball.owner.inputs.B=True
+                match.ball.owner.inputs.U=Inputs.player2_U
+                match.ball.owner.inputs.D=Inputs.player2_D
+                match.ball.owner.inputs.L=Inputs.player2_L
+                match.ball.owner.inputs.R=Inputs.player2_R
+
+
 
 
         for p in self.players:

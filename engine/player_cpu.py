@@ -53,8 +53,9 @@ class Player_CPU(Player_non_GK):
             if (random.random()<(10/((abs(match.team[self.team.wing].players[0].pos[0]-self.pos[0])-10)**2+1))):#depends on the distance to the goal keeper
                 self.inputs.B=True
         else:
-            #move in ball direction (only if closest player of the team)
-            if (self.team.players_ordered_dist_to_ball[0]==self):
+            #move in ball direction (only if closest player of the team, or second if first has not the ball)
+            if (self.team.players_ordered_dist_to_ball[0]==self) or ((len(self.team.players)>2) \
+              and (self.team.players_ordered_dist_to_ball[0].has_ball==0) and (self.team.players_ordered_dist_to_ball[1]==self)):
                 if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.R=True
                 if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
