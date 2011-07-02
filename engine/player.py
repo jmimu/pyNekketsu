@@ -129,7 +129,7 @@ class Player(Sprite):
                 self.anim_index=0
                 self.state="walk"
         if (self.state=="hurt"):
-            self.anim_index += 0.05
+            self.anim_index += 0.04
             self.pos[0]-=self.direction/10.0
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
@@ -275,18 +275,18 @@ class Player(Sprite):
         if (self.state=="walk"):
             if (self.has_ball!=0): #with ball: slower
                 if self.inputs.L:
-                    self.pos[0] -= self.speed*0.8
+                    self.pos[0] -= self.speed#*0.8
                     self.energy -= 1
                     self.direction = -1
                 if self.inputs.R:
-                    self.pos[0] += self.speed*0.8
+                    self.pos[0] += self.speed#*0.8
                     self.energy -= 1
                     self.direction = +1
                 if self.inputs.U:
-                    self.pos[1] += self.speed*0.8
+                    self.pos[1] += self.speed#*0.8
                     self.energy -= 1
                 if self.inputs.D:
-                    self.pos[1] -= self.speed*0.8
+                    self.pos[1] -= self.speed#*0.8
                     self.energy -= 1
             else:#don't have ball
                 if self.inputs.L:
