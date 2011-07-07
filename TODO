@@ -3,8 +3,8 @@
  - change difficulty : shrink team charateristics
  - make players able to fall
  - use health and endurance
- - change ball hrting : only if ball is out of collision rectangle
- - change IA : ref_pos constant, but aiming_pos depends on ball x
+ - change ball hurting : only if ball is out of collision rectangle
+ - change team.wing orientation ?
 
  - be able to change key config and stop sound
 

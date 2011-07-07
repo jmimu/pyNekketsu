@@ -38,6 +38,11 @@ class Player_CPU(Player_non_GK):
         self.think(match)
 
     def think(self,match):#press on virtual keys
+
+        #compute where to go depending on ball position and pos_ref (use a lot of team.wing!) (1.3 is for overlaping)
+        scale_due_to_ball_pos=self.team.wing*(match.ball.pos[0]    +1.3*self.team.wing*match.field.half_length)/(match.field.half_length)
+        self.pos_aim[0]=-self.team.wing*(-(match.field.half_length-self.pos_ref[0])*scale_due_to_ball_pos+match.field.half_length)
+
         if (self.has_ball!=0):
             #look in the goal's direction
             if (self.team.wing==1):
@@ -54,8 +59,8 @@ class Player_CPU(Player_non_GK):
                 self.inputs.B=True
         else:
             #move in ball direction (only if closest player of the team, or second if first has not the ball)
-            if (self.team.players_ordered_dist_to_ball[0]==self) or ((len(self.team.players)>2) \
-              and (self.team.players_ordered_dist_to_ball[0].has_ball==0) and (self.team.players_ordered_dist_to_ball[1]==self)):
+            if ((self.team.players_ordered_dist_to_ball[0]==self) or ((len(self.team.players)>2) \
+              and (self.team.players_ordered_dist_to_ball[0].has_ball==0) and (self.team.players_ordered_dist_to_ball[1]==self))):
                 if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.R=True
                 if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
@@ -64,14 +69,14 @@ class Player_CPU(Player_non_GK):
                     self.inputs.U=True
                 if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.D=True
-            else:#if not the closest to the ball, return to pos_ref
-                if (self.pos[0]<self.pos_ref[0]-2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+            else:#if not the closest to the ball, return to pos_aim
+                if (self.pos[0]<self.pos_aim[0]-2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.R=True
-                if (self.pos[0]>self.pos_ref[0]+2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[0]>self.pos_aim[0]+2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.L=True
-                if (self.pos[1]<self.pos_ref[1]-5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[1]<self.pos_aim[1]-5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>self.pos_ref[1]+5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[1]>self.pos_aim[1]+5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.D=True
 
             for p in match.player_list:

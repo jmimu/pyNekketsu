@@ -37,7 +37,8 @@ class Player(Sprite):
         self.number_human_player=0
 
         #player characteristics
-        self.pos_ref=[]
+        self.pos_ref=[]#reference position in west half field
+        self.pos_aim=[]#in full field coords, (scaled depending on ball position) (not used by GK)
         self.speed=1
         self.health=100
         self.max_energy=1000 #before speed decreases
@@ -51,9 +52,8 @@ class Player(Sprite):
         self.precision=1 #for GK and pass
         self.listening=1 #when asked for pass (max:2)
 
-
         self.pos_ref[:]=pos_init[:]
-        self.pos_ref[0]=self.pos_ref[0]*2+team.wing*field_half_length
+        self.pos_aim[:]=self.pos_ref[:]
 
         self.inputs=0 #class Inputs, constructor differs if Player_CPU or Player_Human
         self.pos[:]=pos_init[:]#[random.randint(-80, 80),random.randint(-40, 40),2]
