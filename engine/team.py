@@ -27,7 +27,7 @@ import random
 
 
 #number of differents heads 
-nbr_heads=3
+nbr_heads=4
 
 
 #
