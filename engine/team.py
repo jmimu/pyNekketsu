@@ -37,11 +37,11 @@ class Team(object):
         self.image=pygame.image.load(img_team)
         self.name=name_team
         self.nb_goals=0
-        self.wing=wing #wing for target, -wing for own goal
+        self.wing=wing #-wing for target, +wing for own goal
         self.players=[] #first is GK, last are human players
         self.players_ordered_dist_to_ball=[]
         #add the GK
-        self.players.append(Player_GK(self,random.randint(1, nbr_heads), [-self.wing*field.half_length, field.goal_latitude[-self.wing],0 ],field.half_length))
+        self.players.append(Player_GK(self,random.randint(1, nbr_heads), [self.wing*field.half_length, field.goal_latitude[-self.wing],0 ],field.half_length))
         #add the other players
         for i in range(nb_players_cpu):
             self.players.append(Player_CPU(self,random.randint(1, nbr_heads),[field.half_length*((i+1.0)/(nb_players_cpu+1.0)), random.randint(-field.half_width,field.half_width),0],field.half_length))

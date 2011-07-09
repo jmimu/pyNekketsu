@@ -40,22 +40,22 @@ class Player_CPU(Player_non_GK):
     def think(self,match):#press on virtual keys
 
         #compute where to go depending on ball position and pos_ref (use a lot of team.wing!) (1.3 is for overlaping)
-        scale_due_to_ball_pos=self.team.wing*(match.ball.pos[0]    +1.3*self.team.wing*match.field.half_length)/(match.field.half_length)
-        self.pos_aim[0]=-self.team.wing*(-(match.field.half_length-self.pos_ref[0])*scale_due_to_ball_pos+match.field.half_length)
+        scale_due_to_ball_pos=-self.team.wing*(match.ball.pos[0]    -1.3*self.team.wing*match.field.half_length)/(match.field.half_length)
+        self.pos_aim[0]=self.team.wing*(-(match.field.half_length-self.pos_ref[0])*scale_due_to_ball_pos+match.field.half_length)
 
         if (self.has_ball!=0):
             #look in the goal's direction
-            if (self.team.wing==1):
+            if (self.team.wing==-1):
                 self.inputs.R=True
             else:
                 self.inputs.L=True
-            if (match.field.goal_latitude[self.team.wing]-10/self.precision>self.pos[1]) or (random.randint(0, 4)==0):
+            if (match.field.goal_latitude[-self.team.wing]-10/self.precision>self.pos[1]) or (random.randint(0, 4)==0):
                 self.inputs.U=True
-            if (match.field.goal_latitude[self.team.wing]+10/self.precision<self.pos[1]) or (random.randint(0, 4)==0):
+            if (match.field.goal_latitude[-self.team.wing]+10/self.precision<self.pos[1]) or (random.randint(0, 4)==0):
                 self.inputs.D=True
             #shoot!
-            #if (random.random()<(math.sqrt(50*abs(self.team.wing*match.field.half_length-self.pos[0])))):#depends on the distance to the goal
-            if (random.random()<(10/((abs(match.team[self.team.wing].players[0].pos[0]-self.pos[0])-10)**2+1))):#depends on the distance to the goal keeper
+            #if (random.random()<(math.sqrt(50*abs(-self.team.wing*match.field.half_length-self.pos[0])))):#depends on the distance to the goal
+            if (random.random()<(10/((abs(match.team[-self.team.wing].players[0].pos[0]-self.pos[0])-10)**2+1))):#depends on the distance to the goal keeper
                 self.inputs.B=True
                 self.inputs.L=False
                 self.inputs.R=False

@@ -56,18 +56,18 @@ class Player_GK(Player):
 
     def think(self,match):#press on virtual keys
         #stay close to the goal
-        goal_position=(-self.team.wing*match.field.half_length,match.field.goal_latitude[-self.team.wing])
+        goal_position=(self.team.wing*match.field.half_length,match.field.goal_latitude[self.team.wing])
 
         if (self.has_ball!=0):
             #look in the other goal's direction
-            if (self.team.wing==1):
+            if (self.team.wing==-1):
                 self.inputs.R=True
             else:
                 self.inputs.L=True
             #aim in the opposite direction of his goal, to avoid bad rebounce
-            if (match.field.goal_latitude[-self.team.wing]-10>self.pos[1]) or (random.randint(0, 4)==0):
+            if (match.field.goal_latitude[self.team.wing]-10>self.pos[1]) or (random.randint(0, 4)==0):
                 self.inputs.D=True
-            if (match.field.goal_latitude[-self.team.wing]+10<self.pos[1]) or (random.randint(0, 4)==0):
+            if (match.field.goal_latitude[self.team.wing]+10<self.pos[1]) or (random.randint(0, 4)==0):
                 self.inputs.U=True
             #shoot!
             self.inputs.B=True
@@ -76,7 +76,7 @@ class Player_GK(Player):
                 #ball is not between GK and the goal
 
                 #stay close to the goal 
-                if (self.team.wing==1):
+                if (self.team.wing==-1):
                     if ((self.pos[0]-goal_position[0])>25):
                         self.inputs.L=True
                     if ((self.pos[0]-goal_position[0])<22):
@@ -92,7 +92,7 @@ class Player_GK(Player):
                         self.direction=-1#change player without button... just for this time!
 
                 #jump!
-                if (self.pos[2]<match.ball.pos[2]-6) and (abs(self.pos[0]-match.ball.pos[0])<10) and (self.team.wing*match.ball.speed[0]<0):
+                if (self.pos[2]<match.ball.pos[2]-6) and (abs(self.pos[0]-match.ball.pos[0])<10) and (-self.team.wing*match.ball.speed[0]<0):
                     self.inputs.C=True
 
                 #set y pos to be between ball and goal

@@ -63,8 +63,7 @@ while 1:
         screen = display.get_surface()
         
         if (Inputs.player1_Esc or Inputs.player2_Esc):
-            pygame.quit()
-            sys.exit()
+            match.is_finished=True
         
         match.update()
         

@@ -53,7 +53,7 @@ class Match(object):
         self.ball=Ball()
         self.player_list=[]
         self.team={}#
-        self.team[-1]=Team(1,"data/teamA.png","Les Bogoss",1,self.field,nbr_players_teamA-nbr_players_human_teamA)
+        self.team[-1]=Team(1,"data/teamA.png","Les Bogoss",-1,self.field,nbr_players_teamA-nbr_players_human_teamA)
         if (nbr_players_human_teamA>0):
             self.player1 = Player_Human(self.team[-1],3,[0, 0, 0],self.field.half_length,1,"data/1.png") # Create player1
             self.team[-1].players.append(self.player1)#add the player to the team
@@ -64,7 +64,7 @@ class Match(object):
             self.team[-1].players_ordered_dist_to_ball.append(self.player2)
 
         self.player_list+=self.team[-1].players
-        self.team[1]=Team(2,"data/teamB.png","Les Klass",-1,self.field,nbr_players_teamB-nbr_players_human_teamB)
+        self.team[1]=Team(2,"data/teamB.png","Les Klass",1,self.field,nbr_players_teamB-nbr_players_human_teamB)
         if (nbr_players_human_teamA>0):
             if (nbr_players_human_teamB>0):
                 self.player2 = Player_Human(self.team[1],2,[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
