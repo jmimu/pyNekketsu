@@ -29,8 +29,8 @@ from inputs import Inputs
 #CPU-controlled players (not for GK)
 class Player_CPU(Player_non_GK):
     difficulty=8 #out of 10
-    def __init__(self,team,head,pos_init,field_half_length):
-        Player_non_GK.__init__(self,team,head,pos_init,field_half_length)
+    def __init__(self,team):
+        Player_non_GK.__init__(self,team)
         self.inputs=Inputs(0)
         
     def update(self,match):
@@ -42,7 +42,7 @@ class Player_CPU(Player_non_GK):
         #compute where to go depending on ball position and pos_ref (use a lot of team.wing!) (1.3 is for overlaping)
         scale_due_to_ball_pos=-self.team.wing*(match.ball.pos[0]    -1.3*self.team.wing*match.field.half_length)/(match.field.half_length)
         self.pos_aim[0]=self.team.wing*(-(match.field.half_length-self.pos_ref[0])*scale_due_to_ball_pos+match.field.half_length)
-
+        
         if (self.has_ball!=0):
             #look in the goal's direction
             if (self.team.wing==-1):

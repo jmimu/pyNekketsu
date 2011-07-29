@@ -45,41 +45,31 @@ class Match(object):
         self.is_finished=False
         
         self.match_time=length
-        self.player1=0
-        self.player2=0
+        self.human_players=[0,0] #max two players
         self.pause=False
         self.cam=Camera()
         self.field=Field()
         self.ball=Ball()
         self.player_list=[]
         self.team={}#
-        self.team[-1]=Team(1,"data/teamA.png","Les Bogoss",-1,self.field,nbr_players_teamA-nbr_players_human_teamA)
-        if (nbr_players_human_teamA>0):
-            self.player1 = Player_Human(self.team[-1],random.randint(1, nbr_heads),[0, 0, 0],self.field.half_length,1,"data/1.png") # Create player1
-            self.team[-1].players.append(self.player1)#add the player to the team
-            self.team[-1].players_ordered_dist_to_ball.append(self.player1)#add the player to closest to ball order
-        if (nbr_players_human_teamA>1):
-            self.player2 = Player_Human(self.team[-1],random.randint(1, nbr_heads),[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
-            self.team[-1].players.append(self.player2)
-            self.team[-1].players_ordered_dist_to_ball.append(self.player2)
-
-        self.player_list+=self.team[-1].players
-        self.team[1]=Team(2,"data/teamB.png","Les Klass",1,self.field,nbr_players_teamB-nbr_players_human_teamB)
-        if (nbr_players_human_teamA>0):
-            if (nbr_players_human_teamB>0):
-                self.player2 = Player_Human(self.team[1],random.randint(1, nbr_heads),[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
-                self.team[1].players.append(self.player2)
-                self.team[1].players_ordered_dist_to_ball.append(self.player2)
-        else:
-            if (nbr_players_human_teamB>0):
-                self.player1 = Player_Human(self.team[1],random.randint(1, nbr_heads),[0, 0, 0],self.field.half_length,1,"data/1.png") # Create player1
-                self.team[1].players.append(self.player1)
-                self.team[1].players_ordered_dist_to_ball.append(self.player1)
-            if (nbr_players_human_teamB>1):
-                self.player2 = Player_Human(self.team[1],random.randint(1, nbr_heads),[0, 0, 0],self.field.half_length,2,"data/2.png") # Create player2
-                self.team[1].players.append(self.player2)
-                self.team[1].players_ordered_dist_to_ball.append(self.player2)
         
+        human_players_teamA=[]
+        human_players_teamB=[]
+        if (nbr_players_human_teamA>0):
+            human_players_teamA.append( 1+len(human_players_teamA)+len(human_players_teamB) )
+        if (nbr_players_human_teamA>1):
+            human_players_teamA.append( 1+len(human_players_teamA)+len(human_players_teamB) )
+        if (nbr_players_human_teamB>0):
+            human_players_teamA.append( 1+len(human_players_teamA)+len(human_players_teamB) )
+        if (nbr_players_human_teamB>1):
+            human_players_teamA.append( 1+len(human_players_teamA)+len(human_players_teamB) )
+
+        self.team[-1]=Team(-1,self.field)
+        self.team[-1].read_xml("data/teamA.xml",nbr_players_teamA,human_players_teamA,self)
+        self.player_list+=self.team[-1].players
+        
+        self.team[1]=Team(1,self.field)
+        self.team[1].read_xml("data/teamB.xml",nbr_players_teamB,human_players_teamB,self)
         self.player_list+=self.team[1].players
         
         Match.snd_whistle.play()

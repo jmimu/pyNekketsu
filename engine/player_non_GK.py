@@ -27,8 +27,8 @@ from player import Player
 
 class Player_non_GK(Player):
     
-    def __init__(self, team, head,pos_init,field_half_length):
-        Player.__init__(self,team,head,pos_init,field_half_length)
+    def __init__(self, team):
+        Player.__init__(self,team)
         
     def update(self,match):
         #try to catch the ball 

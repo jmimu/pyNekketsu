@@ -30,8 +30,8 @@ from player import Player
 #always AI-controlled
 class Player_GK(Player):
     difficulty=2 #out of 10
-    def __init__(self, team, head,pos_init,field_half_length):
-        Player.__init__(self,team,head,pos_init,field_half_length)
+    def __init__(self, team):
+        Player.__init__(self,team)
         self.inputs=Inputs(0)
     def update(self,match):
         #try to catch the ball 

@@ -31,14 +31,15 @@ class Player(Sprite):
     snd_attack = pygame.mixer.Sound("data/sound/stk/parachute.wav")
     
     #  pos_init is "expanded" to the whole field with field_half_length
-    def __init__(self, team, head,pos_init,field_half_length):
+    def __init__(self, team):
         Sprite.__init__(self)
         self.team=team
         self.number_human_player=0
-
+        self.image=0#current image
         #player characteristics
         self.pos_ref=[]#reference position in west half field
         self.pos_aim=[]#in full field coords, (scaled depending on ball position) (not used by GK)
+        self.pos=[] #current position
         self.speed=1
         self.health=100
         self.max_energy=1000 #before speed decreases
@@ -51,12 +52,8 @@ class Player(Sprite):
         self.agressivity=1 
         self.precision=1 #for GK and pass
         self.listening=1 #when asked for pass (max:2)
-
-        self.pos_ref[:]=pos_init[:]
-        self.pos_aim[:]=self.pos_ref[:]
-
+        
         self.inputs=0 #class Inputs, constructor differs if Player_CPU or Player_Human
-        self.pos[:]=pos_init[:]#[random.randint(-80, 80),random.randint(-40, 40),2]
         self.anim_index=0
         self.direction=1# +1: right, -1: left
         self.state="walk"
@@ -67,23 +64,50 @@ class Player(Sprite):
         self.energy=self.max_energy
 
         self.anim={}#dictionnary for left and right
+        
+    def read_xml(self,player_node,field):
+        self.name=player_node.getElementsByTagName('name')[0].childNodes[0].data
+        self.head_number=int(player_node.getElementsByTagName('head_number')[0].childNodes[0].data)
+        #init pos are given in % of field size in xml file
+        x_ini=float(player_node.getElementsByTagName('init_pos')[0].getElementsByTagName('x')[0].childNodes[0].data)
+        y_ini=float(player_node.getElementsByTagName('init_pos')[0].getElementsByTagName('y')[0].childNodes[0].data)
+        #print("Found a player: ",self.name,x_ini,y_ini)
+        self.speed=float(player_node.getElementsByTagName('speed')[0].childNodes[0].data)
+        self.health=float(player_node.getElementsByTagName('health')[0].childNodes[0].data)
+        self.max_energy=float(player_node.getElementsByTagName('max_energy')[0].childNodes[0].data)
+        self.resistance=float(player_node.getElementsByTagName('resistance')[0].childNodes[0].data)
+        self.control=float(player_node.getElementsByTagName('control')[0].childNodes[0].data)
+        self.kick=float(player_node.getElementsByTagName('kick')[0].childNodes[0].data)
+        self.punch=float(player_node.getElementsByTagName('punch')[0].childNodes[0].data)
+        self.jump_hight=float(player_node.getElementsByTagName('jump_hight')[0].childNodes[0].data) 
+        self.agressivity=float(player_node.getElementsByTagName('agressivity')[0].childNodes[0].data)
+        self.precision=float(player_node.getElementsByTagName('precision')[0].childNodes[0].data)
+        self.listening=float(player_node.getElementsByTagName('listening')[0].childNodes[0].data)
+        
+        x_ini=-((x_ini-100)/100.0*field.half_length)
+        y_ini=(y_ini-50)/100.0*field.half_width
+        self.pos_ref=[x_ini,y_ini,field.z]
+        self.pos_aim=[x_ini,y_ini,field.z]
+        self.pos=[self.team.wing*x_ini,y_ini,field.z]
+        
+        #now we can load pictures
         self.anim[1]={} #dictionnary of all animation looking to the right
         self.anim[1]["walk"]=[]
-        self.anim[1]["walk"].append(compileimage(self.team.number,"walk_A.png",head,"normal.png",(2,0)))
-        self.anim[1]["walk"].append(compileimage(self.team.number,"walk_B.png",head,"normal.png",(2,0)))
-        self.anim[1]["walk"].append(compileimage(self.team.number,"walk_C.png",head,"normal.png",(2,0)))
-        self.anim[1]["walk"].append(compileimage(self.team.number,"walk_D.png",head,"normal.png",(2,0)))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_A.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_B.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_C.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_D.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["jump"]=[]
-        self.anim[1]["jump"].append(compileimage(self.team.number,"jump_A.png",head,"normal.png",(2,0)))
-        self.anim[1]["jump"].append(compileimage(self.team.number,"jump_A.png",head,"normal.png",(2,0)))
+        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["shoot"]=[]
-        self.anim[1]["shoot"].append(compileimage(self.team.number,"shoot_A.png",head,"back.png",(14,0)))
-        self.anim[1]["shoot"].append(compileimage(self.team.number,"shoot_B.png",head,"normal.png",(6,1)))
-        self.anim[1]["shoot"].append(compileimage(self.team.number,"shoot_C.png",head,"normal.png",(6,0)))
+        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_A.png",self.head_number,"back.png",(14,0)))
+        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_B.png",self.head_number,"normal.png",(6,1)))
+        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_C.png",self.head_number,"normal.png",(6,0)))
         self.anim[1]["attack"]=[]
-        self.anim[1]["attack"].append(compileimage(self.team.number,"attack_A.png",head,"angry.png",(9,1)))
+        self.anim[1]["attack"].append(compileimage(self.team.body_number,"attack_A.png",self.head_number,"angry.png",(9,1)))
         self.anim[1]["hurt"]=[]
-        self.anim[1]["hurt"].append(compileimage(self.team.number,"hurt_A.png",head,"hurt.png",(1,1)))
+        self.anim[1]["hurt"].append(compileimage(self.team.body_number,"hurt_A.png",self.head_number,"hurt.png",(1,1)))
         
         #flip all anims to look left
         self.anim[-1]={}
@@ -92,10 +116,9 @@ class Player(Sprite):
             for img in self.anim[1][key]:
                 self.anim[-1][key].append(pygame.transform.flip(img, 1, 0))
         
-        
         self.image = self.anim[self.direction][self.state][int(self.anim_index)] #this is how we get the current picture
         
-        
+
     def update(self,match):
         self.handle_inputs(match)
 
