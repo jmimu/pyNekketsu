@@ -1,8 +1,8 @@
 
 <team>
-  <name>Aah</name>
-  <body_number>1</body_number>
-  <img>data/teamA.png</img>
+  <name>Beuu</name>
+  <body_number>2</body_number>
+  <img>data/teams/teamB.png</img>
   <players>
     <playerGK>
       <name>P1</name>

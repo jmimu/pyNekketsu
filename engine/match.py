@@ -41,6 +41,7 @@ class Match(object):
         Player_GK.difficulty=difficulty
 
         self.goal_image=pygame.image.load("data/goal.png")
+        self.clock_image=pygame.image.load("data/clock.png")
         self.goaldrawing_time=0
         self.is_finished=False
         
@@ -65,11 +66,11 @@ class Match(object):
             human_players_teamA.append( 1+len(human_players_teamA)+len(human_players_teamB) )
 
         self.team[-1]=Team(-1,self.field)
-        self.team[-1].read_xml("data/teamA.xml",nbr_players_teamA,human_players_teamA,self)
+        self.team[-1].read_xml("data/teams/teamA.xml",nbr_players_teamA,human_players_teamA,self)
         self.player_list+=self.team[-1].players
         
         self.team[1]=Team(1,self.field)
-        self.team[1].read_xml("data/teamB.xml",nbr_players_teamB,human_players_teamB,self)
+        self.team[1].read_xml("data/teams/teamB.xml",nbr_players_teamB,human_players_teamB,self)
         self.player_list+=self.team[1].players
         
         Match.snd_whistle.play()
@@ -146,5 +147,17 @@ class Match(object):
             ren = font.render("to continue...")
             surface.blit(ren, (64, 56))
         else:
-            ren = font.render("Score: "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals)+"       TIME: "+str(int(self.match_time)))
+            #had to force number of digits for time and nb goals
+            ren = font.render("                 "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals)+"     "+str(int(self.match_time)))
             surface.blit(ren, (8, 8))
+            surface.blit(self.team[-1].image, (120,2))
+            surface.blit(self.team[1].image, (188,2))
+            surface.blit(self.clock_image, (240,2))
+            
+            surface.blit(self.ball.image, (2,4))
+            if (self.ball.owner != 0):
+                surface.blit(self.team[self.ball.owner.team.wing].image, (20,2))
+                ren = font.render(self.ball.owner.name)
+                surface.blit(ren, (36, 8))
+            
+            
