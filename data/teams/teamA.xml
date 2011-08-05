@@ -1,11 +1,11 @@
 
 <team>
-  <name>Aah</name>
-  <body_number>1</body_number>
-  <img>data/teams/teamA.png</img>
+  <name>Iris</name>
+  <body_number>3</body_number>
+  <img>data/teams/iris.png</img>
   <players>
     <playerGK>
-      <name>P1</name>
+      <name>Latifolia</name>
       <head_number>1</head_number>
       <init_pos>
         <x>5</x>
@@ -24,7 +24,7 @@
       <listening>1</listening>
     </playerGK>
     <player>
-      <name>P2</name>
+      <name>Sofaran</name>
       <head_number>2</head_number>
       <init_pos>
         <x>80</x>
@@ -43,7 +43,7 @@
       <listening>1</listening>
     </player>
     <player>
-      <name>P3</name>
+      <name>Sibirica</name>
       <head_number>3</head_number>
       <init_pos>
         <x>50</x>
@@ -62,7 +62,7 @@
       <listening>1</listening>
     </player>
     <player>
-      <name>P4</name>
+      <name>Orjenii</name>
       <head_number>4</head_number>
       <init_pos>
         <x>30</x>

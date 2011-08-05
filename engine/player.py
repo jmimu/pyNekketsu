@@ -97,6 +97,8 @@ class Player(Sprite):
         self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_B.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_C.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_D.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_E.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_F.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["jump"]=[]
         self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(2,0)))
@@ -172,7 +174,7 @@ class Player(Sprite):
     
     def draw(self,surface,camera,is_shadow=True):
         Sprite.draw(self,surface,camera,is_shadow)
-        surface.blit(self.team.image, camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*3))
+        #surface.blit(self.team.image, camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*3))
     
     def shoot(self,match):
         if (match.ball.owner==0) or (self.has_ball==0):
