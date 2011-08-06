@@ -1,3 +1,6 @@
+ - draw head on top
+
+
  - make IA avoid GK
  - improve GK jump time (depending on ball speed?)
  - change difficulty : shrink team charateristics

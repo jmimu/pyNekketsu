@@ -99,6 +99,7 @@ class Player(Sprite):
         self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_D.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_E.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_F.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_G.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["jump"]=[]
         self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(2,0)))
@@ -325,7 +326,7 @@ class Player(Sprite):
                 if self.inputs.D:
                     self.pos[1] -= self.speed
             if (self.inputs.L or self.inputs.R or self.inputs.U or self.inputs.D):
-                self.anim_index += 0.2
+                self.anim_index += 0.3
             # Jump if the player presses the C button
             if (self.inputs.C and self.pos[2] == 0):
                 self.jump_speed = 2.5*self.jump_hight

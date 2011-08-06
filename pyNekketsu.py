@@ -32,7 +32,7 @@ from retrogamelib import display
 from retrogamelib import font
 from retrogamelib.constants import *
 
-display.init(scale=2.0, caption="pyNekketsu", res=NESRES)
+display.init(scale=4.0, caption="pyNekketsu", res=NESRES)
 
 pygame.mixer.pre_init(22050,8,1,1024)
 
