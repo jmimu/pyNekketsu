@@ -46,8 +46,8 @@ def compileimage(which_team,body_img,which_head,head_img,head_pos):
 
     #total_surface=pygame.Surface(body_image.get_rect()[2:4]) #create a surface as big as the body image
     total_surface=body_image.copy() #create a surface as big as the body image
-    total_surface.blit(head_image,head_pos)
     total_surface.blit(body_image,(0,0))
+    total_surface.blit(head_image,head_pos)
 
     return total_surface
 

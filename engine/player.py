@@ -62,6 +62,7 @@ class Player(Sprite):
         
         self.jump_speed = 0
         self.energy=self.max_energy
+        self.current_shoot_speed=[0,0,0]#where the ball will go when preshoot is finished
 
         self.anim={}#dictionnary for left and right
         
@@ -102,15 +103,16 @@ class Player(Sprite):
         self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_G.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["jump"]=[]
         self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(2,0)))
-        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_B.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["preshoot"]=[]
+        self.anim[1]["preshoot"].append(compileimage(self.team.body_number,"shoot_A.png",self.head_number,"back.png",(11,0)))
         self.anim[1]["shoot"]=[]
-        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_A.png",self.head_number,"back.png",(14,0)))
-        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_B.png",self.head_number,"normal.png",(6,1)))
-        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_C.png",self.head_number,"normal.png",(6,0)))
+        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_B.png",self.head_number,"normal.png",(4,1)))
+        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_C.png",self.head_number,"normal.png",(3,1)))
         self.anim[1]["attack"]=[]
         self.anim[1]["attack"].append(compileimage(self.team.body_number,"attack_A.png",self.head_number,"angry.png",(9,1)))
         self.anim[1]["hurt"]=[]
-        self.anim[1]["hurt"].append(compileimage(self.team.body_number,"hurt_A.png",self.head_number,"hurt.png",(1,1)))
+        self.anim[1]["hurt"].append(compileimage(self.team.body_number,"hurt_A.png",self.head_number,"hurt.png",(0,1)))
         
         #flip all anims to look left
         self.anim[-1]={}
@@ -143,6 +145,13 @@ class Player(Sprite):
             self.state="jump"
             self.anim_index=1
 
+        
+        if (self.state=="preshoot"):
+            self.anim_index += 0.2
+            if (self.anim_index>=len(self.anim[self.direction][self.state])):
+                self.anim_index=0
+                self.shoot(match)
+ 
         if (self.state=="shoot"):
             self.anim_index += 0.2
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
@@ -176,7 +185,21 @@ class Player(Sprite):
     def draw(self,surface,camera,is_shadow=True):
         Sprite.draw(self,surface,camera,is_shadow)
         #surface.blit(self.team.image, camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*3))
-    
+ 
+    def preshoot(self,match):
+        if (match.ball.owner==0) or (self.has_ball==0):
+            print("Error on preshoot!")
+            match.ball.owner=0
+            self.has_ball=0
+            return
+
+        self.state="preshoot"
+        self.anim_index=0
+
+        self.current_shoot_speed[0]=int(self.inputs.R)*4*self.kick - int(self.inputs.L)*4*self.kick + 8*self.direction*self.kick
+        self.current_shoot_speed[1]=int(self.inputs.U)*8*self.kick - int(self.inputs.D)*8*self.kick
+        self.current_shoot_speed[2]=8-int(self.inputs.R)*4 - int(self.inputs.L)*4
+   
     def shoot(self,match):
         if (match.ball.owner==0) or (self.has_ball==0):
             print("Error on shoot!")
@@ -187,9 +210,9 @@ class Player(Sprite):
         self.state="shoot"
         self.anim_index=0
 
-        match.ball.speed[0]=int(self.inputs.R)*4*self.kick - int(self.inputs.L)*4*self.kick + 8*self.direction*self.kick
-        match.ball.speed[1]=int(self.inputs.U)*8*self.kick - int(self.inputs.D)*8*self.kick
-        match.ball.speed[2]=8-int(self.inputs.R)*4 - int(self.inputs.L)*4
+        match.ball.speed[0]=self.current_shoot_speed[0];
+        match.ball.speed[1]=self.current_shoot_speed[1];
+        match.ball.speed[2]=self.current_shoot_speed[2];
 
         match.ball.owner=0
         self.has_ball=0
@@ -198,7 +221,7 @@ class Player(Sprite):
 
     def pass_ball(self,match):
         if (match.ball.owner==0) or (self.has_ball==0):
-            print("Error on shoot!")
+            print("Error on pass_ball!")
             match.ball.owner=0
             self.has_ball=0
             return
@@ -338,7 +361,7 @@ class Player(Sprite):
                     self.attack(match)
             if (self.inputs.B):
                 if (self.has_ball!=0):
-                    self.shoot(match)
+                    self.preshoot(match)
             if (self.inputs.A):
                 if (self.has_ball!=0):
                     self.pass_ball(match)
