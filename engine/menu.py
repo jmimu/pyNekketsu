@@ -76,20 +76,20 @@ def call_a_menu(menu,default_option,info,display,font,mainClock):
     while 1:
         mainClock.tick(30)
         Inputs.readkeys()#read all the actual keys
-        if (Inputs.player1_Esc or Inputs.player2_Esc):
+        if (Inputs.player_Esc[1] or Inputs.player_Esc[2]):
             pygame.quit()
             sys.exit()
         # Move the menu cursor if you press up or down    
-        if Inputs.player1_just_U:
+        if Inputs.player_just_U[1]:
             menu.move_cursor(-1)
-        if Inputs.player1_just_D:
+        if Inputs.player_just_D[1]:
             menu.move_cursor(1)
         # If you press A, check which option you're on!
-        if Inputs.player1_just_A:
+        if Inputs.player_just_A[1]:
             option, text = menu.get_option()
             return option, text
         # If you press B, cancel 
-        if Inputs.player1_just_B:
+        if Inputs.player_just_B[1]:
             return -1, ""
         
         # Get the surface from the NES game library

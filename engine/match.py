@@ -46,7 +46,7 @@ class Match(object):
         self.is_finished=False
         
         self.match_time=length
-        self.human_players=[0,0] #max two players
+        self.human_players=[-1,0,0] #max two players, player num 0 does not exist
         self.pause=False
         self.cam=Camera()
         self.field=Field()
@@ -78,7 +78,7 @@ class Match(object):
     
     def update(self):
         Inputs.readkeys()#read all the actual keys
-        if (Inputs.player1_just_Start or Inputs.player2_just_Start):
+        if (Inputs.player_just_Start[1] or Inputs.player_just_Start[2]):
             self.pause=not self.pause
             if (self.match_time<=0):
                 self.is_finished=True

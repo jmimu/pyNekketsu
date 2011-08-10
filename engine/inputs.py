@@ -25,43 +25,24 @@ from pygame.locals import *
 #To handle key up, keydown and joystick
 
 class Inputs():
-    player1_R=False
-    player1_L=False
-    player1_U=False
-    player1_D=False
-    player1_A=False
-    player1_B=False
-    player1_C=False
-    player1_Esc=False
-    player1_Start=False
-    player2_R=False
-    player2_L=False
-    player2_U=False
-    player2_D=False
-    player2_A=False
-    player2_B=False
-    player2_C=False
-    player2_Esc=False
-    player2_Start=False
- 
-    player1_just_R=False
-    player1_just_L=False
-    player1_just_U=False
-    player1_just_D=False
-    player1_just_A=False
-    player1_just_B=False
-    player1_just_C=False
-    player1_just_Esc=False
-    player1_just_Start=False
-    player2_just_R=False
-    player2_just_L=False
-    player2_just_U=False
-    player2_just_D=False
-    player2_just_A=False
-    player2_just_B=False
-    player2_just_C=False
-    player2_just_Esc=False
-    player2_just_Start=False
+    player_R=[-1,False,False]
+    player_L=[-1,False,False]
+    player_U=[-1,False,False]
+    player_D=[-1,False,False]
+    player_A=[-1,False,False]
+    player_B=[-1,False,False]
+    player_C=[-1,False,False]
+    player_Esc=[-1,False,False]
+    player_Start=[-1,False,False]
+    player_just_R=[-1,False,False]
+    player_just_L=[-1,False,False]
+    player_just_U=[-1,False,False]
+    player_just_D=[-1,False,False]
+    player_just_A=[-1,False,False]
+    player_just_B=[-1,False,False]
+    player_just_C=[-1,False,False]
+    player_just_Esc=[-1,False,False]
+    player_just_Start=[-1,False,False]
     
     def __init__(self, num_player_human=0):#num_player_human: to handle key configs (0=CPU)
         self.num_player_human=num_player_human
@@ -79,24 +60,17 @@ class Inputs():
     @classmethod
     #search for the point, or create it
     def readkeys(cls):
-        cls.player1_just_R=False
-        cls.player1_just_L=False
-        cls.player1_just_U=False
-        cls.player1_just_D=False
-        cls.player1_just_A=False
-        cls.player1_just_B=False
-        cls.player1_just_C=False
-        cls.player1_just_Esc=False
-        cls.player1_just_Start=False
-        cls.player2_just_R=False
-        cls.player2_just_L=False
-        cls.player2_just_U=False
-        cls.player2_just_D=False
-        cls.player2_just_A=False
-        cls.player2_just_B=False
-        cls.player2_just_C=False
-        cls.player2_just_Esc=False
-        cls.player2_just_Start=False
+        for i in range(1,3):
+            cls.player_just_R[i]=False
+            cls.player_just_L[i]=False
+            cls.player_just_U[i]=False
+            cls.player_just_D[i]=False
+            cls.player_just_A[i]=False
+            cls.player_just_B[i]=False
+            cls.player_just_C[i]=False
+            cls.player_just_Esc[i]=False
+            cls.player_just_Start[i]=False
+        
         # check for events
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -104,137 +78,137 @@ class Inputs():
                 sys.exit()
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-		    if (not cls.player1_Esc):
-                        cls.player1_just_Esc=True
-                    cls.player1_Esc = True
+                    if (not cls.player_Esc[1]):
+                        cls.player_just_Esc[1]=True
+                    cls.player_Esc[1] = True
                 if event.key == K_LEFT:
-		    if (not cls.player1_L):
-                        cls.player1_just_L=True
-                    cls.player1_L = True
+                    if (not cls.player_L[1]):
+                        cls.player_just_L[1]=True
+                    cls.player_L[1] = True
                 if event.key == K_RIGHT:
-		    if (not cls.player1_R):
-                        cls.player1_just_R=True
-                    cls.player1_R = True
+                    if (not cls.player_R[1]):
+                        cls.player_just_R[1]=True
+                    cls.player_R[1] = True
                 if event.key == K_UP:
-		    if (not cls.player1_U):
-                        cls.player1_just_U=True
-                    cls.player1_U = True
+                    if (not cls.player_U[1]):
+                        cls.player_just_U[1]=True
+                    cls.player_U[1] = True
                 if event.key == K_DOWN:
-		    if (not cls.player1_D):
-                        cls.player1_just_D=True
-                    cls.player1_D = True
+                    if (not cls.player_D[1]):
+                        cls.player_just_D[1]=True
+                    cls.player_D[1] = True
                 if event.key == ord('k'):
-		    if (not cls.player1_B):
-                        cls.player1_just_B=True
-                    cls.player1_B = True
+                    if (not cls.player_B[1]):
+                        cls.player_just_B[1]=True
+                    cls.player_B[1] = True
                 if event.key == ord('l'):
-		    if (not cls.player1_A):
-                        cls.player1_just_A=True
-                    cls.player1_A = True
+                    if (not cls.player_A[1]):
+                        cls.player_just_A[1]=True
+                    cls.player_A[1] = True
                 if event.key == ord('m'):
-		    if (not cls.player1_C):
-                        cls.player1_just_C=True
-                    cls.player1_C = True
+                    if (not cls.player_C[1]):
+                        cls.player_just_C[1]=True
+                    cls.player_C[1] = True
                 if event.key == ord('p'):
-		    if (not cls.player1_Start):
-                        cls.player1_just_Start=True
-                    cls.player1_Start = True
+                    if (not cls.player_Start[1]):
+                        cls.player_just_Start[1]=True
+                    cls.player_Start[1] = True
                 if event.key == K_ESCAPE:
-		    if (not cls.player2_Esc):
-                        cls.player2_just_Esc=True
-                    cls.player2_Esc = True
+                    if (not cls.player_Esc[2]):   
+                        cls.player_just_Esc[2]=True
+                    cls.player_Esc[2] = True
                 if event.key == ord('f'):
-		    if (not cls.player2_L):
-                        cls.player2_just_L=True
-                    cls.player2_L = True
+                    if (not cls.player_L[2]):   
+                        cls.player_just_L[2]=True
+                    cls.player_L[2] = True
                 if event.key == ord('h'):
-		    if (not cls.player2_R):
-                        cls.player2_just_R=True
-                    cls.player2_R = True
+                    if (not cls.player_R[2]):   
+                        cls.player_just_R[2]=True
+                    cls.player_R[2] = True
                 if event.key == ord('t'):
-		    if (not cls.player2_U):
-                        cls.player2_just_U=True
-                    cls.player2_U = True
+                    if (not cls.player_U[2]):   
+                        cls.player_just_U[2]=True
+                    cls.player_U[2] = True
                 if event.key == ord('g'):
-		    if (not cls.player2_D):
-                        cls.player2_just_D=True
-                    cls.player2_D = True
+                    if (not cls.player_D[2]):   
+                        cls.player_just_D[2]=True
+                    cls.player_D[2] = True
                 if event.key == ord('a'):
-		    if (not cls.player2_B):
-                        cls.player2_just_B=True
-                    cls.player2_B = True
+                    if (not cls.player_B[2]):   
+                        cls.player_just_B[2]=True
+                    cls.player_B[2] = True
                 if event.key == ord('z'):
-		    if (not cls.player2_A):
-                        cls.player2_just_A=True
-                    cls.player2_A = True
+                    if (not cls.player_A[2]):   
+                        cls.player_just_A[2]=True
+                    cls.player_A[2] = True
                 if event.key == ord('e'):
-		    if (not cls.player2_C):
-                        cls.player2_just_C=True
-                    cls.player2_C = True
+                    if (not cls.player_C[2]):   
+                        cls.player_just_C[2]=True
+                    cls.player_C[2] = True
                 if event.key == ord('r'):
-		    if (not cls.player2_Start):
-                        cls.player2_just_Start=True
-                    cls.player2_Start = True
+                    if (not cls.player_Start[2]):   
+                        cls.player_just_Start[2]=True
+                    cls.player_Start[2] = True
             if event.type == KEYUP:
                 if event.key == K_ESCAPE:
-                    cls.player1_Esc = False
+                    cls.player_Esc[1] = False
                 if event.key == K_LEFT:
-                    cls.player1_L = False
+                    cls.player_L[1] = False
                 if event.key == K_RIGHT:
-                    cls.player1_R = False
+                    cls.player_R[1] = False
                 if event.key == K_UP:
-                    cls.player1_U = False
+                    cls.player_U[1] = False
                 if event.key == K_DOWN:
-                    cls.player1_D = False
+                    cls.player_D[1] = False
                 if event.key == ord('k'):
-                    cls.player1_B = False
+                    cls.player_B[1] = False
                 if event.key == ord('l'):
-                    cls.player1_A = False
+                    cls.player_A[1] = False
                 if event.key == ord('m'):
-                    cls.player1_C = False
+                    cls.player_C[1] = False
                 if event.key == ord('p'):
-                    cls.player1_Start = False
+                    cls.player_Start[1] = False
                 if event.key == K_ESCAPE:
-                    cls.player2_Esc = False
+                    cls.player_Esc[2] = False
                 if event.key == ord('f'):
-                    cls.player2_L = False
+                    cls.player_L[2] = False
                 if event.key == ord('h'):
-                    cls.player2_R = False
+                    cls.player_R[2] = False
                 if event.key == ord('t'):
-                    cls.player2_U = False
+                    cls.player_U[2] = False
                 if event.key == ord('g'):
-                    cls.player2_D = False
+                    cls.player_D[2] = False
                 if event.key == ord('a'):
-                    cls.player2_B = False
+                    cls.player_B[2] = False
                 if event.key == ord('z'):
-                    cls.player2_A = False
+                    cls.player_A[2] = False
                 if event.key == ord('e'):
-                    cls.player2_C = False
+                    cls.player_C[2] = False
                 if event.key == ord('r'):
-                    cls.player2_Start = False
+                    cls.player_Start[2] = False
 
 
     def update(self):#read corresponding key for human player, of just release keys for CPU
         if (self.num_player_human==1):#it won't work this way... have to hanlde all events at the same time, instead they are lost (won't work with 2 players)
-            self.R=Inputs.player1_R
-            self.L=Inputs.player1_L
-            self.U=Inputs.player1_U
-            self.D=Inputs.player1_D
-            self.A=Inputs.player1_A
-            self.B=Inputs.player1_B
-            self.C=Inputs.player1_C
-            self.Esc=Inputs.player1_Esc
-            self.Start=Inputs.player1_Start
+            self.R=Inputs.player_R[1]
+            self.L=Inputs.player_L[1]
+            self.U=Inputs.player_U[1]
+            self.D=Inputs.player_D[1]
+            self.A=Inputs.player_A[1]
+            self.B=Inputs.player_B[1]
+            self.C=Inputs.player_C[1]
+            self.Esc=Inputs.player_Esc[1]
+            self.Start=Inputs.player_Start[1]
         if (self.num_player_human==2):#it won't work this way... have to hanlde all events at the same time, instead they are lost (won't work with 2 players)
-            self.R=Inputs.player2_R
-            self.L=Inputs.player2_L
-            self.U=Inputs.player2_U
-            self.D=Inputs.player2_D
-            self.A=Inputs.player2_A
-            self.B=Inputs.player2_B
-            self.C=Inputs.player2_C
-            self.Esc=Inputs.player2_Esc
-            self.Start=Inputs.player2_Start
+            self.R=Inputs.player_R[2]
+            self.L=Inputs.player_L[2]
+            self.U=Inputs.player_U[2]
+            self.D=Inputs.player_D[2]
+            self.A=Inputs.player_A[2]
+            self.B=Inputs.player_B[2]
+            self.C=Inputs.player_C[2]
+            self.Esc=Inputs.player_Esc[2]
+            self.Start=Inputs.player_Start[2]
                     
         if (self.num_player_human==0):#CPU: the inputs are trigged in PlayerCPU code
             self.R=False

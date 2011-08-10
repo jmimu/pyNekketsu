@@ -70,7 +70,6 @@ class Team(object):
             player_rank=player_rank+1
             self.players[-1].read_xml(player_node,match.field)
 
-        
         #add the other players
         for i in range(nb_players_total-len(human_players)):
             self.players.append(Player_CPU(self))
@@ -82,43 +81,26 @@ class Team(object):
 
     
     def update(self,match):
-        #if has to pass to player 1
-        if (match.human_players[0]!=0) and (match.human_players[0].team==self) and (Inputs.player1_just_A) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
-            if (random.random()<0.35*match.ball.owner.listening):
-                #aim to the player ?
-                match.ball.owner.inputs.A=True
-                match.ball.owner.inputs.U=False
-                match.ball.owner.inputs.D=False
-                match.ball.owner.inputs.L=False
-                match.ball.owner.inputs.R=False
-        if (match.human_players[1]!=0) and (match.human_players[1].team==self) and (Inputs.player2_just_A) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
-            if (random.random()<0.35*match.ball.owner.listening):
-                #aim to the player ?
-                match.ball.owner.inputs.A=True
-                match.ball.owner.inputs.U=False
-                match.ball.owner.inputs.D=False
-                match.ball.owner.inputs.L=False
-                match.ball.owner.inputs.R=False
+        for i in range(1,3):
+            #if has to pass to human player
+            if (match.human_players[i]!=0) and (match.human_players[i].team==self) and (Inputs.player_just_A[i]) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
+                if (random.random()<0.35*match.ball.owner.listening):
+                    #aim to the player ?
+                    match.ball.owner.inputs.A=True
+                    match.ball.owner.inputs.U=False
+                    match.ball.owner.inputs.D=False
+                    match.ball.owner.inputs.L=False
+                    match.ball.owner.inputs.R=False
 
-        #if AI player is asked to shoot
-        if (match.human_players[0]!=0) and (match.human_players[0].team==self) and (Inputs.player1_just_B) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
-            if (random.random()<0.35*match.ball.owner.listening):
-                #shoot in the direction P1 is aiming at
-                match.ball.owner.inputs.B=True
-                match.ball.owner.inputs.U=Inputs.player1_U
-                match.ball.owner.inputs.D=Inputs.player1_D
-                match.ball.owner.inputs.L=Inputs.player1_L
-                match.ball.owner.inputs.R=Inputs.player1_R
-        if (match.human_players[1]!=0) and (match.human_players[1].team==self) and (Inputs.player2_just_B) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
-            if (random.random()<0.35*match.ball.owner.listening):
-                #shoot in the direction P1 is aiming at
-                match.ball.owner.inputs.B=True
-                match.ball.owner.inputs.U=Inputs.player2_U
-                match.ball.owner.inputs.D=Inputs.player2_D
-                match.ball.owner.inputs.L=Inputs.player2_L
-                match.ball.owner.inputs.R=Inputs.player2_R
-
-
+            #if AI player is asked to shoot
+            if (match.human_players[i]!=0) and (match.human_players[i].team==self) and (Inputs.player_just_B[i]) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
+                if (random.random()<0.35*match.ball.owner.listening):
+                    #shoot in the direction P1 is aiming at
+                    match.ball.owner.inputs.B=True
+                    match.ball.owner.inputs.U=Inputs.player_U[i]
+                    match.ball.owner.inputs.D=Inputs.player_D[i]
+                    match.ball.owner.inputs.L=Inputs.player_L[i]
+                    match.ball.owner.inputs.R=Inputs.player_R[i]
 
 
         for p in self.players:

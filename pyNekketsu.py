@@ -32,7 +32,7 @@ from retrogamelib import display
 from retrogamelib import font
 from retrogamelib.constants import *
 
-display.init(scale=3, caption="pyNekketsu", res=NESRES)
+display.init(scale=2, caption="pyNekketsu", res=NESRES)
 
 pygame.mixer.pre_init(22050,8,1,1024)
 
@@ -62,7 +62,7 @@ while 1:
     while not match.is_finished:
         screen = display.get_surface()
         
-        if (Inputs.player1_Esc or Inputs.player2_Esc):
+        if (Inputs.player_Esc[1] or Inputs.player_Esc[2]):
             match.is_finished=True
         
         match.update()
