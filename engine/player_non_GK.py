@@ -32,7 +32,7 @@ class Player_non_GK(Player):
         
     def update(self,match):
         #try to catch the ball 
-        if (self.state=="walk") and (match.ball.owner==0):
+        if (self.state=="walk") and ((match.ball.owner==0)or(match.ball.owner.state=="preshoot")):
             if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
                 and (abs(match.ball.pos[1]-self.pos[1])<5)  \
                 and ((match.ball.pos[2]-self.pos[2])<7): #Z

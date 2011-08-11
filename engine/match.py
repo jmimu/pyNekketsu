@@ -126,12 +126,12 @@ class Match(object):
 
         if (self.pause):
             ren = font.render(" --- PAUSE --- ")
-            surface.blit(ren, (8, 16))
+            surface.blit(ren, (8, 32))
 
         if (self.match_time<=0):
             self.match_time=-1
-            ren = font.render("Score: "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals))
-            surface.blit(ren, (8, 8))
+            #ren = font.render("Score: "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals))
+            #surface.blit(ren, (8, 8))
             winner_name=self.team[-1].name
             if (self.team[-1].nb_goals<self.team[1].nb_goals):
                 winner_name=self.team[1].name
@@ -139,25 +139,26 @@ class Match(object):
                 ren = font.render(winner_name+" won!")
             else:
                 ren = font.render("Draw")
-            surface.blit(ren, (32, 32))
+            surface.blit(ren, (32, 8))
             
             ren = font.render("Press Start (P or R)")
-            surface.blit(ren, (32, 48))
+            surface.blit(ren, (32, 24))
 
             ren = font.render("to continue...")
-            surface.blit(ren, (64, 56))
+            surface.blit(ren, (64, 32))
         else:
-            #had to force number of digits for time and nb goals
-            ren = font.render("                 "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals)+"     "+str(int(self.match_time)))
-            surface.blit(ren, (8, 8))
-            surface.blit(self.team[-1].image, (120,2))
-            surface.blit(self.team[1].image, (188,2))
-            surface.blit(self.clock_image, (240,2))
-            
             surface.blit(self.ball.image, (2,4))
             if (self.ball.owner != 0):
                 surface.blit(self.team[self.ball.owner.team.wing].image, (20,2))
                 ren = font.render(self.ball.owner.name)
                 surface.blit(ren, (36, 8))
-            
-            
+        
+
+        #had to force number of digits for time and nb goals
+        ren = font.render("                 "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals)+"     "+str(max(int(self.match_time),0)))
+        surface.blit(ren, (8, 8))
+        surface.blit(self.team[-1].image, (120,2))
+        surface.blit(self.team[1].image, (188,2))
+        surface.blit(self.clock_image, (240,2))
+        
+                    

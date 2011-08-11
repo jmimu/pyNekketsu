@@ -1,8 +1,4 @@
- - add teams icons in end game message too
-
- - change something if key pressed during "preshoot" state
  - be able to loose ball during preshoot ?
-
 
  - make IA avoid GK
  - improve GK jump time (depending on ball speed?)
@@ -20,3 +16,8 @@ Retrogamelib bugs :
  - menu size
  - dialog progress too soon
 
+
+Doc :
+ - possible to take the ball when someone is goint to shoot
+ - you can ask your teamate to pass the ball to the closest player of your team
+ - you can ask your teamate to shoot, in the direction you give
