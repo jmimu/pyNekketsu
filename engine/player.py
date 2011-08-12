@@ -102,7 +102,7 @@ class Player(Sprite):
         self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_F.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_G.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["jump"]=[]
-        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(6,-1)))
         self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_B.png",self.head_number,"normal.png",(2,0)))
         self.anim[1]["preshoot"]=[]
         self.anim[1]["preshoot"].append(compileimage(self.team.body_number,"shoot_A.png",self.head_number,"back.png",(11,0)))
@@ -188,9 +188,11 @@ class Player(Sprite):
  
     def preshoot(self,match):
         if (match.ball.owner==0) or (self.has_ball==0):
-            print("Error on preshoot!")
+            #print("Error on preshoot!")
             match.ball.owner=0
             self.has_ball=0
+            self.state="preshoot"
+            self.anim_index=0
             return
 
         self.state="preshoot"
@@ -201,10 +203,13 @@ class Player(Sprite):
         self.current_shoot_speed[2]=8-int(self.inputs.R)*4 - int(self.inputs.L)*4
    
     def shoot(self,match):
+        print("Shoot!")
         if (match.ball.owner==0) or (self.has_ball==0):
-            print("Error on shoot!")
+            #print("Error on shoot!")
             match.ball.owner=0
             self.has_ball=0
+            self.state="shoot"
+            self.anim_index=0
             return
 
         self.state="shoot"

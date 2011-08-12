@@ -1,4 +1,4 @@
- - be able to loose ball during preshoot ?
+ - IA : do not shoot high when close to the goal
 
  - make IA avoid GK
  - improve GK jump time (depending on ball speed?)
@@ -11,6 +11,8 @@
  - be able to change key config and stop sound
 
  - choose teams and fields (described in xml files)
+
+ - add team info (organization, charactesirtics)
 
 Retrogamelib bugs :
  - menu size

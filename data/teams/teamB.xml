@@ -1,11 +1,11 @@
 
 <team>
-  <name>Beuu</name>
+  <name>Taraxacum</name>
   <body_number>3</body_number>
-  <img>data/teams/teamB.png</img>
+  <img>data/teams/Taraxacum.png</img>
   <players>
     <playerGK>
-      <name>P1</name>
+      <name>Pissenlit</name>
       <head_number>1</head_number>
       <init_pos>
         <x>5</x>
@@ -24,13 +24,13 @@
       <listening>1</listening>
     </playerGK>
     <player>
-      <name>P2</name>
-      <head_number>2</head_number>
+      <name>Cramia</name>
+      <head_number>4</head_number>
       <init_pos>
-        <x>80</x>
-        <y>40</y>
+        <x>90</x>
+        <y>35</y>
       </init_pos>
-      <speed>1</speed>
+      <speed>1.1</speed>
       <health>100</health>
       <max_energy>1000</max_energy>
       <resistance>1</resistance>
@@ -43,7 +43,7 @@
       <listening>1</listening>
     </player>
     <player>
-      <name>P3</name>
+      <name>Baraban</name>
       <head_number>3</head_number>
       <init_pos>
         <x>50</x>
@@ -62,8 +62,27 @@
       <listening>1</listening>
     </player>
     <player>
-      <name>P4</name>
+      <name>Cramiat</name>
       <head_number>4</head_number>
+      <init_pos>
+        <x>90</x>
+        <y>65</y>
+      </init_pos>
+      <speed>1.1</speed>
+      <health>100</health>
+      <max_energy>1000</max_energy>
+      <resistance>1</resistance>
+      <control>1</control>
+      <kick>1</kick>
+      <punch>1</punch>
+      <jump_hight>1</jump_hight>
+      <agressivity>1</agressivity>
+      <precision>1</precision>
+      <listening>1</listening>
+    </player>
+    <player>
+      <name>Cochet</name>
+      <head_number>3</head_number>
       <init_pos>
         <x>30</x>
         <y>40</y>
@@ -80,5 +99,5 @@
       <precision>1</precision>
       <listening>1</listening>
     </player>
-  </players>
+ </players>
 </team>
