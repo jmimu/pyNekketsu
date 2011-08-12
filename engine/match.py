@@ -48,8 +48,8 @@ class Match(object):
         self.match_time=length
         self.human_players=[-1,0,0] #max two players, player num 0 does not exist
         self.pause=False
-        self.cam=Camera()
         self.field=Field()
+        self.cam=Camera(self.field)
         self.ball=Ball()
         self.player_list=[]
         self.team={}#

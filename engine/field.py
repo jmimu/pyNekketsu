@@ -33,10 +33,10 @@ class Field():
         self.goal_height={}
         self.goal_latitude={}
         
-        self.goal_half_width[-1]=20#west goal
+        self.goal_half_width[-1]=22#west goal
         self.goal_height[-1]=15
         self.goal_latitude[-1]=0#where the goal center is inside field width
-        self.goal_half_width[1]=20#east goal
+        self.goal_half_width[1]=22#east goal
         self.goal_height[1]=15
         self.goal_latitude[1]=0#where the goal center is inside field width
         self.bounce_damp=0.6#1=perfect

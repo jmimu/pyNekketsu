@@ -1,10 +1,7 @@
- - IA : do not shoot high when close to the goal
-
- - make IA avoid GK
  - improve GK jump time (depending on ball speed?)
  - change difficulty : shrink team charateristics
  - make players able to fall
- - use health and endurance
+ - use health and endurance, and make stronger players avoid attacks
  - change ball hurting : only if ball is out of collision rectangle
  - change team.wing orientation ?
 

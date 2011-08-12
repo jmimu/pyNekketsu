@@ -203,7 +203,6 @@ class Player(Sprite):
         self.current_shoot_speed[2]=8-int(self.inputs.R)*4 - int(self.inputs.L)*4
    
     def shoot(self,match):
-        print("Shoot!")
         if (match.ball.owner==0) or (self.has_ball==0):
             #print("Error on shoot!")
             match.ball.owner=0

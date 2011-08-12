@@ -49,16 +49,29 @@ class Player_CPU(Player_non_GK):
                 self.inputs.R=True
             else:
                 self.inputs.L=True
-            if (match.field.goal_latitude[-self.team.wing]-10/self.precision>self.pos[1]) or (random.randint(0, 4)==0):
+            if (match.field.goal_latitude[-self.team.wing]-match.field.goal_half_width[-self.team.wing]*2.0/self.precision>self.pos[1]) or (random.randint(0, 4)==0):
                 self.inputs.U=True
-            if (match.field.goal_latitude[-self.team.wing]+10/self.precision<self.pos[1]) or (random.randint(0, 4)==0):
+            if (match.field.goal_latitude[-self.team.wing]+match.field.goal_half_width[-self.team.wing]*2.0/self.precision<self.pos[1]) or (random.randint(0, 4)==0):
                 self.inputs.D=True
+            #if (match.field.goal_latitude[-self.team.wing]-10/self.precision>self.pos[1]) or (random.randint(0, 4)==0):
+                #self.inputs.U=True
+            #if (match.field.goal_latitude[-self.team.wing]+10/self.precision<self.pos[1]) or (random.randint(0, 4)==0):
+                #self.inputs.D=True
             #shoot!
             #if (random.random()<(math.sqrt(50*abs(-self.team.wing*match.field.half_length-self.pos[0])))):#depends on the distance to the goal
             if (random.random()<(10/((abs(match.team[-self.team.wing].players[0].pos[0]-self.pos[0])-10)**2+1))):#depends on the distance to the goal keeper
                 self.inputs.B=True
                 self.inputs.L=False
                 self.inputs.R=False
+                if (match.field.goal_latitude[-self.team.wing]/self.precision>self.pos[1]) or (random.randint(0, 4)==0):
+                    self.inputs.U=True
+                if (match.field.goal_latitude[-self.team.wing]/self.precision<self.pos[1]) or (random.randint(0, 4)==0):
+                    self.inputs.D=True
+                if (abs(match.team[-self.team.wing].players[0].pos[0]-self.pos[0])<20*self.precision):
+                    if (self.team.wing==-1):
+                        self.inputs.R=True
+                    if (self.team.wing==1):
+                        self.inputs.L=True
         else:
             #move in ball direction (only if closest player of the team, or second if first has not the ball)
             if ((self.team.players_ordered_dist_to_ball[0]==self) or ((len(self.team.players)>2) \

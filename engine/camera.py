@@ -20,11 +20,13 @@
 import pygame,sys
 
 from pygame.locals import *
+from field import Field
 
 #to draw everything in field world, with a projection
 
 class Camera():
-    def __init__(self):
+    def __init__(self,field):
+        self.field=field #to have limitations
         self.x=0.0#camera position
         self.y=-100.0
         self.z=0.0
@@ -37,10 +39,10 @@ class Camera():
         self.x+=(ground_pos[0]+self.decal_to_target[0]-self.x)*speed/100.0
         self.y+=(ground_pos[1]+self.decal_to_target[1]-self.y)*speed/100.0
         self.z+=(ground_pos[2]+self.decal_to_target[2]-self.z)*speed/100.0
-        if (self.x<-80):
-            self.x=-80
-        if (self.x>80):
-            self.x=80
+        if (self.x<-self.field.half_length+20):
+            self.x=-self.field.half_length+20
+        if (self.x>self.field.half_length-20):
+            self.x=self.field.half_length-20
     def proj(self,ground_pos,sprite_w=0,sprite_h=0):#ground_pos is a 3D vector
         px=ground_pos[0]-self.x
         py=ground_pos[1]-self.y
