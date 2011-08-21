@@ -36,6 +36,10 @@ class Player(Sprite):
         self.team=team
         self.number_human_player=0
         self.image=0#current image
+        self.top_color=()
+        self.bottom_color=()
+        self.skin_color=()
+        
         #player characteristics
         self.pos_ref=[]#reference position in west half field
         self.pos_aim=[]#in full field coords, (scaled depending on ball position) (not used by GK)
@@ -72,6 +76,22 @@ class Player(Sprite):
         #init pos are given in % of field size in xml file
         x_ini=float(player_node.getElementsByTagName('init_pos')[0].getElementsByTagName('x')[0].childNodes[0].data)
         y_ini=float(player_node.getElementsByTagName('init_pos')[0].getElementsByTagName('y')[0].childNodes[0].data)
+        #colors:
+        r=g=b=128
+        r=int(player_node.getElementsByTagName('top_color')[0].getElementsByTagName('r')[0].childNodes[0].data)
+        g=int(player_node.getElementsByTagName('top_color')[0].getElementsByTagName('g')[0].childNodes[0].data)
+        b=int(player_node.getElementsByTagName('top_color')[0].getElementsByTagName('b')[0].childNodes[0].data)
+        self.top_color=(r,g,b)
+        r=int(player_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('r')[0].childNodes[0].data)
+        g=int(player_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('g')[0].childNodes[0].data)
+        b=int(player_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('b')[0].childNodes[0].data)
+        self.bottom_color=(r,g,b)
+        r=200
+        g=b=100
+        r=int(player_node.getElementsByTagName('skin_color')[0].getElementsByTagName('r')[0].childNodes[0].data)
+        g=int(player_node.getElementsByTagName('skin_color')[0].getElementsByTagName('g')[0].childNodes[0].data)
+        b=int(player_node.getElementsByTagName('skin_color')[0].getElementsByTagName('b')[0].childNodes[0].data)
+        self.skin_color=(r,g,b)
         #print("Found a player: ",self.name,x_ini,y_ini)
         self.speed=float(player_node.getElementsByTagName('speed')[0].childNodes[0].data)
         self.health=float(player_node.getElementsByTagName('health')[0].childNodes[0].data)
@@ -94,25 +114,25 @@ class Player(Sprite):
         #now we can load pictures
         self.anim[1]={} #dictionnary of all animation looking to the right
         self.anim[1]["walk"]=[]
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_A.png",self.head_number,"normal.png",(2,0)))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_B.png",self.head_number,"normal.png",(2,0)))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_C.png",self.head_number,"normal.png",(2,0)))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_D.png",self.head_number,"normal.png",(2,0)))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_E.png",self.head_number,"normal.png",(2,0)))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_F.png",self.head_number,"normal.png",(2,0)))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_G.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_A.png",self.head_number,"normal.png",(2,0),self.top_color,self.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_B.png",self.head_number,"normal.png",(2,0),self.top_color,self.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_C.png",self.head_number,"normal.png",(2,0),self.top_color,self.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_D.png",self.head_number,"normal.png",(2,0),self.top_color,self.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_E.png",self.head_number,"normal.png",(2,0),self.top_color,self.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_F.png",self.head_number,"normal.png",(2,0),self.top_color,self.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_G.png",self.head_number,"normal.png",(2,0),self.top_color,self.bottom_color,self.skin_color))
         self.anim[1]["jump"]=[]
-        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(6,-1)))
-        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_B.png",self.head_number,"normal.png",(2,0)))
+        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(6,-1),self.top_color,self.bottom_color,self.skin_color))
+        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_B.png",self.head_number,"normal.png",(2,0),self.top_color,self.bottom_color,self.skin_color))
         self.anim[1]["preshoot"]=[]
-        self.anim[1]["preshoot"].append(compileimage(self.team.body_number,"shoot_A.png",self.head_number,"back.png",(11,0)))
+        self.anim[1]["preshoot"].append(compileimage(self.team.body_number,"shoot_A.png",self.head_number,"back.png",(11,0),self.top_color,self.bottom_color,self.skin_color))
         self.anim[1]["shoot"]=[]
-        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_B.png",self.head_number,"normal.png",(4,1)))
-        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_C.png",self.head_number,"normal.png",(3,1)))
+        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_B.png",self.head_number,"normal.png",(4,1),self.top_color,self.bottom_color,self.skin_color))
+        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_C.png",self.head_number,"normal.png",(3,1),self.top_color,self.bottom_color,self.skin_color))
         self.anim[1]["attack"]=[]
-        self.anim[1]["attack"].append(compileimage(self.team.body_number,"attack_A.png",self.head_number,"angry.png",(9,1)))
+        self.anim[1]["attack"].append(compileimage(self.team.body_number,"attack_A.png",self.head_number,"angry.png",(9,1),self.top_color,self.bottom_color,self.skin_color))
         self.anim[1]["hurt"]=[]
-        self.anim[1]["hurt"].append(compileimage(self.team.body_number,"hurt_A.png",self.head_number,"hurt.png",(0,1)))
+        self.anim[1]["hurt"].append(compileimage(self.team.body_number,"hurt_A.png",self.head_number,"hurt.png",(0,1),self.top_color,self.bottom_color,self.skin_color))
         
         #flip all anims to look left
         self.anim[-1]={}

@@ -139,7 +139,7 @@ class Match(object):
                 ren = font.render(winner_name+" won!")
             else:
                 ren = font.render("Draw")
-            surface.blit(ren, (32, 8))
+            surface.blit(ren, (32, 16))
             
             ren = font.render("Press Start (P or R)")
             surface.blit(ren, (32, 24))

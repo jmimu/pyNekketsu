@@ -38,9 +38,20 @@ class Sprite(object):
             surface.blit(self.image, camera.proj(self.pos,self.image.get_width(),self.image.get_height()))
 
 #merge head and body pictures
-def compileimage(which_team,body_img,which_head,head_img,head_pos):
+#give colors (R,G,B)
+def compileimage(which_team,body_img,which_head,head_img,head_pos,top_color,bottom_color,skin_color):
     body_filename="data/bodies/team"+str(which_team)+"/"+body_img
     body_image=pygame.image.load(body_filename)
+    #change top color from (0,255,255) to top_color 
+    #change bottom color from (0,128,0) to bottom_color 
+    for x in range(body_image.get_width()):
+        for y in range(body_image.get_height()):
+            if (body_image.get_at((x,y))==(0,255,255)):
+                body_image.set_at((x,y),top_color)
+            if (body_image.get_at((x,y))==(0,128,0)):
+                body_image.set_at((x,y),bottom_color)
+
+
     head_filename="data/heads/head"+str(which_head)+"/"+head_img
     head_image=pygame.image.load(head_filename)
 
@@ -49,5 +60,11 @@ def compileimage(which_team,body_img,which_head,head_img,head_pos):
     total_surface.blit(body_image,(0,0))
     total_surface.blit(head_image,head_pos)
 
+    #change skin color from (255,119,99) to skin_color 
+    for x in range(total_surface.get_width()):
+        for y in range(total_surface.get_height()):
+            if (total_surface.get_at((x,y))==(255,119,99)):
+                total_surface.set_at((x,y),skin_color)
+ 
     return total_surface
 
