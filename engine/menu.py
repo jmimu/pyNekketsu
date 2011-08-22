@@ -153,3 +153,19 @@ def call_all_menus(display,font,mainClock):
     
     return players_human_teamA,players_human_teamB,difficulty,nb_player_team,match_length
 
+def show_loading(display,font):
+    title_image=pygame.image.load("data/title.png")
+
+    # Get the surface from the NES game library
+    screen = display.get_surface()
+    screen.blit(title_image,(0,0))
+    
+    ren = font.render("     Please wait...     ")
+    screen.blit(ren, (32, 164))
+
+
+    # Update and draw the display
+    display.update()
+
+
+

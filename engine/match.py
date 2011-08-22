@@ -66,11 +66,11 @@ class Match(object):
             human_players_teamA.append( 1+len(human_players_teamA)+len(human_players_teamB) )
 
         self.team[-1]=Team(-1,self.field)
-        self.team[-1].read_xml("data/teams/teamA.xml",nbr_players_teamA,human_players_teamA,self)
+        self.team[-1].create_from_xml("data/teams/teamA.xml",nbr_players_teamA,human_players_teamA,self)
         self.player_list+=self.team[-1].players
         
         self.team[1]=Team(1,self.field)
-        self.team[1].read_xml("data/teams/teamB.xml",nbr_players_teamB,human_players_teamB,self)
+        self.team[1].create_from_xml("data/teams/teamB.xml",nbr_players_teamB,human_players_teamB,self)
         self.player_list+=self.team[1].players
         
         Match.snd_whistle.play()

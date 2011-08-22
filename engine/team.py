@@ -44,14 +44,19 @@ class Team(object):
         self.players=[] #first is GK, last are human players
         self.players_ordered_dist_to_ball=[]
     
-    #create players and read xml
-    def read_xml(self, xml_file,nb_players_total,human_players,match):#human_players: array of human players id
+    #read some info from xml (minimum to be able to choose your team)
+    def read_xml(self, xml_file):
         xmldoc = minidom.parse(xml_file)
         team_node = xmldoc.getElementsByTagName('team')[0]
         self.body_number=team_node.getElementsByTagName('body_number')[0].childNodes[0].data
         self.image=pygame.image.load(team_node.getElementsByTagName('img')[0].childNodes[0].data)
         self.name=team_node.getElementsByTagName('name')[0].childNodes[0].data
-        
+        return team_node
+                                                                       
+    #create players and read xml
+    def create_from_xml(self,xml_file,nb_players_total,human_players,match):#human_players: array of human players id
+        team_node=self.read_xml(xml_file)
+
         players_node = team_node.getElementsByTagName('players')[0]
         GK_node = players_node.getElementsByTagName('playerGK')[0]
         
