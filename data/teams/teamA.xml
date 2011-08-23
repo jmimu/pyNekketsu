@@ -3,6 +3,8 @@
   <name>Iris</name>
   <body_number>3</body_number>
   <img>data/teams/iris.png</img>
+  <top_color><r>110</r><g>80</g><b>140</b></top_color>
+  <bottom_color><r>100</r><g>00</g><b>100</b></bottom_color>
   <players>
     <playerGK>
       <name>Latifolia</name>
@@ -11,8 +13,6 @@
         <x>5</x>
         <y>50</y>
       </init_pos>
-      <top_color><r>110</r><g>80</g><b>140</b></top_color>
-      <bottom_color><r>100</r><g>00</g><b>100</b></bottom_color>
       <skin_color><r>200</r><g>100</g><b>100</b></skin_color>
       <speed>1</speed>
       <health>100</health>
@@ -33,8 +33,6 @@
         <x>80</x>
         <y>40</y>
       </init_pos>
-      <top_color><r>150</r><g>110</g><b>180</b></top_color>
-      <bottom_color><r>100</r><g>00</g><b>100</b></bottom_color>
       <skin_color><r>200</r><g>100</g><b>100</b></skin_color>
       <speed>1</speed>
       <health>100</health>
@@ -55,8 +53,6 @@
         <x>50</x>
         <y>60</y>
       </init_pos>
-      <top_color><r>150</r><g>110</g><b>180</b></top_color>
-      <bottom_color><r>100</r><g>00</g><b>100</b></bottom_color>
       <skin_color><r>200</r><g>100</g><b>100</b></skin_color>
       <speed>1</speed>
       <health>100</health>
@@ -77,8 +73,6 @@
         <x>35</x>
         <y>40</y>
       </init_pos>
-      <top_color><r>150</r><g>110</g><b>180</b></top_color>
-      <bottom_color><r>100</r><g>00</g><b>100</b></bottom_color>
       <skin_color><r>200</r><g>100</g><b>100</b></skin_color>
       <speed>1</speed>
       <health>100</health>
@@ -99,8 +93,6 @@
         <x>30</x>
         <y>60</y>
       </init_pos>
-      <top_color><r>150</r><g>110</g><b>180</b></top_color>
-      <bottom_color><r>100</r><g>00</g><b>100</b></bottom_color>
       <skin_color><r>200</r><g>100</g><b>100</b></skin_color>
       <speed>1</speed>
       <health>100</health>

@@ -39,6 +39,8 @@ class Team(object):
         self.body_number=0
         self.image=0
         self.name="?"
+        self.top_color=()
+        self.bottom_color=()
         self.nb_goals=0
         self.wing=wing #-wing for target, +wing for own goal
         self.players=[] #first is GK, last are human players
@@ -51,6 +53,16 @@ class Team(object):
         self.body_number=team_node.getElementsByTagName('body_number')[0].childNodes[0].data
         self.image=pygame.image.load(team_node.getElementsByTagName('img')[0].childNodes[0].data)
         self.name=team_node.getElementsByTagName('name')[0].childNodes[0].data
+        #colors:
+        r=g=b=128
+        r=int(team_node.getElementsByTagName('top_color')[0].getElementsByTagName('r')[0].childNodes[0].data)
+        g=int(team_node.getElementsByTagName('top_color')[0].getElementsByTagName('g')[0].childNodes[0].data)
+        b=int(team_node.getElementsByTagName('top_color')[0].getElementsByTagName('b')[0].childNodes[0].data)
+        self.top_color=(r,g,b)
+        r=int(team_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('r')[0].childNodes[0].data)
+        g=int(team_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('g')[0].childNodes[0].data)
+        b=int(team_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('b')[0].childNodes[0].data)
+        self.bottom_color=(r,g,b)
         return team_node
                                                                        
     #create players and read xml
