@@ -1,4 +1,6 @@
- - give top and bottom colors ony to the team, not for each player
+ - use animation.xml to create body pictures, uste anim speed too
+ - use a special picture to see team colors
+ - give top and bottom colors ony to the team, not for each player: add colored body pictures for each team, and a "representative" body without skin
  - add a waiting screen when creating pictures ("Get ready !")
  - improve GK jump time (depending on ball speed?)
  - change difficulty : shrink team charateristics
