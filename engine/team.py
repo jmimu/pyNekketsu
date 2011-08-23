@@ -45,6 +45,24 @@ class Team(object):
         self.wing=wing #-wing for target, +wing for own goal
         self.players=[] #first is GK, last are human players
         self.players_ordered_dist_to_ball=[]
+
+        self.ref_anim={}#dictionnary for right and left, reference for players' animation
+        #read all the animations
+        xmldoc = minidom.parse("data/animations.xml")
+        animations_node = xmldoc.getElementsByTagName('animations')[0]
+        all_anims=animations_node.getElementsByTagName('anim')
+        for anim_node in all_anims:
+            anim_name=anim_node.getElementsByTagName('name')[0].childNodes[0].data
+            anim_speed=anim_node.getElementsByTagName('speed')[0].childNodes[0].data
+            #TODO: insert pic in ref_anim !
+            all_imgs=anim_node.getElementsByTagName('img')
+            for img_node in all_imgs:
+                img_filename=img_node.getElementsByTagName('img_name')[0].childNodes[0].data
+                img_headfilename=img_node.getElementsByTagName('head_img')[0].childNodes[0].data
+                img_head_x=int(img_node.getElementsByTagName('head_x')[0].childNodes[0].data)
+                img_head_y=int(img_node.getElementsByTagName('head_y')[0].childNodes[0].data)
+
+
     
     #read some info from xml (minimum to be able to choose your team)
     def read_xml(self, xml_file):

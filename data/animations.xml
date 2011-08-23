@@ -4,59 +4,45 @@
     <speed>0.3</speed>
     <img>
       <img_name>walk_A.png</img_name>
-      <head>
-        <head_img>normal.png</head_img>
-        <x>2</x>
-        <y>0</y>
-      </head>
+      <head_img>normal.png</head_img>
+      <head_x>2</head_x>
+      <head_y>0</head_y>
     </img>
     <img>
       <img_name>walk_B.png</img_name>
-      <head>
-        <head_img>normal.png</head_img>
-        <x>2</x>
-        <y>0</y>
-      </head>
+      <head_img>normal.png</head_img>
+      <head_x>2</head_x>
+      <head_y>0</head_y>
     </img>
     <img>
       <img_name>walk_C.png</img_name>
-      <head>
-        <head_img>normal.png</head_img>
-        <x>2</x>
-        <y>0</y>
-      </head>
+      <head_img>normal.png</head_img>
+      <head_x>2</head_x>
+      <head_y>0</head_y>
     </img>
     <img>
       <img_name>walk_D.png</img_name>
-      <head>
-        <head_img>normal.png</head_img>
-        <x>2</x>
-        <y>0</y>
-      </head>
+      <head_img>normal.png</head_img>
+      <head_x>2</head_x>
+      <head_y>0</head_y>
     </img>
     <img>
       <img_name>walk_E.png</img_name>
-      <head>
-        <head_img>normal.png</head_img>
-        <x>2</x>
-        <y>0</y>
-      </head>
+      <head_img>normal.png</head_img>
+      <head_x>2</head_x>
+      <head_y>0</head_y>
     </img>
     <img>
       <img_name>walk_F.png</img_name>
-      <head>
-        <head_img>normal.png</head_img>
-        <x>2</x>
-        <y>0</y>
-      </head>
+      <head_img>normal.png</head_img>
+      <head_x>2</head_x>
+      <head_y>0</head_y>
     </img>
     <img>
       <img_name>walk_G.png</img_name>
-      <head>
-        <head_img>normal.png</head_img>
-        <x>2</x>
-        <y>0</y>
-      </head>
+      <head_img>normal.png</head_img>
+      <head_x>2</head_x>
+      <head_y>0</head_y>
     </img>
   </anim>
   <anim>
@@ -64,19 +50,15 @@
     <speed>0</speed>
     <img>
       <img_name>jump_A.png</img_name>
-      <head>
-        <head_img>normal.png</head_img>
-        <x>6</x>
-        <y>-1</y>
-      </head>
+      <head_img>normal.png</head_img>
+      <head_x>6</head_x>
+      <head_y>-1</head_y>
     </img>
     <img>
       <img_name>jump_B.png</img_name>
-      <head>
-        <head_img>normal.png</head_img>
-        <x>2</x>
-        <y>0</y>
-      </head>
+      <head_img>normal.png</head_img>
+      <head_x>2</head_x>
+      <head_y>0</head_y>
     </img>
   </anim>
   <anim>
@@ -84,11 +66,9 @@
     <speed>0.2</speed>
     <img>
       <img_name>shoot_A.png</img_name>
-      <head>
-        <head_img>back.png</head_img>
-        <x>11</x>
-        <y>0</y>
-      </head>
+      <head_img>back.png</head_img>
+      <head_x>11</head_x>
+      <head_y>0</head_y>
     </img>
   </anim>
   <anim>
@@ -96,19 +76,15 @@
     <speed>0.2</speed>
     <img>
       <img_name>shoot_B.png</img_name>
-      <head>
-        <head_img>normal.png</head_img>
-        <x>4</x>
-        <y>1</y>
-      </head>
+      <head_img>normal.png</head_img>
+      <head_x>4</head_x>
+      <head_y>1</head_y>
     </img>
     <img>
       <img_name>shoot_C.png</img_name>
-      <head>
-        <head_img>normal.png</head_img>
-        <x>3</x>
-        <y>1</y>
-      </head>
+      <head_img>normal.png</head_img>
+      <head_x>3</head_x>
+      <head_y>1</head_y>
     </img>
   </anim>
   <anim>
@@ -116,11 +92,9 @@
     <speed>0.1</speed>
     <img>
       <img_name>attack_A.png</img_name>
-      <head>
-        <head_img>angry.png</head_img>
-        <x>9</x>
-        <y>1</y>
-      </head>
+      <head_img>angry.png</head_img>
+      <head_x>9</head_x>
+      <head_y>1</head_y>
     </img>
   </anim>
   <anim>
@@ -128,11 +102,9 @@
     <speed>0.04</speed>
     <img>
       <img_name>hurt_A.png</img_name>
-      <head>
-        <head_img>hurt.png</head_img>
-        <x>0</x>
-        <y>1</y>
-      </head>
+      <head_img>hurt.png</head_img>
+      <head_x>0</head_x>
+      <head_y>1</head_y>
     </img>
   </anim>
-</animations
+</animations>
