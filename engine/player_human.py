@@ -40,7 +40,7 @@ class Player_Human(Player_non_GK):
         projection=camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*0)
         surface.blit(self.num_player_image, camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*0))
         has_to_draw_arrow=False
-        if (projection[0]>256):
+        if (projection[0]>256-self.num_player_image.get_width()):
             projection[0]=256-self.num_player_image.get_width()
             has_to_draw_arrow=True
         if (projection[0]<0):
