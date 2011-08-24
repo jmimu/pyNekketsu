@@ -47,6 +47,19 @@ class Team(object):
         self.players_ordered_dist_to_ball=[]
         self.team_node = 0 #in xml file (test if 0 to know if beginning of file already read)
 
+        #average to help choosing teams
+        self.avg_speed=0
+        self.avg_health=0
+        self.avg_max_energy=0 #before speed decreases
+        self.avg_resistance=0 #before going KO
+        self.avg_control=0 #before being hurt by ball
+        self.avg_kick=0 #for shooting
+        self.avg_punch=0 #for attacking
+        self.avg_jump_hight=0 
+        self.agressivity=1 
+        self.precision=1 #for GK and pass
+        self.listening=1 #when asked for pass (max:2)
+ 
         #those 3 dictionaries will be used to compile each players' sprite
         self.ref_anim_body_img={}#body images dictionary for each status, reference for players' animation
         self.ref_anim_head_name={}#head name dictionary
@@ -72,7 +85,50 @@ class Team(object):
         self.bottom_color=(r,g,b)
  
         self.outfit_img=(coloringimage("outfit.png",self.top_color,self.bottom_color))
-    
+        
+        #get avg caract.
+        self.avg_speed=0
+        self.avg_health=0
+        self.avg_max_energy=0 #before speed decreases
+        self.avg_resistance=0 #before going KO
+        self.avg_control=0 #before being hurt by ball
+        self.avg_kick=0 #for shooting
+        self.avg_punch=0 #for attacking
+        self.avg_jump_hight=0 
+        self.avg_agressivity=0 
+        self.avg_precision=0 #for GK and pass
+        self.avg_listening=0
+
+        players_node = self.team_node.getElementsByTagName('players')[0]
+        all_players=players_node.getElementsByTagName('player')
+        all_players.append(players_node.getElementsByTagName('playerGK')[0])
+        nbr_players=0
+        for player_node in all_players:
+            self.avg_speed+=float(player_node.getElementsByTagName('speed')[0].childNodes[0].data)
+            self.avg_health+=float(player_node.getElementsByTagName('health')[0].childNodes[0].data)
+            self.avg_max_energy+=float(player_node.getElementsByTagName('max_energy')[0].childNodes[0].data)
+            self.avg_resistance+=float(player_node.getElementsByTagName('resistance')[0].childNodes[0].data)
+            self.avg_control+=float(player_node.getElementsByTagName('control')[0].childNodes[0].data)
+            self.avg_kick+=float(player_node.getElementsByTagName('kick')[0].childNodes[0].data)
+            self.avg_punch+=float(player_node.getElementsByTagName('punch')[0].childNodes[0].data)
+            self.avg_jump_hight+=float(player_node.getElementsByTagName('jump_hight')[0].childNodes[0].data) 
+            self.avg_agressivity+=float(player_node.getElementsByTagName('agressivity')[0].childNodes[0].data)
+            self.avg_precision+=float(player_node.getElementsByTagName('precision')[0].childNodes[0].data)
+            self.avg_listening+=float(player_node.getElementsByTagName('listening')[0].childNodes[0].data)
+            nbr_players+=1
+
+        self.avg_speed/=nbr_players
+        self.avg_health/=nbr_players
+        self.avg_max_energy/=nbr_players
+        self.avg_resistance/=nbr_players
+        self.avg_control/=nbr_players
+        self.avg_kick/=nbr_players
+        self.avg_punch/=nbr_players
+        self.avg_jump_hight/=nbr_players
+        self.avg_agressivity/=nbr_players
+        self.avg_precision/=nbr_players
+        self.avg_listening/=nbr_players
+
         return self.team_node
                                                                        
     #create players and read xml

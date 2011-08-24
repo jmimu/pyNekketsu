@@ -63,7 +63,7 @@ while 1:
     while not match.is_finished:
         screen = display.get_surface()
         
-        if (Inputs.player_Esc[1] or Inputs.player_Esc[2]):
+        if (Inputs.player_just_Esc[1] or Inputs.player_just_Esc[2]):
             match.is_finished=True
         
         match.update()

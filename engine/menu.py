@@ -45,14 +45,14 @@ def show_info(display,font,mainClock):
     dialogbox.set_dialog([
         "Welcome to pyNekketsu!      Press L to continue.", 
         "Player1 controls:           arrows (to move),           K (shoot or attack),        L (pass), P (pause, start)", 
-        "Player2 controls:           F, G, H, T (to move),        A (shoot or attack),        Z (pass), R (pause, start)"])
+        "Player2 controls:           F, G, H, T (to move),       A (shoot or attack),        Z (pass), R (pause, start)"])
 
     while not dialogbox.over():
         mainClock.tick(30)
         
         Inputs.readkeys()#read all the actual keys
           
-        if (Inputs.player_Esc[1] or Inputs.player_Esc[2]):
+        if (Inputs.player_just_Esc[1] or Inputs.player_just_Esc[2]):
             pygame.quit()
             sys.exit()
 
@@ -76,7 +76,7 @@ def call_a_menu(menu,default_option,info,display,font,mainClock):
     while 1:
         mainClock.tick(30)
         Inputs.readkeys()#read all the actual keys
-        if (Inputs.player_Esc[1] or Inputs.player_Esc[2]):
+        if (Inputs.player_just_Esc[1] or Inputs.player_just_Esc[2]):
             pygame.quit()
             sys.exit()
         # Move the menu cursor if you press up or down    
