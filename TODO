@@ -1,10 +1,8 @@
- - use a special picture to see team colors
  - improve GK jump time (depending on ball speed?)
  - change difficulty : shrink team charateristics
  - make players able to fall
  - use health and endurance, and make stronger players avoid attacks
  - change ball hurting : only if ball is out of collision rectangle
- - change team.wing orientation ?
 
  - be able to change key config and stop sound
 

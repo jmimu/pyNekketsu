@@ -38,7 +38,7 @@ pygame.mixer.pre_init(22050,8,1,1024)
 
 
 from match import Match
-from menu import call_all_menus, show_info, show_loading
+from menu import call_all_menus, show_info
 from inputs import Inputs
 
 
@@ -56,8 +56,9 @@ screen = display.get_surface()
 
 while 1:
     players_human_teamA,players_human_teamB,difficulty,nb_players_team,match_length=call_all_menus(display,nesfont,mainClock)
-    show_loading(display,nesfont)   
-    match=Match(players_human_teamA,nb_players_team,players_human_teamB,nb_players_team,difficulty,match_length)
+    match=Match("teamA.xml","teamB.xml")
+    match.show_loading(display,nesfont)   
+    match.init(players_human_teamA,nb_players_team,players_human_teamB,nb_players_team,difficulty,match_length)
     
     while not match.is_finished:
         screen = display.get_surface()

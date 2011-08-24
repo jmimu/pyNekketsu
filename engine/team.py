@@ -36,6 +36,7 @@ nbr_heads=4
 #
 class Team(object):
     def __init__(self, wing, field ):#wing where they look: -1 (west) or +1 (east)
+        self.outfit_img=0
         self.image=0
         self.name="?"
         self.top_color=()
@@ -44,6 +45,7 @@ class Team(object):
         self.wing=wing #-wing for target, +wing for own goal
         self.players=[] #first is GK, last are human players
         self.players_ordered_dist_to_ball=[]
+        self.team_node = 0 #in xml file (test if 0 to know if beginning of file already read)
 
         #those 3 dictionaries will be used to compile each players' sprite
         self.ref_anim_body_img={}#body images dictionary for each status, reference for players' animation
@@ -55,21 +57,29 @@ class Team(object):
     #read some info from xml (minimum to be able to choose your team)
     def read_xml(self, xml_file):
         xmldoc = minidom.parse(xml_file)
-        team_node = xmldoc.getElementsByTagName('team')[0]
-        self.image=pygame.image.load(team_node.getElementsByTagName('img')[0].childNodes[0].data)
-        self.name=team_node.getElementsByTagName('name')[0].childNodes[0].data
+        self.team_node = xmldoc.getElementsByTagName('team')[0]
+        self.image=pygame.image.load(self.team_node.getElementsByTagName('img')[0].childNodes[0].data)
+        self.name=self.team_node.getElementsByTagName('name')[0].childNodes[0].data
         #colors:
         r=g=b=128
-        r=int(team_node.getElementsByTagName('top_color')[0].getElementsByTagName('r')[0].childNodes[0].data)
-        g=int(team_node.getElementsByTagName('top_color')[0].getElementsByTagName('g')[0].childNodes[0].data)
-        b=int(team_node.getElementsByTagName('top_color')[0].getElementsByTagName('b')[0].childNodes[0].data)
+        r=int(self.team_node.getElementsByTagName('top_color')[0].getElementsByTagName('r')[0].childNodes[0].data)
+        g=int(self.team_node.getElementsByTagName('top_color')[0].getElementsByTagName('g')[0].childNodes[0].data)
+        b=int(self.team_node.getElementsByTagName('top_color')[0].getElementsByTagName('b')[0].childNodes[0].data)
         self.top_color=(r,g,b)
-        r=int(team_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('r')[0].childNodes[0].data)
-        g=int(team_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('g')[0].childNodes[0].data)
-        b=int(team_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('b')[0].childNodes[0].data)
+        r=int(self.team_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('r')[0].childNodes[0].data)
+        g=int(self.team_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('g')[0].childNodes[0].data)
+        b=int(self.team_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('b')[0].childNodes[0].data)
         self.bottom_color=(r,g,b)
  
+        self.outfit_img=(coloringimage("outfit.png",self.top_color,self.bottom_color))
     
+        return self.team_node
+                                                                       
+    #create players and read xml
+    def create_from_xml(self,xml_file,nb_players_total,human_players,match):#human_players: array of human players id
+        if (self.team_node==0):
+            self.team_node=self.read_xml(xml_file)
+
         #read all the animations
         xmldoc = minidom.parse("data/animations.xml")
         animations_node = xmldoc.getElementsByTagName('animations')[0]
@@ -91,13 +101,8 @@ class Team(object):
                 self.ref_anim_head_name[anim_name].append(img_headfilename)
                 self.ref_anim_head_shift[anim_name].append((img_head_x,img_head_y))
 
-        return team_node
-                                                                       
-    #create players and read xml
-    def create_from_xml(self,xml_file,nb_players_total,human_players,match):#human_players: array of human players id
-        team_node=self.read_xml(xml_file)
-
-        players_node = team_node.getElementsByTagName('players')[0]
+ 
+        players_node = self.team_node.getElementsByTagName('players')[0]
         GK_node = players_node.getElementsByTagName('playerGK')[0]
         
         #add the GK

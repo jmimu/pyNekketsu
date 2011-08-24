@@ -35,8 +35,33 @@ import random
 
 class Match(object):
     snd_whistle = pygame.mixer.Sound("data/sound/etw/fischiolungo.wav")
+ 
+    #TODO: add field choice
+    def __init__(self,teamA,teamB):
+        self.goal_image=pygame.image.load("data/goal.png")
+        self.clock_image=pygame.image.load("data/clock.png")
+        self.goaldrawing_time=0
+        self.is_finished=False
+        self.teamA_filename=teamA
+        self.teamB_filename=teamB
+        
+        self.match_time=0
+        self.human_players=[-1,0,0] #max two players, player num 0 does not exist
+        self.pause=False
+        self.field=Field()
+        self.cam=Camera(self.field)
+        self.ball=Ball()
+        self.player_list=[]
+        self.team={}#
+
+        #read xml file to get colors !
+        self.team[-1]=Team(-1,self.field)
+        self.team[-1].read_xml("data/teams/"+self.teamA_filename)
+        self.team[1]=Team(1,self.field)
+        self.team[1].read_xml("data/teams/"+self.teamB_filename)
+        
     
-    def __init__(self,nbr_players_human_teamA,nbr_players_teamA,nbr_players_human_teamB,nbr_players_teamB,difficulty=8,length=60):
+    def init(self,nbr_players_human_teamA,nbr_players_teamA,nbr_players_human_teamB,nbr_players_teamB,difficulty=8,length=60):
         Player_CPU.difficulty=difficulty
         Player_GK.difficulty=difficulty
 
@@ -52,7 +77,6 @@ class Match(object):
         self.cam=Camera(self.field)
         self.ball=Ball()
         self.player_list=[]
-        self.team={}#
         
         human_players_teamA=[]
         human_players_teamB=[]
@@ -65,12 +89,10 @@ class Match(object):
         if (nbr_players_human_teamB>1):
             human_players_teamA.append( 1+len(human_players_teamA)+len(human_players_teamB) )
 
-        self.team[-1]=Team(-1,self.field)
-        self.team[-1].create_from_xml("data/teams/teamA.xml",nbr_players_teamA,human_players_teamA,self)
+        self.team[-1].create_from_xml("data/teams/"+self.teamA_filename,nbr_players_teamA,human_players_teamA,self)
         self.player_list+=self.team[-1].players
         
-        self.team[1]=Team(1,self.field)
-        self.team[1].create_from_xml("data/teams/teamB.xml",nbr_players_teamB,human_players_teamB,self)
+        self.team[1].create_from_xml("data/teams/"+self.teamB_filename,nbr_players_teamB,human_players_teamB,self)
         self.player_list+=self.team[1].players
         
         Match.snd_whistle.play()
@@ -111,6 +133,29 @@ class Match(object):
         else:#during pause the ball continues to roll
             self.ball.animation()
         
+    
+
+    def show_loading(self,display,font):
+        title_image=pygame.image.load("data/title.png")
+        # Get the surface from the NES game library
+        screen = display.get_surface()
+        screen.blit(title_image,(0,0))
+        screen.blit(self.team[-1].outfit_img,(64, 140))
+        screen.blit(self.team[1].outfit_img,(164, 140))
+        ren = font.render("vs.")
+        screen.blit(ren, (120, 155))
+
+        ren = font.render(self.team[-1].name)
+        screen.blit(ren, (56, 174))
+        screen.blit(self.team[-1].image,(40, 170))
+        ren = font.render(self.team[1].name)
+        screen.blit(ren, (136, 174))
+        screen.blit(self.team[1].image,(120, 170))
+        # Update and draw the display
+        display.update()
+
+
+
 
 
     def draw(self,surface,font):
