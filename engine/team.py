@@ -27,7 +27,7 @@ from player_cpu import Player_CPU
 from player_GK import Player_GK
 from player_human import Player_Human
 from inputs import Inputs
-
+from sprite import coloringimage
 
 #number of differents heads 
 nbr_heads=4
@@ -47,22 +47,6 @@ class Team(object):
         self.players_ordered_dist_to_ball=[]
 
         self.ref_anim={}#dictionnary for right and left, reference for players' animation
-        #read all the animations
-        xmldoc = minidom.parse("data/animations.xml")
-        animations_node = xmldoc.getElementsByTagName('animations')[0]
-        all_anims=animations_node.getElementsByTagName('anim')
-        for anim_node in all_anims:
-            anim_name=anim_node.getElementsByTagName('name')[0].childNodes[0].data
-            anim_speed=anim_node.getElementsByTagName('speed')[0].childNodes[0].data
-            #TODO: insert pic in ref_anim !
-            all_imgs=anim_node.getElementsByTagName('img')
-            for img_node in all_imgs:
-                img_filename=img_node.getElementsByTagName('img_name')[0].childNodes[0].data
-                img_headfilename=img_node.getElementsByTagName('head_img')[0].childNodes[0].data
-                img_head_x=int(img_node.getElementsByTagName('head_x')[0].childNodes[0].data)
-                img_head_y=int(img_node.getElementsByTagName('head_y')[0].childNodes[0].data)
-
-
     
     #read some info from xml (minimum to be able to choose your team)
     def read_xml(self, xml_file):
@@ -81,6 +65,25 @@ class Team(object):
         g=int(team_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('g')[0].childNodes[0].data)
         b=int(team_node.getElementsByTagName('bottom_color')[0].getElementsByTagName('b')[0].childNodes[0].data)
         self.bottom_color=(r,g,b)
+ 
+    
+        #read all the animations
+        self.ref_anim[1]={}
+        xmldoc = minidom.parse("data/animations.xml")
+        animations_node = xmldoc.getElementsByTagName('animations')[0]
+        all_anims=animations_node.getElementsByTagName('anim')
+        for anim_node in all_anims:
+            anim_name=anim_node.getElementsByTagName('name')[0].childNodes[0].data
+            anim_speed=anim_node.getElementsByTagName('speed')[0].childNodes[0].data
+            self.ref_anim[1][anim_name]=[]
+            all_imgs=anim_node.getElementsByTagName('img')
+            for img_node in all_imgs:
+                img_filename=img_node.getElementsByTagName('img_name')[0].childNodes[0].data
+                self.ref_anim[1][anim_name].append(coloringimage(img_filename,self.top_color,self.bottom_color))
+                img_headfilename=img_node.getElementsByTagName('head_img')[0].childNodes[0].data
+                img_head_x=int(img_node.getElementsByTagName('head_x')[0].childNodes[0].data)
+                img_head_y=int(img_node.getElementsByTagName('head_y')[0].childNodes[0].data)
+
         return team_node
                                                                        
     #create players and read xml

@@ -103,25 +103,25 @@ class Player(Sprite):
         #now we can load pictures
         self.anim[1]={} #dictionnary of all animation looking to the right
         self.anim[1]["walk"]=[]
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_A.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_B.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_C.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_D.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_E.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_F.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage(self.team.body_number,"walk_G.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage("walk_A.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage("walk_B.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage("walk_C.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage("walk_D.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage("walk_E.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage("walk_F.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["walk"].append(compileimage("walk_G.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
         self.anim[1]["jump"]=[]
-        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_A.png",self.head_number,"normal.png",(6,-1),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["jump"].append(compileimage(self.team.body_number,"jump_B.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["jump"].append(compileimage("jump_A.png",self.head_number,"normal.png",(6,-1),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["jump"].append(compileimage("jump_B.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
         self.anim[1]["preshoot"]=[]
-        self.anim[1]["preshoot"].append(compileimage(self.team.body_number,"shoot_A.png",self.head_number,"back.png",(11,0),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["preshoot"].append(compileimage("shoot_A.png",self.head_number,"back.png",(11,0),self.team.top_color,self.team.bottom_color,self.skin_color))
         self.anim[1]["shoot"]=[]
-        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_B.png",self.head_number,"normal.png",(4,1),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["shoot"].append(compileimage(self.team.body_number,"shoot_C.png",self.head_number,"normal.png",(3,1),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["shoot"].append(compileimage("shoot_B.png",self.head_number,"normal.png",(4,1),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["shoot"].append(compileimage("shoot_C.png",self.head_number,"normal.png",(3,1),self.team.top_color,self.team.bottom_color,self.skin_color))
         self.anim[1]["attack"]=[]
-        self.anim[1]["attack"].append(compileimage(self.team.body_number,"attack_A.png",self.head_number,"angry.png",(9,1),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["attack"].append(compileimage("attack_A.png",self.head_number,"angry.png",(9,1),self.team.top_color,self.team.bottom_color,self.skin_color))
         self.anim[1]["hurt"]=[]
-        self.anim[1]["hurt"].append(compileimage(self.team.body_number,"hurt_A.png",self.head_number,"hurt.png",(0,1),self.team.top_color,self.team.bottom_color,self.skin_color))
+        self.anim[1]["hurt"].append(compileimage("hurt_A.png",self.head_number,"hurt.png",(0,1),self.team.top_color,self.team.bottom_color,self.skin_color))
         
         #flip all anims to look left
         self.anim[-1]={}
