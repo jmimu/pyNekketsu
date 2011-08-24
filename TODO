@@ -3,6 +3,7 @@
  - make players able to fall
  - use health and endurance, and make stronger players avoid attacks
  - change ball hurting : only if ball is out of collision rectangle
+ - what to do if choose twice the same team ?
 
  - be able to change key config and stop sound
 
@@ -13,7 +14,6 @@
 Retrogamelib bugs :
  - menu size
  - dialog progress too soon
-
 
 Doc :
  - possible to take the ball when someone is goint to shoot
