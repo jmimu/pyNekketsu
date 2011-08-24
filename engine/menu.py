@@ -52,11 +52,11 @@ def show_info(display,font,mainClock):
         
         Inputs.readkeys()#read all the actual keys
           
-        if (Inputs.player1_Esc or Inputs.player2_Esc):
+        if (Inputs.player_Esc[1] or Inputs.player_Esc[2]):
             pygame.quit()
             sys.exit()
 
-        if Inputs.player1_just_A:
+        if Inputs.player_just_A[1]:
             dialogbox.progress()
         
         # Get the surface from the NES game library

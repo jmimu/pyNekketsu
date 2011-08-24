@@ -4,6 +4,7 @@
  - use health and endurance, and make stronger players avoid attacks
  - change ball hurting : only if ball is out of collision rectangle
  - what to do if choose twice the same team ?
+ - make xml for fields
 
  - be able to change key config and stop sound
 
