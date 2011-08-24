@@ -1,7 +1,6 @@
 
 <team>
   <name>Iris</name>
-  <body_number>3</body_number>
   <img>data/teams/iris.png</img>
   <top_color><r>110</r><g>80</g><b>140</b></top_color>
   <bottom_color><r>100</r><g>00</g><b>100</b></bottom_color>

@@ -36,7 +36,6 @@ nbr_heads=4
 #
 class Team(object):
     def __init__(self, wing, field ):#wing where they look: -1 (west) or +1 (east)
-        self.body_number=0
         self.image=0
         self.name="?"
         self.top_color=()
@@ -57,7 +56,6 @@ class Team(object):
     def read_xml(self, xml_file):
         xmldoc = minidom.parse(xml_file)
         team_node = xmldoc.getElementsByTagName('team')[0]
-        self.body_number=team_node.getElementsByTagName('body_number')[0].childNodes[0].data
         self.image=pygame.image.load(team_node.getElementsByTagName('img')[0].childNodes[0].data)
         self.name=team_node.getElementsByTagName('name')[0].childNodes[0].data
         #colors:
