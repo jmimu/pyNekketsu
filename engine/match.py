@@ -85,9 +85,9 @@ class Match(object):
         if (nbr_players_human_teamA>1):
             human_players_teamA.append( 1+len(human_players_teamA)+len(human_players_teamB) )
         if (nbr_players_human_teamB>0):
-            human_players_teamA.append( 1+len(human_players_teamA)+len(human_players_teamB) )
+            human_players_teamB.append( 1+len(human_players_teamA)+len(human_players_teamB) )
         if (nbr_players_human_teamB>1):
-            human_players_teamA.append( 1+len(human_players_teamA)+len(human_players_teamB) )
+            human_players_teamB.append( 1+len(human_players_teamA)+len(human_players_teamB) )
 
         self.team[-1].create_from_xml("data/teams/"+self.teamA_filename,nbr_players_teamA,human_players_teamA,self)
         self.player_list+=self.team[-1].players
