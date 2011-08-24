@@ -46,7 +46,12 @@ class Team(object):
         self.players=[] #first is GK, last are human players
         self.players_ordered_dist_to_ball=[]
 
-        self.ref_anim={}#dictionnary for right and left, reference for players' animation
+        #those 3 dictionaries will be used to compile each players' sprite
+        self.ref_anim_body_img={}#body images dictionary for each status, reference for players' animation
+        self.ref_anim_head_name={}#head name dictionary
+        self.ref_anim_head_shift={}#head shift dictionary
+        #a dict used for animation speed
+        self.ref_anim_speed={}
     
     #read some info from xml (minimum to be able to choose your team)
     def read_xml(self, xml_file):
@@ -68,21 +73,25 @@ class Team(object):
  
     
         #read all the animations
-        self.ref_anim[1]={}
         xmldoc = minidom.parse("data/animations.xml")
         animations_node = xmldoc.getElementsByTagName('animations')[0]
         all_anims=animations_node.getElementsByTagName('anim')
         for anim_node in all_anims:
             anim_name=anim_node.getElementsByTagName('name')[0].childNodes[0].data
-            anim_speed=anim_node.getElementsByTagName('speed')[0].childNodes[0].data
-            self.ref_anim[1][anim_name]=[]
+            anim_speed=float(anim_node.getElementsByTagName('speed')[0].childNodes[0].data)
+            self.ref_anim_body_img[anim_name]=[]
+            self.ref_anim_head_name[anim_name]=[]
+            self.ref_anim_head_shift[anim_name]=[]
+            self.ref_anim_speed[anim_name]=anim_speed
             all_imgs=anim_node.getElementsByTagName('img')
             for img_node in all_imgs:
                 img_filename=img_node.getElementsByTagName('img_name')[0].childNodes[0].data
-                self.ref_anim[1][anim_name].append(coloringimage(img_filename,self.top_color,self.bottom_color))
                 img_headfilename=img_node.getElementsByTagName('head_img')[0].childNodes[0].data
                 img_head_x=int(img_node.getElementsByTagName('head_x')[0].childNodes[0].data)
                 img_head_y=int(img_node.getElementsByTagName('head_y')[0].childNodes[0].data)
+                self.ref_anim_body_img[anim_name].append(coloringimage(img_filename,self.top_color,self.bottom_color))
+                self.ref_anim_head_name[anim_name].append(img_headfilename)
+                self.ref_anim_head_shift[anim_name].append((img_head_x,img_head_y))
 
         return team_node
                                                                        

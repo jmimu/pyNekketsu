@@ -24,6 +24,8 @@ import math
 from sprite import Sprite
 from sprite import compileimage
 from inputs import Inputs
+from copy import deepcopy
+
 
 class Player(Sprite):
     snd_pass = pygame.mixer.Sound("data/sound/etw/pass.wav")
@@ -100,28 +102,18 @@ class Player(Sprite):
         self.pos_aim=[x_ini,y_ini,field.z]
         self.pos=[self.team.wing*x_ini,y_ini,field.z]
         
-        #now we can load pictures
-        self.anim[1]={} #dictionnary of all animation looking to the right
-        self.anim[1]["walk"]=[]
-        self.anim[1]["walk"].append(compileimage("walk_A.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage("walk_B.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage("walk_C.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage("walk_D.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage("walk_E.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage("walk_F.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["walk"].append(compileimage("walk_G.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["jump"]=[]
-        self.anim[1]["jump"].append(compileimage("jump_A.png",self.head_number,"normal.png",(6,-1),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["jump"].append(compileimage("jump_B.png",self.head_number,"normal.png",(2,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["preshoot"]=[]
-        self.anim[1]["preshoot"].append(compileimage("shoot_A.png",self.head_number,"back.png",(11,0),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["shoot"]=[]
-        self.anim[1]["shoot"].append(compileimage("shoot_B.png",self.head_number,"normal.png",(4,1),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["shoot"].append(compileimage("shoot_C.png",self.head_number,"normal.png",(3,1),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["attack"]=[]
-        self.anim[1]["attack"].append(compileimage("attack_A.png",self.head_number,"angry.png",(9,1),self.team.top_color,self.team.bottom_color,self.skin_color))
-        self.anim[1]["hurt"]=[]
-        self.anim[1]["hurt"].append(compileimage("hurt_A.png",self.head_number,"hurt.png",(0,1),self.team.top_color,self.team.bottom_color,self.skin_color))
+        #self.anim=deepcopy(self.team.ref_anim)
+        #self.anim=self.team.ref_anim
+        
+        #get animation form team's ref_anim*
+        self.anim[1]={}
+        for key in self.team.ref_anim_body_img:
+            self.anim[1][key]=[]
+            i=0
+            for img in self.team.ref_anim_body_img[key]:
+                self.anim[1][key].append(compileimage(img,self.head_number,self.team.ref_anim_head_name[key][i],self.team.ref_anim_head_shift[key][i],self.skin_color))
+                i=i+1
+
         
         #flip all anims to look left
         self.anim[-1]={}
@@ -156,24 +148,24 @@ class Player(Sprite):
 
         
         if (self.state=="preshoot"):
-            self.anim_index += 0.2
+            self.anim_index += self.team.ref_anim_speed[self.state]
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.shoot(match)
  
         if (self.state=="shoot"):
-            self.anim_index += 0.2
+            self.anim_index += self.team.ref_anim_speed[self.state]
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
         if (self.state=="attack"):
-            self.anim_index += 0.1
+            self.anim_index += self.team.ref_anim_speed[self.state]
             self.pos[0]+=self.direction/5.0
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
         if (self.state=="hurt"):
-            self.anim_index += 0.04
+            self.anim_index += self.team.ref_anim_speed[self.state]
             self.pos[0]-=self.direction/10.0
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
@@ -362,7 +354,7 @@ class Player(Sprite):
                 if self.inputs.D:
                     self.pos[1] -= self.speed
             if (self.inputs.L or self.inputs.R or self.inputs.U or self.inputs.D):
-                self.anim_index += 0.3
+                self.anim_index += self.team.ref_anim_speed[self.state]
             # Jump if the player presses the C button
             if (self.inputs.C and self.pos[2] == 0):
                 self.jump_speed = 2.5*self.jump_hight
