@@ -1,3 +1,4 @@
+ - centered text (for team choice)
  - improve GK jump time (depending on ball speed?)
  - change difficulty : shrink team charateristics
  - make players able to fall
@@ -16,6 +17,7 @@
 Retrogamelib bugs :
  - menu size
  - dialog progress too soon
+ - added center_shift to help centering text
 
 Doc :
  - possible to take the ball when someone is goint to shoot

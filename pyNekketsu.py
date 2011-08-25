@@ -58,7 +58,7 @@ while 1:
     players_human_teamA,players_human_teamB,difficulty,nb_players_team,match_length=call_all_menus(display,nesfont,mainClock)
     (teamA_filename,teamB_filename)=select_teams(display,nesfont,mainClock)
 
-    match=Match("teamA.xml","teamB.xml")
+    match=Match(teamA_filename,teamB_filename)
     match.show_loading(display,nesfont)   
     match.init(players_human_teamA,nb_players_team,players_human_teamB,nb_players_team,difficulty,match_length)
     

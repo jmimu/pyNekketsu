@@ -164,31 +164,29 @@ def draw_team_info_text(screen,font,x):
     y_gap=10
     color=(200,200,0)
     ren = font.render("speed")
-    screen.blit(ren,(x,y-4))
+    screen.blit(ren,(x+font.center_shift("speed"),y-4))
     y+=y_gap
     ren = font.render("resistance")
-    screen.blit(ren,(x,y-4))
+    screen.blit(ren,(x+font.center_shift("resistance"),y-4))
     y+=y_gap
     ren = font.render("control")
-    screen.blit(ren,(x,y-4))
+    screen.blit(ren,(x+font.center_shift("control"),y-4))
     y+=y_gap
     ren = font.render("kick")
-    screen.blit(ren,(x,y-4))
+    screen.blit(ren,(x+font.center_shift("kick"),y-4))
     y+=y_gap
     ren = font.render("punch")
-    screen.blit(ren,(x,y-4))
+    screen.blit(ren,(x+font.center_shift("punch"),y-4))
     y+=y_gap
     ren = font.render("precision")
-    screen.blit(ren,(x,y-4))
+    screen.blit(ren,(x+font.center_shift("precision"),y-4))
     y+=y_gap
     ren = font.render("listening")
-    screen.blit(ren,(x,y-4))
+    screen.blit(ren,(x+font.center_shift("listening"),y-4))
     y+=y_gap
     
  
 def select_teams(display,font,mainClock):
-    teamA_filename="teamA.xml"
-    teamB_filename="teamB.xml"
     path="data/teams/"
     dirList=os.listdir(path)
     allteams=[]
@@ -223,7 +221,7 @@ def select_teams(display,font,mainClock):
                 cursor_on_east_wing=not cursor_on_east_wing
         # If you press A, check which option you're on!
         if Inputs.player_just_A[1]:
-            break
+            return (allteams[west_team_index].xml_filename,allteams[east_team_index].xml_filename)
         # If you press B, cancel 
         if Inputs.player_just_B[1]:
             return ("?","?")
@@ -242,22 +240,22 @@ def select_teams(display,font,mainClock):
         
         #draw current teams
         if (cursor_on_east_wing):
-            pygame.draw.rect(screen, (150+cos(cursor_color_angle)*50,150+cos(cursor_color_angle+2.1)*50 ,150+cos(cursor_color_angle+4.2)*50 ), (180, 115, 25,25),1)
+            pygame.draw.rect(screen, (150+cos(cursor_color_angle)*50,150+cos(cursor_color_angle+2.1)*50 ,150+cos(cursor_color_angle+1.2)*50 ), (185, 115, 25,25),1)
         else:
-            pygame.draw.rect(screen, (150+cos(cursor_color_angle)*50,150+cos(cursor_color_angle+2.1)*50 ,150+cos(cursor_color_angle+4.2)*50), (100, 115, 25,25),1)
+            pygame.draw.rect(screen, (150+cos(cursor_color_angle)*50,150+cos(cursor_color_angle+2.1)*50 ,150+cos(cursor_color_angle+1.2)*50), (37, 115, 25,25),1)
 
-        draw_team_info_text(screen,font,10)
-        screen.blit(allteams[west_team_index].image,(105,120))
-        allteams[west_team_index].draw_info(screen,100)
-        screen.blit(allteams[east_team_index].image,(185,120))
-        allteams[east_team_index].draw_info(screen,180)
+        draw_team_info_text(screen,font,128)
+        screen.blit(allteams[west_team_index].image,(42,120))
+        allteams[west_team_index].draw_info(screen,78,-1)
+        screen.blit(allteams[east_team_index].image,(192,120))
+        allteams[east_team_index].draw_info(screen,178,1)
         
         ren = font.render(allteams[west_team_index].name)
-        screen.blit(ren, (80, 140))
+        screen.blit(ren, (55+font.center_shift(allteams[west_team_index].name), 142))
         ren = font.render(allteams[east_team_index].name)
-        screen.blit(ren, (160, 140))
+        screen.blit(ren, (200+font.center_shift(allteams[east_team_index].name), 142))
         ren = font.render("vs.")
-        screen.blit(ren, (140, 160))
+        screen.blit(ren, (120, 125))
 
 
 #        x=100
@@ -272,7 +270,4 @@ def select_teams(display,font,mainClock):
         #screen.blit(ren, (8, 112))
         # Update and draw the display
         display.update()
-
-
-    return (teamA_filename,teamB_filename)
 

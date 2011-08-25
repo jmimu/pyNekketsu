@@ -50,6 +50,9 @@ class Font(object):
                 img.blit(self.letters[char], (pos, 0))
             pos += self.font["size"][0]
         return img
+    
+    def center_shift(self, text):
+        return -(self.font["size"][0]*len(text))/2
 
     def get_width(self):
         return self.font["size"][0]

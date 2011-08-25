@@ -55,8 +55,8 @@ class Match(object):
         self.team={}#
 
         #read xml file to get colors !
-        self.team[-1]=Team("data/teams/"+self.teamA_filename)
-        self.team[1]=Team("data/teams/"+self.teamB_filename)
+        self.team[-1]=Team(self.teamA_filename)
+        self.team[1]=Team(self.teamB_filename)
         
     
     def init(self,nbr_players_human_teamA,nbr_players_teamA,nbr_players_human_teamB,nbr_players_teamB,difficulty=8,length=60):
@@ -138,17 +138,17 @@ class Match(object):
         # Get the surface from the NES game library
         screen = display.get_surface()
         screen.blit(title_image,(0,0))
-        screen.blit(self.team[-1].outfit_img,(64, 140))
-        screen.blit(self.team[1].outfit_img,(164, 140))
+        screen.blit(self.team[-1].outfit_img,(52, 140))
+        screen.blit(self.team[1].outfit_img,(180, 140))
         ren = font.render("vs.")
-        screen.blit(ren, (120, 155))
+        screen.blit(ren, (128+font.center_shift("vs."), 155))
 
         ren = font.render(self.team[-1].name)
-        screen.blit(ren, (56, 174))
-        screen.blit(self.team[-1].image,(40, 170))
+        screen.blit(ren, (64+font.center_shift(self.team[-1].name), 175))
+        screen.blit(self.team[-1].image,(56, 185))
         ren = font.render(self.team[1].name)
-        screen.blit(ren, (136, 174))
-        screen.blit(self.team[1].image,(120, 170))
+        screen.blit(ren, (192+font.center_shift(self.team[1].name), 175))
+        screen.blit(self.team[1].image,(186, 185))
         # Update and draw the display
         display.update()
 
