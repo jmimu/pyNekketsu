@@ -46,6 +46,7 @@ class Team(object):
         self.players=[] #first is GK, last are human players
         self.players_ordered_dist_to_ball=[]
         self.team_node = 0 #in xml file (test if 0 to know if beginning of file already read)
+        self.xml_filename="?" #to be able to re-read the file if team is selected
 
         #average to help choosing teams
         self.avg_speed=0
@@ -69,6 +70,7 @@ class Team(object):
     
     #read some info from xml (minimum to be able to choose your team)
     def read_xml(self, xml_file):
+        self.xml_filename=xml_file
         xmldoc = minidom.parse(xml_file)
         self.team_node = xmldoc.getElementsByTagName('team')[0]
         self.image=pygame.image.load(self.team_node.getElementsByTagName('img')[0].childNodes[0].data)
@@ -137,7 +139,7 @@ class Team(object):
             self.team_node=self.read_xml(xml_file)
 
         #read all the animations
-        xmldoc = minidom.parse("data/animations.xml")
+        xmldoc = minidom.parse("data/player_animations.xml")
         animations_node = xmldoc.getElementsByTagName('animations')[0]
         all_anims=animations_node.getElementsByTagName('anim')
         for anim_node in all_anims:
