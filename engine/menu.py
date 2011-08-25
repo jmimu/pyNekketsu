@@ -192,6 +192,7 @@ def select_teams(display,font,mainClock):
         y=100
         for team in allteams:
             screen.blit(team.image,(x,y))
+            team.draw_info(screen,x)
             x+=50
         # Draw the menu boxes
         #ren = font.render(info)

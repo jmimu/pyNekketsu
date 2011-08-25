@@ -218,3 +218,19 @@ class Team(object):
 
         self.players_ordered_dist_to_ball=sorted( self.players_ordered_dist_to_ball,   key=lambda Player: Player.dist2_to_ball) #sort all the perses list with dist2_to_ball
 
+
+
+    def draw_info(self,surface,x):
+        y=120
+        x_scale=1
+        y_gap=10
+        color=(200,200,0)
+
+        normal_speed=1
+        x_speed=((self.avg_speed-normal_speed)*100+20)*x_scale
+        x_normal_speed=20*x_scale
+        pygame.draw.line(surface, (150,150,150),(x,y),(x+x_normal_speed,y),7)
+        pygame.draw.line(surface, color,(x,y),(x+x_speed,y),3)
+        y+=y_gap
+        
+
