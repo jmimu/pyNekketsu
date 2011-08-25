@@ -29,20 +29,16 @@ from player_human import Player_Human
 from inputs import Inputs
 from sprite import coloringimage
 
-#number of differents heads 
-nbr_heads=4
 
-
-#
 class Team(object):
-    def __init__(self, wing, field ):#wing where they look: -1 (west) or +1 (east)
+    def __init__(self,xml_file):#wing where they look: -1 (west) or +1 (east)
         self.outfit_img=0
         self.image=0
         self.name="?"
         self.top_color=()
         self.bottom_color=()
         self.nb_goals=0
-        self.wing=wing #-wing for target, +wing for own goal
+        self.wing=1 #-wing for target, +wing for own goal
         self.players=[] #first is GK, last are human players
         self.players_ordered_dist_to_ball=[]
         self.team_node = 0 #in xml file (test if 0 to know if beginning of file already read)
@@ -67,7 +63,10 @@ class Team(object):
         self.ref_anim_head_shift={}#head shift dictionary
         #a dict used for animation speed
         self.ref_anim_speed={}
-    
+        
+        self.read_xml(xml_file)#begin to read xml (general info for team)
+
+
     #read some info from xml (minimum to be able to choose your team)
     def read_xml(self, xml_file):
         self.xml_filename=xml_file
@@ -133,10 +132,13 @@ class Team(object):
 
         return self.team_node
                                                                        
+    #part of creation of the team when wing are decided
     #create players and read xml
-    def create_from_xml(self,xml_file,nb_players_total,human_players,match):#human_players: array of human players id
+    #human_players: array of human players id
+    def create_from_xml(self,wing,nb_players_total,human_players,match):
+        self.wing=wing #-wing for target, +wing for own goal
         if (self.team_node==0):
-            self.team_node=self.read_xml(xml_file)
+            self.team_node=self.read_xml(self.xml_filename)
 
         #read all the animations
         xmldoc = minidom.parse("data/player_animations.xml")

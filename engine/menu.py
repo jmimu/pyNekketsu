@@ -21,7 +21,10 @@
 import pygame
 import os
 import sys
+import fnmatch
 from inputs import Inputs
+
+from team import Team
 
 from retrogamelib import display
 from retrogamelib import font
@@ -153,4 +156,49 @@ def call_all_menus(display,font,mainClock):
     
     return players_human_teamA,players_human_teamB,difficulty,nb_player_team,match_length
 
+def select_teams(display,font,mainClock):
+    teamA_filename="teamA.xml"
+    teamB_filename="teamB.xml"
+    path="data/teams/"
+    dirList=os.listdir(path)
+    allteams=[]
+    for fname in dirList:
+        if fnmatch.fnmatch(fname, '*.xml'):
+            allteams.append(Team("data/teams/"+fname))
+    
+    title_image=pygame.image.load("data/title.png")
+    while 1:
+        mainClock.tick(30)
+        Inputs.readkeys()#read all the actual keys
+        if (Inputs.player_just_Esc[1] or Inputs.player_just_Esc[2]):
+            break
+        # Move the menu cursor if you press up or down    
+        if Inputs.player_just_U[1]:
+            break
+        if Inputs.player_just_D[1]:
+            break
+        # If you press A, check which option you're on!
+        if Inputs.player_just_A[1]:
+            break
+        # If you press B, cancel 
+        if Inputs.player_just_B[1]:
+            return ("?","?")
+        
+        # Get the surface from the NES game library
+        screen = display.get_surface()
+        screen.blit(title_image,(0,0))
+        
+        x=50
+        y=100
+        for team in allteams:
+            screen.blit(team.image,(x,y))
+            x+=50
+        # Draw the menu boxes
+        #ren = font.render(info)
+        #screen.blit(ren, (8, 112))
+        # Update and draw the display
+        display.update()
+
+
+    return (teamA_filename,teamB_filename)
 
