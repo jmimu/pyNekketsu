@@ -22,6 +22,7 @@ import pygame
 import os
 import sys
 import fnmatch
+from math import cos
 from inputs import Inputs
 
 from team import Team
@@ -156,6 +157,35 @@ def call_all_menus(display,font,mainClock):
     
     return players_human_teamA,players_human_teamB,difficulty,nb_player_team,match_length
 
+    
+def draw_team_info_text(screen,font,x):
+    y=160
+    x_scale=1
+    y_gap=10
+    color=(200,200,0)
+    ren = font.render("speed")
+    screen.blit(ren,(x,y-4))
+    y+=y_gap
+    ren = font.render("resistance")
+    screen.blit(ren,(x,y-4))
+    y+=y_gap
+    ren = font.render("control")
+    screen.blit(ren,(x,y-4))
+    y+=y_gap
+    ren = font.render("kick")
+    screen.blit(ren,(x,y-4))
+    y+=y_gap
+    ren = font.render("punch")
+    screen.blit(ren,(x,y-4))
+    y+=y_gap
+    ren = font.render("precision")
+    screen.blit(ren,(x,y-4))
+    y+=y_gap
+    ren = font.render("listening")
+    screen.blit(ren,(x,y-4))
+    y+=y_gap
+    
+ 
 def select_teams(display,font,mainClock):
     teamA_filename="teamA.xml"
     teamB_filename="teamB.xml"
@@ -167,33 +197,76 @@ def select_teams(display,font,mainClock):
             allteams.append(Team("data/teams/"+fname))
     
     title_image=pygame.image.load("data/title.png")
+
+    cursor_on_east_wing=False
+    cursor_color_angle=0
+    west_team_index=0
+    east_team_index=1
     while 1:
         mainClock.tick(30)
+        cursor_color_angle+=0.1
         Inputs.readkeys()#read all the actual keys
         if (Inputs.player_just_Esc[1] or Inputs.player_just_Esc[2]):
             break
         # Move the menu cursor if you press up or down    
         if Inputs.player_just_U[1]:
-            break
+            if (cursor_on_east_wing):
+                east_team_index-=1
+            else:
+                west_team_index-=1
         if Inputs.player_just_D[1]:
-            break
+            if (cursor_on_east_wing):
+                east_team_index+=1
+            else:
+                west_team_index+=1
+        if Inputs.player_just_R[1] or Inputs.player_just_L[1]:
+                cursor_on_east_wing=not cursor_on_east_wing
         # If you press A, check which option you're on!
         if Inputs.player_just_A[1]:
             break
         # If you press B, cancel 
         if Inputs.player_just_B[1]:
             return ("?","?")
+        if (west_team_index<0):
+            west_team_index=len(allteams)-1
+        if (west_team_index>=len(allteams)):
+            west_team_index=0
+        if (east_team_index<0):
+            east_team_index=len(allteams)-1
+        if (east_team_index>=len(allteams)):
+            east_team_index=0
         
         # Get the surface from the NES game library
         screen = display.get_surface()
         screen.blit(title_image,(0,0))
         
-        x=50
-        y=100
-        for team in allteams:
-            screen.blit(team.image,(x,y))
-            team.draw_info(screen,x)
-            x+=50
+        #draw current teams
+        if (cursor_on_east_wing):
+            pygame.draw.rect(screen, (150+cos(cursor_color_angle)*50,150+cos(cursor_color_angle+2.1)*50 ,150+cos(cursor_color_angle+4.2)*50 ), (180, 115, 25,25),1)
+        else:
+            pygame.draw.rect(screen, (150+cos(cursor_color_angle)*50,150+cos(cursor_color_angle+2.1)*50 ,150+cos(cursor_color_angle+4.2)*50), (100, 115, 25,25),1)
+
+        draw_team_info_text(screen,font,10)
+        screen.blit(allteams[west_team_index].image,(105,120))
+        allteams[west_team_index].draw_info(screen,100)
+        screen.blit(allteams[east_team_index].image,(185,120))
+        allteams[east_team_index].draw_info(screen,180)
+        
+        ren = font.render(allteams[west_team_index].name)
+        screen.blit(ren, (80, 140))
+        ren = font.render(allteams[east_team_index].name)
+        screen.blit(ren, (160, 140))
+        ren = font.render("vs.")
+        screen.blit(ren, (140, 160))
+
+
+#        x=100
+#        y=100
+#        draw_team_info_text(screen,font,10)
+#        for team in allteams:
+#            screen.blit(team.image,(x,y))
+#            team.draw_info(screen,x)
+#            x+=50
         # Draw the menu boxes
         #ren = font.render(info)
         #screen.blit(ren, (8, 112))

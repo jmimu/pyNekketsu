@@ -221,7 +221,7 @@ class Team(object):
 
 
     def draw_info(self,surface,x):
-        y=120
+        y=160
         x_scale=1
         y_gap=10
         color=(200,200,0)
@@ -233,4 +233,46 @@ class Team(object):
         pygame.draw.line(surface, color,(x,y),(x+x_speed,y),3)
         y+=y_gap
         
-
+        normal_resistance=1
+        x_resistance=((self.avg_resistance-normal_resistance)*100+20)*x_scale
+        x_normal_resistance=20*x_scale
+        pygame.draw.line(surface, (150,150,150),(x,y),(x+x_normal_resistance,y),7)
+        pygame.draw.line(surface, color,(x,y),(x+x_resistance,y),3)
+        y+=y_gap
+        
+        normal_control=1
+        x_control=((self.avg_control-normal_control)*100+20)*x_scale
+        x_normal_control=20*x_scale
+        pygame.draw.line(surface, (150,150,150),(x,y),(x+x_normal_control,y),7)
+        pygame.draw.line(surface, color,(x,y),(x+x_control,y),3)
+        y+=y_gap
+        
+        normal_kick=1
+        x_kick=((self.avg_kick-normal_kick)*100+20)*x_scale
+        x_normal_kick=20*x_scale
+        pygame.draw.line(surface, (150,150,150),(x,y),(x+x_normal_kick,y),7)
+        pygame.draw.line(surface, color,(x,y),(x+x_kick,y),3)
+        y+=y_gap
+        
+        normal_punch=1
+        x_punch=((self.avg_punch-normal_punch)*100+20)*x_scale
+        x_normal_punch=20*x_scale
+        pygame.draw.line(surface, (150,150,150),(x,y),(x+x_normal_punch,y),7)
+        pygame.draw.line(surface, color,(x,y),(x+x_punch,y),3)
+        y+=y_gap
+        
+        normal_precision=1
+        x_precision=((self.avg_precision-normal_precision)*100+20)*x_scale
+        x_normal_precision=20*x_scale
+        pygame.draw.line(surface, (150,150,150),(x,y),(x+x_normal_precision,y),7)
+        pygame.draw.line(surface, color,(x,y),(x+x_precision,y),3)
+        y+=y_gap
+ 
+        normal_listening=1
+        x_listening=((self.avg_listening-normal_listening)*100+20)*x_scale
+        x_normal_listening=20*x_scale
+        pygame.draw.line(surface, (150,150,150),(x,y),(x+x_normal_listening,y),7)
+        pygame.draw.line(surface, color,(x,y),(x+x_listening,y),3)
+        y+=y_gap
+        
+       

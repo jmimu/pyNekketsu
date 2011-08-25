@@ -5,6 +5,7 @@
  - change ball hurting : only if ball is out of collision rectangle
  - what to do if choose twice the same team ?
  - make xml for fields
+ - use surface.fill for sky and grass (because it's optimized?)
 
  - be able to change key config and stop sound
 
