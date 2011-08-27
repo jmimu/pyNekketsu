@@ -1,19 +1,18 @@
- - centered text (for team choice)
+ - insert correctly team choice in menu (esc)
+ - ask player to press a key when team creation is finished
+ - correct ref_pos scale with overlaping
  - improve GK jump time (depending on ball speed?)
  - change difficulty : shrink team charateristics
  - make players able to fall
  - use health and endurance, and make stronger players avoid attacks
  - change ball hurting : only if ball is out of collision rectangle
  - what to do if choose twice the same team ?
- - make xml for fields
+ - make xml for fields, and choice in menu
  - use surface.fill for sky and grass (because it's optimized?)
 
  - be able to change key config and stop sound
 
- - choose teams and fields (described in xml files)
-
- - add team info (organization, charactesirtics)
-
+ 
 Retrogamelib bugs :
  - menu size
  - dialog progress too soon

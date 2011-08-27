@@ -1,9 +1,9 @@
 
 <team>
-  <name>Taraxacum</name>
-  <img>data/teams/Taraxacum.png</img>
-  <top_color><r>190</r><g>190</g><b>0</b></top_color>
-  <bottom_color><r>100</r><g>100</g><b>100</b></bottom_color>
+  <name>Convallaria</name>
+  <img>data/teams/Convallaria.png</img>
+  <top_color><r>80</r><g>180</g><b>30</b></top_color>
+  <bottom_color><r>100</r><g>50</g><b>50</b></bottom_color>
   <players>
     <playerGK>
       <name>Pissenlit</name>
@@ -17,7 +17,7 @@
       <health>100</health>
       <max_energy>1000</max_energy>
       <resistance>1</resistance>
-      <control>1</control>
+      <control>1.5</control>
       <kick>1</kick>
       <punch>1</punch>
       <jump_hight>1</jump_hight>
@@ -27,9 +27,9 @@
     </playerGK>
     <player>
       <name>Cramia</name>
-      <head_number>4</head_number>
+      <head_number>3</head_number>
       <init_pos>
-        <x>90</x>
+        <x>85</x>
         <y>35</y>
       </init_pos>
       <skin_color><r>200</r><g>100</g><b>100</b></skin_color>
@@ -43,7 +43,7 @@
       <jump_hight>1</jump_hight>
       <agressivity>1</agressivity>
       <precision>1</precision>
-      <listening>1</listening>
+      <listening>1.5</listening>
     </player>
     <player>
       <name>Baraban</name>
@@ -63,7 +63,7 @@
       <jump_hight>1</jump_hight>
       <agressivity>1</agressivity>
       <precision>1</precision>
-      <listening>1</listening>
+      <listening>1.5</listening>
     </player>
     <player>
       <name>Cramiat</name>
@@ -83,7 +83,7 @@
       <jump_hight>1</jump_hight>
       <agressivity>1</agressivity>
       <precision>1</precision>
-      <listening>1</listening>
+      <listening>1.5</listening>
     </player>
     <player>
       <name>Cochet</name>
@@ -103,7 +103,7 @@
       <jump_hight>1</jump_hight>
       <agressivity>1</agressivity>
       <precision>1</precision>
-      <listening>1</listening>
+      <listening>2</listening>
     </player>
  </players>
 </team>

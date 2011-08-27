@@ -205,18 +205,26 @@ def select_teams(display,font,mainClock):
         cursor_color_angle+=0.1
         Inputs.readkeys()#read all the actual keys
         if (Inputs.player_just_Esc[1] or Inputs.player_just_Esc[2]):
-            break
+            break#TODO change !
         # Move the menu cursor if you press up or down    
         if Inputs.player_just_U[1]:
             if (cursor_on_east_wing):
                 east_team_index-=1
+                if (east_team_index==west_team_index):
+                    east_team_index-=1
             else:
                 west_team_index-=1
+                if (east_team_index==west_team_index):
+                    west_team_index-=1
         if Inputs.player_just_D[1]:
             if (cursor_on_east_wing):
                 east_team_index+=1
+                if (east_team_index==west_team_index):
+                    east_team_index+=1
             else:
                 west_team_index+=1
+                if (east_team_index==west_team_index):
+                    west_team_index+=1
         if Inputs.player_just_R[1] or Inputs.player_just_L[1]:
                 cursor_on_east_wing=not cursor_on_east_wing
         # If you press A, check which option you're on!
@@ -245,7 +253,11 @@ def select_teams(display,font,mainClock):
             pygame.draw.rect(screen, (150+cos(cursor_color_angle)*50,150+cos(cursor_color_angle+2.1)*50 ,150+cos(cursor_color_angle+1.2)*50), (37, 115, 25,25),1)
 
         draw_team_info_text(screen,font,128)
-        screen.blit(allteams[west_team_index].image,(42,120))
+        #screen.blit(allteams[west_team_index].image,(42,120))
+        transf_west_img=pygame.transform.scale(allteams[west_team_index].image,(abs(16+4*cos(cursor_color_angle)),abs(16+4*cos(1.3*cursor_color_angle+0.5))))
+
+        screen.blit(transf_west_img,(42+8-(16+4*cos(cursor_color_angle))/2,120+8-(16+4*cos(1.3*cursor_color_angle+0.5))/2))
+
         allteams[west_team_index].draw_info(screen,78,-1)
         screen.blit(allteams[east_team_index].image,(192,120))
         allteams[east_team_index].draw_info(screen,178,1)

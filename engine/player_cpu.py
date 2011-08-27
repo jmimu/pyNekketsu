@@ -39,8 +39,9 @@ class Player_CPU(Player_non_GK):
 
     def think(self,match):#press on virtual keys
 
-        #compute where to go depending on ball position and pos_ref (use a lot of team.wing!) (1.3 is for overlaping)
-        scale_due_to_ball_pos=-self.team.wing*(match.ball.pos[0]    -1.3*self.team.wing*match.field.half_length)/(match.field.half_length)
+        #compute where to go depending on ball position and pos_ref (use a lot of team.wing!)
+        overlaping=1.5
+        scale_due_to_ball_pos=-self.team.wing*(match.ball.pos[0]-overlaping*self.team.wing*match.field.half_length)/(match.field.half_length)
         self.pos_aim[0]=self.team.wing*(-(match.field.half_length-self.pos_ref[0])*scale_due_to_ball_pos+match.field.half_length)
         
         if (self.has_ball!=0):
