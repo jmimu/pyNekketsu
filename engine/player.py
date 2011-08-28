@@ -126,6 +126,8 @@ class Player(Sprite):
         
 
     def update(self,match):
+        previous_pos=[]
+        previous_pos[:]=self.pos[:] #in case of collision, return to previous position
         self.handle_inputs(match)
 
         if (self.state=="jump"): #if jumping, continue to go in previous direction
@@ -178,6 +180,19 @@ class Player(Sprite):
             self.anim_index=0
         self.image = self.anim[self.direction][self.state][int(self.anim_index)]
     
+        #test collision with other players
+        for pl in match.player_list:
+            if (pl!=self):
+                if (abs(pl.pos[0]-self.pos[0])<5)and(abs(pl.pos[1]-self.pos[1])<5):
+                    if (self.pos[0]>pl.pos[0])and(self.pos[0]<previous_pos[0]):
+                        self.pos[0]=previous_pos[0]
+                    if (self.pos[0]<pl.pos[0])and(self.pos[0]>previous_pos[0]):
+                        self.pos[0]=previous_pos[0]
+                    if (self.pos[1]>pl.pos[1])and(self.pos[1]<previous_pos[1]):
+                        self.pos[1]=previous_pos[1]
+                    if (self.pos[1]<pl.pos[1])and(self.pos[1]>previous_pos[1]):
+                        self.pos[1]=previous_pos[1]
+
         match.field.collide_with_player(self)
         
         self.dist2_to_ball=(self.pos[0]-match.ball.pos[0])**2+(self.pos[1]-match.ball.pos[1])**2 #square of planar dist to ball

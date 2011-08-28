@@ -1,3 +1,5 @@
+ - correct player collision
+ - add "?" when shoot error
  - insert correctly team choice in menu (esc)
  - ask player to press a key when team creation is finished
  - correct ref_pos scale with overlaping
