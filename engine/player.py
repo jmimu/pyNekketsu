@@ -162,7 +162,7 @@ class Player(Sprite):
                 self.state="walk"
         if (self.state=="attack"):
             self.anim_index += self.team.ref_anim_speed[self.state]
-            self.pos[0]+=self.direction/5.0
+            self.pos[0]+=self.direction/3.0
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
@@ -182,8 +182,8 @@ class Player(Sprite):
     
         #test collision with other players
         for pl in match.player_list:
-            if (pl!=self):
-                if (abs(pl.pos[0]-self.pos[0])<5)and(abs(pl.pos[1]-self.pos[1])<5):
+            if (pl!=self)and(pl.state!="hurt"):
+                if (abs(pl.pos[0]-self.pos[0])<4)and(abs(pl.pos[1]-self.pos[1])<4):
                     if (self.pos[0]>pl.pos[0])and(self.pos[0]<previous_pos[0]):
                         self.pos[0]=previous_pos[0]
                     if (self.pos[0]<pl.pos[0])and(self.pos[0]>previous_pos[0]):
@@ -192,6 +192,21 @@ class Player(Sprite):
                         self.pos[1]=previous_pos[1]
                     if (self.pos[1]<pl.pos[1])and(self.pos[1]>previous_pos[1]):
                         self.pos[1]=previous_pos[1]
+
+                    if (self.state=="attack"):
+                        #pl is attacked !
+                        pl.state="hurt"
+                        Player.snd_attack.play()
+                        pl.anim_index=0
+                        pl.direction=-self.direction
+                        pl.health-=5*self.punch/pl.resistance
+                        if (pl.health<0):
+                            pl.health=0
+                        if (pl.has_ball != 0):
+                            pl.has_ball=0
+                            match.ball.owner=0
+                            match.ball.speed[0]=5*self.direction
+
 
         match.field.collide_with_player(self)
         
@@ -322,23 +337,23 @@ class Player(Sprite):
         self.state="attack"
         self.anim_index=0
 
-        for p in match.player_list:
-            if (p!=self):
-                if (0<(p.pos[0]-self.pos[0])*self.direction<6) \
-                    and (abs(p.pos[1]-self.pos[1])<5) \
-                    and (abs(p.pos[2]-self.pos[2])<5):
-                    #p is attacked !
-                    p.state="hurt"
-                    Player.snd_attack.play()
-                    p.anim_index=0
-                    p.direction=-self.direction
-                    p.health-=5*self.punch/p.resistance
-                    if (p.health<0):
-                        p.health=0
-                    if (p.has_ball != 0):
-                        p.has_ball=0
-                        match.ball.owner=0
-                        match.ball.speed[0]+=5*self.direction
+#        for p in match.player_list:
+#            if (p!=self):
+#                if (0<(p.pos[0]-self.pos[0])*self.direction<7) \
+#                    and (abs(p.pos[1]-self.pos[1])<5) \
+#                    and (abs(p.pos[2]-self.pos[2])<5):
+#                    #p is attacked !
+#                    p.state="hurt"
+#                    Player.snd_attack.play()
+#                    p.anim_index=0
+#                    p.direction=-self.direction
+#                    p.health-=5*self.punch/p.resistance
+#                    if (p.health<0):
+#                        p.health=0
+#                    if (p.has_ball != 0):
+#                        p.has_ball=0
+#                        match.ball.owner=0
+#                        match.ball.speed[0]=5*self.direction#previous: +=
 
     def handle_inputs(self,match):
         if (self.state=="walk"):

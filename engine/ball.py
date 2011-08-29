@@ -21,6 +21,7 @@
 import pygame
 import os
 import random
+import math
 
 from sprite import Sprite
 
@@ -147,3 +148,57 @@ class Ball(Sprite):
             self.anim_index=0
         self.image = self.anim[self.direction][self.state][int(self.anim_index)]
         
+    #bounce on a circle
+    #return false if not possible to bounce
+    def bounce_on_player(self,pl):
+        ball_radius=2
+        player_radius=3
+        if not(((self.pos[0]-pl.pos[0])**2+(self.pos[1]-pl.pos[1])**2)<(ball_radius+player_radius)**2):
+            return False#no collision
+        #find ball position where contact begins (with ball speed)
+        contact_pos_x=0
+        contact_pos_y=0
+        #equation: contact_pos=l*vit_ball+ball_pos     and    dist(contact_pos-player_pos)=5
+        a=self.speed[0]
+        b=self.speed[1]
+        c=self.pos[0]-pl.pos[0]
+        d=self.pos[1]-pl.pos[1]
+        dist2=(ball_radius+player_radius)**2
+        #(l*a+c)**2+(l*b+d)**2=dist2
+        delta=(2*a*c+2*b*d)**2-4*(a**2+b**2)*(c**2+d**2-dist2)
+        if (delta<0): #there is no contact point
+            return False
+        solution1=(-2*a*c-2*b*d+math.sqrt(delta))/(2*a**2+2*b**2)
+        solution2=(-2*a*c-2*b*d-math.sqrt(delta))/(2*a**2+2*b**2)
+        l=solution1
+        if (solution2<=0):
+            l=solution2
+        if (l>0):
+            #there is no contact in the past
+            return False
+#        print("previous_pos: ",self.pos[0],self.pos[1],(pl.pos[0]-self.pos[0])**2+(pl.pos[1]-self.pos[1])**2)
+        self.pos[0]+=l*self.speed[0]
+        self.pos[1]+=l*self.speed[1]
+#        print("new_pos: ",self.pos[0],self.pos[1],(pl.pos[0]-self.pos[0])**2+(pl.pos[1]-self.pos[1])**2)
+        #mirror the ball velocity
+        
+        c=self.pos[0]-pl.pos[0]#vector from ball to player
+        d=self.pos[1]-pl.pos[1]
+        norm=math.sqrt(c**2+d**2)
+        scal_product=(self.speed[0]*c+self.speed[1]*d)/norm
+#        print("for scal_product ",self.speed[0],c,self.speed[1],d,norm)
+        v_a_x=c*scal_product/norm
+        v_a_y=d*scal_product/norm
+
+#        print(c,d,"   scal ",scal_product)
+#        print(self.speed[0],self.speed[1],v_a_x,v_a_y)
+#        print("speed before: ",self.speed[0],self.speed[1],math.sqrt(self.speed[0]**2+self.speed[1]**2))
+        self.speed[0]-=2*v_a_x
+        self.speed[1]-=2*v_a_y
+#        print("final ",self.speed[0],self.speed[1])
+#        print("speed after: ",self.speed[0],self.speed[1],math.sqrt(self.speed[0]**2+self.speed[1]**2))
+        #slow down ball
+        self.speed[0]*=0.6
+        self.speed[1]*=0.6
+        return True
+

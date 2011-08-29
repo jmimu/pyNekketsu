@@ -33,19 +33,41 @@ class Player_non_GK(Player):
     def update(self,match):
         #try to catch the ball 
         if (self.state=="walk") and ((match.ball.owner==0)or(match.ball.owner.state=="preshoot")):
-            if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
+            if (abs(match.ball.pos[0]-self.pos[0])<5) \
                 and (abs(match.ball.pos[1]-self.pos[1])<5)  \
                 and ((match.ball.pos[2]-self.pos[2])<7): #Z
                 if (abs(match.ball.speed[0])>9*self.control):#too much in opposite direction : KO
                     self.state="hurt"
                     self.anim_index=0
-                    match.ball.speed[0]*=-0.6
-                    match.ball.speed[2]+=(match.ball.pos[2]-self.pos[2])
+                    if not match.ball.bounce_on_player(self):
+                        #if proper bounce is impossible, use normal method
+                        match.ball.speed[0]*=-0.6
+                        match.ball.speed[2]+=(match.ball.pos[2]-self.pos[2])
                     Player.snd_pass.play()
                 else:#not enought to hurt...
                     if (match.ball.speed[0]*self.direction<10):#speed X must be slow or in opposite direction
                         match.ball.owner=self
                         self.has_ball=match.ball
                         match.ball.speed=[0,0,0]
+                    else:
+                        #rebounce but don't knock
+                        match.ball.bounce_on_player(self)
+                         
+
+#        if (self.state=="walk") and ((match.ball.owner==0)or(match.ball.owner.state=="preshoot")):
+#            if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
+#                and (abs(match.ball.pos[1]-self.pos[1])<5)  \
+#                and ((match.ball.pos[2]-self.pos[2])<7): #Z
+#                if (abs(match.ball.speed[0])>9*self.control):#too much in opposite direction : KO
+#                    self.state="hurt"
+#                    self.anim_index=0
+#                    match.ball.speed[0]*=-0.6
+#                    match.ball.speed[2]+=(match.ball.pos[2]-self.pos[2])
+#                    Player.snd_pass.play()
+#                else:#not enought to hurt...
+#                    if (match.ball.speed[0]*self.direction<10):#speed X must be slow or in opposite direction
+#                        match.ball.owner=self
+#                        self.has_ball=match.ball
+#                        match.ball.speed=[0,0,0]
         Player.update(self,match)
 

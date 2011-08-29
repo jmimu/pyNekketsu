@@ -42,8 +42,10 @@ class Player_GK(Player):
                 if (abs(match.ball.speed[0])>10*self.control):#too much in opposite direction : KO
                     self.state="hurt"
                     self.anim_index=0
-                    match.ball.speed[0]*=-0.6
-                    match.ball.speed[2]+=(match.ball.pos[2]-self.pos[2])
+                    if not match.ball.bounce_on_player(self):
+                        #if proper bounce is impossible, use normal method
+                        match.ball.speed[0]*=-0.6
+                        match.ball.speed[2]+=(match.ball.pos[2]-self.pos[2])
                     Player.snd_pass.play()
                 else:#not enought to hurt...
                     if (match.ball.speed[0]*self.direction<10):#speed X must be slow or in opposite direction

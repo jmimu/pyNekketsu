@@ -114,7 +114,7 @@ class Match(object):
                 if (self.match_time>0):#when time is out, players stop
                     self.match_time-=1.0/30 #30 FPS
                     self.team[-1].update(self)
-                    #self.team[1].update(self)
+                    self.team[1].update(self)
                 if (-1<self.match_time<0):
                     Match.snd_whistle.play()
 
