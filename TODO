@@ -1,7 +1,5 @@
- - correct player collision, tyr circle (for ball too)
- - make players able to avoir collision ?
- - make hurt players non collidable ?
- - be able to change attacking and colliding distances variable
+ - make players able to avoid collision ? (depending on strength)
+ - be able to change attacking and colliding distances
 
  - add "?" when shoot error
  - insert correctly team choice in menu (esc)

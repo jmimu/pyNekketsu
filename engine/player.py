@@ -26,6 +26,7 @@ from sprite import compileimage
 from inputs import Inputs
 from copy import deepcopy
 
+round_collision=True
 
 class Player(Sprite):
     snd_pass = pygame.mixer.Sound("data/sound/etw/pass.wav")
@@ -181,31 +182,99 @@ class Player(Sprite):
         self.image = self.anim[self.direction][self.state][int(self.anim_index)]
     
         #test collision with other players
-        for pl in match.player_list:
-            if (pl!=self)and(pl.state!="hurt"):
-                if (abs(pl.pos[0]-self.pos[0])<4)and(abs(pl.pos[1]-self.pos[1])<4):
-                    if (self.pos[0]>pl.pos[0])and(self.pos[0]<previous_pos[0]):
-                        self.pos[0]=previous_pos[0]
-                    if (self.pos[0]<pl.pos[0])and(self.pos[0]>previous_pos[0]):
-                        self.pos[0]=previous_pos[0]
-                    if (self.pos[1]>pl.pos[1])and(self.pos[1]<previous_pos[1]):
-                        self.pos[1]=previous_pos[1]
-                    if (self.pos[1]<pl.pos[1])and(self.pos[1]>previous_pos[1]):
-                        self.pos[1]=previous_pos[1]
+        if (not round_collision):
+            for pl in match.player_list:
+                if (pl!=self)and(pl.state!="hurt"):
+                    if (abs(pl.pos[0]-self.pos[0])<4)and(abs(pl.pos[1]-self.pos[1])<4):
+                        if (self.pos[0]>pl.pos[0])and(self.pos[0]<previous_pos[0]):
+                            self.pos[0]=previous_pos[0]
+                        if (self.pos[0]<pl.pos[0])and(self.pos[0]>previous_pos[0]):
+                            self.pos[0]=previous_pos[0]
+                        if (self.pos[1]>pl.pos[1])and(self.pos[1]<previous_pos[1]):
+                            self.pos[1]=previous_pos[1]
+                        if (self.pos[1]<pl.pos[1])and(self.pos[1]>previous_pos[1]):
+                            self.pos[1]=previous_pos[1]
 
-                    if (self.state=="attack"):
-                        #pl is attacked !
-                        pl.state="hurt"
-                        Player.snd_attack.play()
-                        pl.anim_index=0
-                        pl.direction=-self.direction
-                        pl.health-=5*self.punch/pl.resistance
-                        if (pl.health<0):
-                            pl.health=0
-                        if (pl.has_ball != 0):
-                            pl.has_ball=0
-                            match.ball.owner=0
-                            match.ball.speed[0]=5*self.direction
+                        if (self.state=="attack"):
+                            #pl is attacked !
+                            pl.state="hurt"
+                            Player.snd_attack.play()
+                            pl.anim_index=0
+                            pl.direction=-self.direction
+                            pl.health-=5*self.punch/pl.resistance
+                            if (pl.health<0):
+                                pl.health=0
+                            if (pl.has_ball != 0):
+                                pl.has_ball=0
+                                match.ball.owner=0
+                                match.ball.speed[0]=5*self.direction
+        else:#if round collision
+            player_radius=5
+            for pl in match.player_list:
+                if (pl!=self)and(pl.state!="hurt")and(self.state!="hurt"):
+                    if (abs(pl.pos[0]-self.pos[0])<player_radius*2)and(abs(pl.pos[1]-self.pos[1])<player_radius*2):
+                        #if close, try cyrcle collision
+                        x=self.pos[0]
+                        y=self.pos[1]
+                        x0=pl.pos[0]
+                        y0=pl.pos[1]
+                        dist2=(x-x0)**2+(y-y0)**2
+                        if (dist2<player_radius**2):#circle collision
+                            #place the player at player_radius*2 from the other,
+                            #in the same direction he is now (new_x,new_y)
+                            if (self.state=="attack"):
+                                #pl is attacked !
+                                pl.state="hurt"
+                                Player.snd_attack.play()
+                                pl.anim_index=0
+                                pl.direction=-self.direction
+                                pl.health-=5*self.punch/pl.resistance
+                                if (pl.health<0):
+                                    pl.health=0
+                                if (pl.has_ball != 0):
+                                    pl.has_ball=0
+                                    match.ball.owner=0
+                                    match.ball.speed[0]=5*self.direction
+                            else:
+                                if (abs(x-x0)>0.01):
+                                    alpha=(x0*y-y0*x)/(x0-x)
+                                    beta=(y-y0)/(x0-x)
+                                    a=1+beta**2
+                                    b=-2*x0-2*alpha*beta+2*y0*beta
+                                    c=x0**2+alpha**2-2*y0*alpha+y0**2-player_radius**2
+                                    delta=b**2-4*a*c
+                                    if (delta<0):
+                                        #no solution
+                                        continue
+                                    sol_new_x1=(-b+math.sqrt(delta))/(2*a)
+                                    sol_new_x2=(-b-math.sqrt(delta))/(2*a)
+                                    new_x=sol_new_x1
+                                    if (sol_new_x2<=x<=x0)or(sol_new_x2>=x>=x0)or(abs(sol_new_x2-x)<0.01):
+                                        #take the solution where current pos is between new_x and x0
+                                        new_x=sol_new_x2
+                                    new_y=(x0*y-y0*x-new_x*(y-y0))/(x0-x)
+                                else:#better to divide by y
+                                    if (abs(y-y0)<0.01):
+                                        continue #too close, don't know in which direction to go...
+                                    alpha=(y0*x-x0*y)/(y0-y)
+                                    beta=(x-x0)/(y0-y)
+                                    a=1+beta**2
+                                    b=-2*y0-2*alpha*beta+2*x0*beta
+                                    c=y0**2+alpha**2-2*x0*alpha+x0**2-player_radius**2
+                                    delta=b**2-4*a*c
+                                    if (delta<0):
+                                        #no solution
+                                        continue
+                                    sol_new_y1=(-b+math.sqrt(delta))/(2*a)
+                                    sol_new_y2=(-b-math.sqrt(delta))/(2*a)
+                                    new_y=sol_new_y1
+                                    if (sol_new_y2<=y<=y0)or(sol_new_y2>=y>=y0)or(abs(sol_new_y2-y)<0.01):
+                                        #take the solution where current pos is between new_y and y0
+                                        new_y=sol_new_y2
+                                    new_x=(y0*x-x0*y-new_y*(x-x0))/(y0-y)
+                                self.pos[0]=new_x
+                                self.pos[1]=new_y
+
 
 
         match.field.collide_with_player(self)

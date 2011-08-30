@@ -254,12 +254,13 @@ def select_teams(display,font,mainClock):
 
         draw_team_info_text(screen,font,128)
         #screen.blit(allteams[west_team_index].image,(42,120))
-        transf_west_img=pygame.transform.scale(allteams[west_team_index].image,(abs(16+4*cos(cursor_color_angle)),abs(16+4*cos(1.3*cursor_color_angle+0.5))))
+        transf_west_img=pygame.transform.scale(allteams[west_team_index].image,(int(16+4*cos(cursor_color_angle)),int(16+4*cos(1.3*cursor_color_angle+0.5))))
+        transf_east_img=pygame.transform.scale(allteams[east_team_index].image,(int(16+4*cos(cursor_color_angle+1)),int(16+4*cos(1.3*cursor_color_angle+1.5))))
 
         screen.blit(transf_west_img,(42+8-(16+4*cos(cursor_color_angle))/2,120+8-(16+4*cos(1.3*cursor_color_angle+0.5))/2))
+        screen.blit(transf_east_img,(192+8-(16+4*cos(cursor_color_angle+1))/2,120+8-(16+4*cos(1.3*cursor_color_angle+1.5))/2))
 
         allteams[west_team_index].draw_info(screen,78,-1)
-        screen.blit(allteams[east_team_index].image,(192,120))
         allteams[east_team_index].draw_info(screen,178,1)
         
         ren = font.render(allteams[west_team_index].name)
