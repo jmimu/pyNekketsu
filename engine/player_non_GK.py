@@ -46,9 +46,15 @@ class Player_non_GK(Player):
                     Player.snd_pass.play()
                 else:#not enought to hurt...
                     if (match.ball.speed[0]*self.direction<10):#speed X must be slow or in opposite direction
+                        print(self.name+" takes the ball")
+                        if (match.ball.owner!=0) and (match.ball.owner.state=="preshoot"):
+                            print("while "+match.ball.owner.name+" is preshooting")
+                        if (match.ball.owner!=0):
+                            match.ball.owner.has_ball=0
                         match.ball.owner=self
                         self.has_ball=match.ball
                         match.ball.speed=[0,0,0]
+
                     else:
                         #rebounce but don't knock
                         match.ball.bounce_on_player(self)

@@ -40,7 +40,9 @@ class Player(Sprite):
         self.number_human_player=0
         self.image=0#current image
         self.skin_color=()
-        
+        self.message_image=0#image of what he says
+        self.previous_pos=[]
+
         #player characteristics
         self.pos_ref=[]#reference position in west half field
         self.pos_aim=[]#in full field coords, (scaled depending on ball position) (not used by GK)
@@ -161,6 +163,7 @@ class Player(Sprite):
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
+                self.message_image=0
         if (self.state=="attack"):
             self.anim_index += self.team.ref_anim_speed[self.state]
             self.pos[0]+=self.direction/3.0
@@ -285,6 +288,14 @@ class Player(Sprite):
     def draw(self,surface,camera,is_shadow=True):
         Sprite.draw(self,surface,camera,is_shadow)
         #surface.blit(self.team.image, camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*3))
+        if (self.message_image!=0):
+            message_pos=[]
+            message_pos[:]=self.pos[:]
+            if (self.direction==1):
+                surface.blit(self.message_image, camera.proj(message_pos,-self.image.get_width(),30))
+            else:
+                surface.blit(self.message_image, camera.proj(message_pos,self.message_image.get_width()+self.image.get_width()*2,30))
+
  
     def preshoot(self,match):
         if (match.ball.owner==0) or (self.has_ball==0):
@@ -305,6 +316,7 @@ class Player(Sprite):
     def shoot(self,match):
         if (match.ball.owner==0) or (self.has_ball==0):
             #print("Error on shoot!")
+            self.message_image=Sprite.font.render("??")
             match.ball.owner=0
             self.has_ball=0
             self.state="shoot"

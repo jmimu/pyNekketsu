@@ -49,6 +49,8 @@ class Player_GK(Player):
                     Player.snd_pass.play()
                 else:#not enought to hurt...
                     if (match.ball.speed[0]*self.direction<10):#speed X must be slow or in opposite direction
+                        if (match.ball.owner!=0):
+                            match.ball.owner.has_ball=0
                         match.ball.owner=self
                         self.has_ball=match.ball
                         match.ball.speed=[0,0,0]

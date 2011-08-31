@@ -20,15 +20,17 @@
 
 import pygame
 import os
+from retrogamelib import font
+from retrogamelib.constants import *
 
 #general drawable 2D object (used to compute drawing order)
 class Sprite(object):
     #shadow image is static
     shadow_image=pygame.image.load("data/shadow2.png")
+    font=font.Font(NES_FONT, (255, 255, 255))
     def __init__(self):
         self.image=0
         self.pos = [0, 0, 0]
-        self.previous_pos = [0, 0, 0]
         
     def draw(self,surface,camera,is_shadow=True):
         if (is_shadow):
