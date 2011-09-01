@@ -56,6 +56,18 @@ class Inputs():
         self.Esc=False
         self.Start=False
 
+    def clear(self):#useful only for cpu
+        self.R=False
+        self.L=False
+        self.U=False
+        self.D=False
+        self.A=False
+        self.B=False
+        self.C=False
+        self.Esc=False
+        self.Start=False
+
+
 
     @classmethod
     #search for the point, or create it

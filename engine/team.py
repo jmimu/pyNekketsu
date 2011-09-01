@@ -186,6 +186,8 @@ class Team(object):
             player_node=players_node.getElementsByTagName('player')[player_rank]
             player_rank=player_rank+1
             self.players[-1].read_xml(player_node,match.field)
+            #adjust speed to change difficulty (8:hard = normal speed)
+            self.players[-1].speed/=(1.0+(8-Player_CPU.difficulty)/10.0)
 
         self.players_ordered_dist_to_ball[:]=self.players[1:]
 

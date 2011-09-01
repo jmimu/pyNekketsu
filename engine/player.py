@@ -58,7 +58,7 @@ class Player(Sprite):
         #IA characteristics
         self.agressivity=1 
         self.precision=1 #for GK and pass
-        self.listening=1 #when asked for pass (max:2)
+        self.listening=1 #wants to pass, and accepts to pass (max:2)
         
         self.inputs=0 #class Inputs, constructor differs if Player_CPU or Player_Human
         self.anim_index=0
@@ -170,12 +170,14 @@ class Player(Sprite):
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
+                self.message_image=0
         if (self.state=="hurt"):
             self.anim_index += self.team.ref_anim_speed[self.state]
             self.pos[0]-=self.direction/10.0
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
+                self.message_image=0
             
         #try to catch the ball  : see player_GK and player_non_GK
 
@@ -315,7 +317,7 @@ class Player(Sprite):
    
     def shoot(self,match):
         if (match.ball.owner==0) or (self.has_ball==0):
-            #print("Error on shoot!")
+            print(self.name+" failed to shoot")
             self.message_image=Sprite.font.render("??")
             match.ball.owner=0
             self.has_ball=0
@@ -323,6 +325,7 @@ class Player(Sprite):
             self.anim_index=0
             return
 
+        print(self.name+" shoots!")
         self.state="shoot"
         self.anim_index=0
 
@@ -337,7 +340,7 @@ class Player(Sprite):
 
     def pass_ball(self,match):
         if (match.ball.owner==0) or (self.has_ball==0):
-            print("Error on pass_ball!")
+            #print("Error on pass_ball!")
             match.ball.owner=0
             self.has_ball=0
             return
@@ -350,6 +353,7 @@ class Player(Sprite):
         best_teammate2=0 #closer to the ball in next angle
         best_teammate2_az=0
 
+        print(self.name+" passes")
         if (self.inputs.U or self.inputs.R or self.inputs.D or self.inputs.L):
             #find player in right direction
             #angle 0: north, 1: north-east ... 7: north-west

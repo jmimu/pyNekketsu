@@ -38,7 +38,7 @@ class Player_CPU(Player_non_GK):
         self.think(match)
 
     def think(self,match):#press on virtual keys
-
+        self.inputs.clear()
         #compute where to go depending on ball position and pos_ref (use a lot of team.wing!)
         overlaping=1.5
         scale_due_to_ball_pos=-self.team.wing*(match.ball.pos[0]-overlaping*self.team.wing*match.field.half_length)/(match.field.half_length)
@@ -58,6 +58,26 @@ class Player_CPU(Player_non_GK):
                 #self.inputs.U=True
             #if (match.field.goal_latitude[-self.team.wing]+10/self.precision<self.pos[1]) or (random.randint(0, 4)==0):
                 #self.inputs.D=True
+
+            #test is needs to avoid an adversary
+            foe=match.team[-self.team.wing].players_ordered_dist_to_ball[0]
+            if (-5<(foe.pos[0]-self.pos[0])*self.direction<15) and (abs(foe.pos[1]-self.pos[1])<10):
+                #print(self.name+" avoids "+foe.name)
+                if ((foe.pos[1]-self.pos[1])>0) or(-self.pos[1]+match.field.half_width<10) :
+                    self.inputs.D=True
+                    self.inputs.U=False
+                    if len(self.team.players)>2 and (random.randint(0, int(20/self.listening))==0):
+                        self.inputs.clear()
+                        self.inputs.A=True
+                    #self.inputs.L=False
+                    #self.inputs.R=False
+                elif (foe.pos[1]-self.pos[1])<0 or(self.pos[1]+match.field.half_width<10) :
+                    self.inputs.U=True
+                    self.inputs.D=False
+                    if len(self.team.players)>2 and (random.randint(0, int(20/self.listening))==0):
+                        self.inputs.clear()
+                        self.inputs.A=True
+
             #shoot!
             #if (random.random()<(math.sqrt(50*abs(-self.team.wing*match.field.half_length-self.pos[0])))):#depends on the distance to the goal
             if (random.random()<(10/((abs(match.team[-self.team.wing].players[0].pos[0]-self.pos[0])-10)**2+1))):#depends on the distance to the goal keeper
@@ -77,22 +97,22 @@ class Player_CPU(Player_non_GK):
             #move in ball direction (only if closest player of the team, or second if first has not the ball)
             if ((self.team.players_ordered_dist_to_ball[0]==self) or ((len(self.team.players)>2) \
               and (self.team.players_ordered_dist_to_ball[0].has_ball==0) and (self.team.players_ordered_dist_to_ball[1]==self))):
-                if (self.pos[0]<match.ball.pos[0]-2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[0]<match.ball.pos[0]-2): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.R=True
-                if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[0]>match.ball.pos[0]+2): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.L=True
-                if (self.pos[1]<match.ball.pos[1]-5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[1]<match.ball.pos[1]-5): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[1]>match.ball.pos[1]+5): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.D=True
             else:#if not the closest to the ball, return to pos_aim
-                if (self.pos[0]<self.pos_aim[0]-2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[0]<self.pos_aim[0]-2): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.R=True
-                if (self.pos[0]>self.pos_aim[0]+2) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[0]>self.pos_aim[0]+2): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.L=True
-                if (self.pos[1]<self.pos_aim[1]-5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[1]<self.pos_aim[1]-5): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>self.pos_aim[1]+5) and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[1]>self.pos_aim[1]+5): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.D=True
 
             for p in match.player_list:

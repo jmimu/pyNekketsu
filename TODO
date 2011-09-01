@@ -1,5 +1,6 @@
  - make players able to avoid collision ? (depending on strength)
  - be able to change attacking and colliding distances
+ - when a cpu player has the ball, and the second closest to the ball is an enemy and it the direction of the goal, and there are more than 1 player per teams, pass.
 
  - insert correctly team choice in menu (esc)
  - ask player to press a key when team creation is finished
