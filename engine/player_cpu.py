@@ -101,9 +101,9 @@ class Player_CPU(Player_non_GK):
                     self.inputs.R=True
                 if (self.pos[0]>match.ball.pos[0]+2): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.L=True
-                if (self.pos[1]<match.ball.pos[1]-5): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[1]<match.ball.pos[1]-3): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>match.ball.pos[1]+5): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
+                if (self.pos[1]>match.ball.pos[1]+3): #and (random.randint(0, 20)<10+Player_CPU.difficulty):
                     self.inputs.D=True
             else:#if not the closest to the ball, return to pos_aim
                 if (self.pos[0]<self.pos_aim[0]-2): #and (random.randint(0, 20)<10+Player_CPU.difficulty):

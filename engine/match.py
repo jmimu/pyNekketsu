@@ -198,7 +198,7 @@ class Match(object):
         
 
         #had to force number of digits for time and nb goals
-        ren = font.render("                 "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals)+"     "+str(max(int(self.match_time),0)))
+        ren = font.render("                 "+str(self.team[-1].nb_goals)+" - "+str(self.team[1].nb_goals)+"    "+str(max(int(self.match_time),0)))
         surface.blit(ren, (8, 8))
         surface.blit(self.team[-1].image, (120,2))
         surface.blit(self.team[1].image, (188,2))

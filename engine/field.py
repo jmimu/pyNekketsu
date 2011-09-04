@@ -24,6 +24,8 @@ from pygame.locals import *
 #Field represents the soccer field: size, drawing, goal position...
 
 class Field():
+    sky_image=pygame.image.load("data/sky.png")
+    grass_image=pygame.image.load("data/grass.png")
     def __init__(self):
         self.half_length=100
         self.half_width=50
@@ -65,11 +67,13 @@ class Field():
 
     def draw(self,surface,camera):
         #background
-        horizon_x,horizon_y=camera.proj([0,200,self.z])
-        pygame.draw.rect(surface, ( 200, 200, 255), (0, 0,256,horizon_y))
-        #pygame.draw.rect(surface, ( 50, 100,   0), (0, horizon_y, 256, 241-horizon_y))
-        pygame.draw.rect(surface, ( 13, 83,  19), (0, horizon_y, 256, 241-horizon_y))
-        pygame.draw.rect(surface, (255, 200, 185), (0, horizon_y+2, 256,  1), 1)
+        tmp,horizon_y=camera.proj([0,100,self.z])
+        horizon_x,tmp=camera.proj([0,300,self.z])
+        surface.blit(Field.sky_image,(horizon_x-Field.sky_image.get_width()/2,horizon_y-Field.sky_image.get_height()))
+        #pygame.draw.rect(surface, ( 200, 200, 255), (0, 0,256,horizon_y))
+        #pygame.draw.rect(surface, ( 13, 83,  19), (0, horizon_y, 256, 241-horizon_y))
+        surface.blit(Field.grass_image,(0,horizon_y))
+        #pygame.draw.rect(surface, (255, 200, 185), (0, horizon_y+2, 256,  1), 1)
         
         #hz lines
         #for x in range(11):
