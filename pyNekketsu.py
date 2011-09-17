@@ -55,8 +55,7 @@ screen = display.get_surface()
 #show_info(display,nesfont,mainClock)
 
 while 1:
-    players_human_teamA,players_human_teamB,difficulty,nb_players_team,match_length=call_all_menus(display,nesfont,mainClock)
-    (teamA_filename,teamB_filename)=select_teams(display,nesfont,mainClock)
+    players_human_teamA,players_human_teamB,difficulty,nb_players_team,match_length,teamA_filename,teamB_filename=call_all_menus(display,nesfont,mainClock)
 
     match=Match(teamA_filename,teamB_filename)
     match.show_loading(display,nesfont)   
