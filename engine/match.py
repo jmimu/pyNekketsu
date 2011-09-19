@@ -94,6 +94,7 @@ class Match(object):
         self.player_list+=self.team[1].players
         
         Match.snd_whistle.play()
+        print("Match starts")
         
     
     def update(self):

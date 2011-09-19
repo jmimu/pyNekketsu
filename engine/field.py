@@ -67,8 +67,9 @@ class Field():
 
     def draw(self,surface,camera):
         #background
-        tmp,horizon_y=camera.proj([0,100,self.z])
-        horizon_x,tmp=camera.proj([0,300,self.z])
+        tmp,horizon_y=camera.proj([0,500,self.z])
+        horizon_y=horizon_y+80
+        horizon_x,tmp=camera.proj([0,1000,self.z])
         surface.blit(Field.sky_image,(horizon_x-Field.sky_image.get_width()/2,horizon_y-Field.sky_image.get_height()))
         #pygame.draw.rect(surface, ( 200, 200, 255), (0, 0,256,horizon_y))
         #pygame.draw.rect(surface, ( 13, 83,  19), (0, horizon_y, 256, 241-horizon_y))
