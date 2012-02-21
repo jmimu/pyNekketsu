@@ -30,8 +30,8 @@ class Camera():
         self.x=0.0#camera position
         self.y=-100.0
         self.z=0.0
-        self.f=500.0#camera focale
-        self.l=0#120 #center of the screen, or less to fake a little tilt
+        self.f=550.0#camera focale
+        self.l=-50#120 #center of the screen, or less to fake a little tilt
         self.c=128 #center of the screen
         self.decal_to_target=[0,-150,50]
     def aim_to(self,ground_pos,direction,speed=100): # try to go closer to ground_pos point, and look forward in a direction , at a given speed (in %)

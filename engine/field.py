@@ -26,6 +26,8 @@ from pygame.locals import *
 class Field():
     sky_image=pygame.image.load("data/sky.png")
     grass_image=pygame.image.load("data/grass.png")
+    flag_back_image=pygame.image.load("data/flag_back.png")
+    flag_front_image=pygame.image.load("data/flag_front.png")
     def __init__(self):
         self.half_length=100
         self.half_width=50
@@ -87,6 +89,17 @@ class Field():
         pygame.draw.line(surface, (225, 230, 255), camera.proj([self.half_length,-self.half_width,self.z]), camera.proj([-self.half_length,-self.half_width,self.z]), 3)
         pygame.draw.line(surface, (225, 230, 255), camera.proj([0,self.half_width,self.z]), camera.proj([0,-self.half_width,self.z]), 3)
      
+        #draw back flags
+        pos=camera.proj([self.half_length,self.half_width,self.z+8])
+        pos[1]-=8
+        pygame.draw.line(surface, (180, 180, 185), camera.proj([self.half_length,self.half_width,self.z]),pos, 2)
+        surface.blit(Field.flag_back_image,pos)
+        pos=camera.proj([-self.half_length,self.half_width,self.z+8])
+        pos[1]-=8
+        pygame.draw.line(surface, (180, 180, 185), camera.proj([-self.half_length,self.half_width,self.z]),pos, 2)
+        surface.blit(Field.flag_back_image,pos)
+        
+     
         #goals
         pygame.draw.line(surface, (245, 180, 165), camera.proj([-self.half_length,self.goal_latitude[-1]-self.goal_half_width[-1],self.z+self.goal_height[-1]]),
            camera.proj([-self.half_length,self.goal_latitude[-1]+self.goal_half_width[-1],self.z+self.goal_height[-1]]), 5)
@@ -119,5 +132,16 @@ class Field():
 
 
 
+        #draw front flags
+        pos=camera.proj([self.half_length,-self.half_width,self.z+8])
+        pos[1]-=12
+        pygame.draw.line(surface, (180, 180, 185), camera.proj([self.half_length,-self.half_width,self.z]),pos, 3)
+        pos[0]-=1
+        surface.blit(Field.flag_front_image,pos)
+        pos=camera.proj([-self.half_length,-self.half_width,self.z+8])
+        pos[1]-=12
+        pygame.draw.line(surface, (180, 180, 185), camera.proj([-self.half_length,-self.half_width,self.z]),pos, 3)
+        pos[0]-=1
+        surface.blit(Field.flag_front_image,pos)
 
 

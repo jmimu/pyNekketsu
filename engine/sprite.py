@@ -47,9 +47,9 @@ def coloringimage(body_img_filename,top_color,bottom_color):
     #change bottom color from (0,128,0) to bottom_color 
     for x in range(body_image.get_width()):
         for y in range(body_image.get_height()):
-            if (body_image.get_at((x,y))==(0,255,255)):
+            if (body_image.get_at((x,y))[0:3]==(0,255,255)):
                 body_image.set_at((x,y),top_color)
-            if (body_image.get_at((x,y))==(0,128,0)):
+            if (body_image.get_at((x,y))[0:3]==(0,128,0)):
                 body_image.set_at((x,y),bottom_color)
     return body_image
 
