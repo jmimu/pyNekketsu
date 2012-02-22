@@ -25,6 +25,18 @@ from pygame.locals import *
 #To handle key up, keydown and joystick
 
 class Inputs():
+    #will only work with hats joystics
+    print(pygame.joystick.get_count(), "joystics found.")
+    joystick=[]
+    if (pygame.joystick.get_count()>0):
+        joystick.append(pygame.joystick.Joystick(0))
+        joystick[0].init()
+        print("Joystick 1 \""+joystick[0].get_name()+"\" initialized.")
+    if (pygame.joystick.get_count()>1):
+        joystick.append(pygame.joystick.Joystick(1))
+        joystick[1].init()
+        print("Joystick 2 \""+joystick[1].get_name()+"\" initialized.")
+        
     player_R=[-1,False,False]
     player_L=[-1,False,False]
     player_U=[-1,False,False]
@@ -83,6 +95,60 @@ class Inputs():
             cls.player_just_Esc[i]=False
             cls.player_just_Start[i]=False
         
+        #0 : triangle, 6 :l1,  9 : start, 11 R3_analog
+        #check for joysticks
+        if (len(cls.joystick)>0):
+            if cls.joystick[0].get_hat(0)[0]<-0.5:
+                if (not cls.player_L[1]):
+                    cls.player_just_L[1]=True
+                cls.player_L[1] = True
+            else:
+                cls.player_L[1] = False
+            if cls.joystick[0].get_hat(0)[0]>0.5:
+                if (not cls.player_R[1]):
+                    cls.player_just_R[1]=True
+                cls.player_R[1] = True
+            else:
+                cls.player_R[1] = False
+            if cls.joystick[0].get_hat(0)[1]>0.5:
+                if (not cls.player_U[1]):
+                    cls.player_just_U[1]=True
+                cls.player_U[1] = True
+            else:
+                cls.player_U[1] = False
+            if cls.joystick[0].get_hat(0)[1]<-0.5:
+                if (not cls.player_D[1]):
+                    cls.player_just_D[1]=True
+                cls.player_D[1] = True
+            else:
+                cls.player_D[1] = False
+            
+            
+            if cls.joystick[0].get_button(2):
+                if (not cls.player_A[1]):
+                    cls.player_just_A[1]=True
+                cls.player_A[1] = True
+            else:
+                cls.player_A[1] = False
+            if cls.joystick[0].get_button(1):
+                if (not cls.player_B[1]):
+                    cls.player_just_B[1]=True
+                cls.player_B[1] = True
+            else:
+                cls.player_B[1] = False
+            if cls.joystick[0].get_button(0):
+                if (not cls.player_C[1]):
+                    cls.player_just_C[1]=True
+                cls.player_C[1] = True
+            else:
+                cls.player_C[1] = False
+            if cls.joystick[0].get_button(9):
+                if (not cls.player_Start[1]):
+                    cls.player_just_Start[1]=True
+                cls.player_Start[1] = True
+            else:
+                cls.player_Start[1] = False
+
         # check for events
         for event in pygame.event.get():
             if event.type == QUIT:

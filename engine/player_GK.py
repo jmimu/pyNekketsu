@@ -69,12 +69,20 @@ class Player_GK(Player):
             else:
                 self.inputs.L=True
             #aim in the opposite direction of his goal, to avoid bad rebounce
-            if (match.field.goal_latitude[self.team.wing]-10>self.pos[1]) or (random.randint(0, 4)==0):
+            #if (match.field.goal_latitude[self.team.wing]-10>self.pos[1]) or (random.randint(0, 4)==0):
+            #    self.inputs.D=True
+            #if (match.field.goal_latitude[self.team.wing]+10<self.pos[1]) or (random.randint(0, 4)==0):
+            #    self.inputs.U=True
+            #aim in the opposite direction of the closest foe
+            foe=match.team[-self.team.wing].players_ordered_dist_to_ball[0]
+            if (foe.pos[1]>self.pos[1]) or (random.randint(0, 2)==0):
                 self.inputs.D=True
-            if (match.field.goal_latitude[self.team.wing]+10<self.pos[1]) or (random.randint(0, 4)==0):
+            if (foe.pos[1]<self.pos[1]) or (random.randint(0, 2)==0):
                 self.inputs.U=True
             #shoot!
-            self.inputs.B=True
+            if not((abs(foe.pos[1]-self.pos[1])<8)and(self.direction*(foe.pos[0]-self.pos[0])>0)and(self.direction*(foe.pos[0]-self.pos[0])<20)):
+                #print(abs(foe.pos[1]-self.pos[1]),self.direction*(foe.pos[0]-self.pos[0]))
+                self.inputs.B=True
         else:#do not have the ball
             if (abs(goal_position[0]-match.ball.pos[0])>abs(goal_position[0]-self.pos[0])):
                 #ball is not between GK and the goal

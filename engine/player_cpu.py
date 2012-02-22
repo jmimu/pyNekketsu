@@ -59,7 +59,7 @@ class Player_CPU(Player_non_GK):
             #if (match.field.goal_latitude[-self.team.wing]+10/self.precision<self.pos[1]) or (random.randint(0, 4)==0):
                 #self.inputs.D=True
 
-            #test is needs to avoid an adversary
+            #test if needs to avoid an adversary
             foe=match.team[-self.team.wing].players_ordered_dist_to_ball[0]
             if (-5<(foe.pos[0]-self.pos[0])*self.direction<15) and (abs(foe.pos[1]-self.pos[1])<10):
                 #print(self.name+" avoids "+foe.name)

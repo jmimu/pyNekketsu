@@ -111,6 +111,14 @@ def call_a_menu(menu,default_option,info,display,font,mainClock):
 
 
 def call_all_menus(display,font,mainClock):
+    players_human_teamA=0
+    players_human_teamB=0
+    difficulty=0
+    nb_player_team=0
+    match_length=0
+    teamA_filename=0
+    teamB_filename=0
+    
     menu_players = dialog.Menu(font, ["No human player", "Player1 VS CPU","Player1 VS Player2","Player1 + Player2 VS CPU"])
     menu_diff = dialog.Menu(font, ["too easy", "easy","medium", "hard", "too hard"])
     menu_nb_play_team = dialog.Menu(font, ["1", "2", "3", "4"])
