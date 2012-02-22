@@ -27,14 +27,21 @@ from retrogamelib.constants import *
 class Sprite(object):
     #shadow image is static
     shadow_image=pygame.image.load("data/shadow2.png")
+    shadow_mi_image=pygame.image.load("data/shadow_mi2.png")
+    shadow_mini_image=pygame.image.load("data/shadow_mini2.png")
     font=font.Font(NES_FONT, (255, 255, 255))
     def __init__(self):
         self.image=0
         self.pos = [0, 0, 0]
         
-    def draw(self,surface,camera,is_shadow=True):
+    def draw(self,surface,camera,is_shadow=True): #pb : wrong if ground_z != 0 !
         if (is_shadow):
-            surface.blit(Sprite.shadow_image, camera.proj([self.pos[0],self.pos[1],0],Sprite.shadow_image.get_width(),Sprite.shadow_image.get_height()-3))
+            if (self.pos[2]>8):
+                surface.blit(Sprite.shadow_mini_image, camera.proj([self.pos[0],self.pos[1],0],Sprite.shadow_image.get_width(),Sprite.shadow_image.get_height()-3))
+            elif (self.pos[2]>4):
+                surface.blit(Sprite.shadow_mi_image, camera.proj([self.pos[0],self.pos[1],0],Sprite.shadow_image.get_width(),Sprite.shadow_image.get_height()-3))
+            else:
+                surface.blit(Sprite.shadow_image, camera.proj([self.pos[0],self.pos[1],0],Sprite.shadow_image.get_width(),Sprite.shadow_image.get_height()-3))
             surface.blit(self.image, camera.proj(self.pos,self.image.get_width(),self.image.get_height()))
         else:
             surface.blit(self.image, camera.proj(self.pos,self.image.get_width(),self.image.get_height()))

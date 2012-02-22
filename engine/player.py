@@ -171,9 +171,13 @@ class Player(Sprite):
                 self.anim_index=0
                 self.state="walk"
                 self.message_image=0
-        if (self.state=="hurt"):
+        if (self.state=="hurt") or (self.state=="bhurt"):
             self.anim_index += self.team.ref_anim_speed[self.state]
-            self.pos[0]-=self.direction/10.0
+            if (self.anim_index<1):
+                if (self.state=="hurt"):
+                    self.pos[0]-=self.direction/10.0
+                else:
+                    self.pos[0]+=self.direction/10.0
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
@@ -189,7 +193,7 @@ class Player(Sprite):
         #test collision with other players
         if (not round_collision):
             for pl in match.player_list:
-                if (pl!=self)and(pl.state!="hurt"):
+                if (pl!=self)and(pl.state!="hurt")and(pl.state!="bhurt"):
                     if (abs(pl.pos[0]-self.pos[0])<4)and(abs(pl.pos[1]-self.pos[1])<4):
                         if (self.pos[0]>pl.pos[0])and(self.pos[0]<previous_pos[0]):
                             self.pos[0]=previous_pos[0]
@@ -199,13 +203,15 @@ class Player(Sprite):
                             self.pos[1]=previous_pos[1]
                         if (self.pos[1]<pl.pos[1])and(self.pos[1]>previous_pos[1]):
                             self.pos[1]=previous_pos[1]
-
                         if (self.state=="attack"):
                             #pl is attacked !
-                            pl.state="hurt"
+                            if ((self.pos[0]-pl.pos[0])*pl.direction>0):
+                                pl.state="hurt"
+                            else:
+                                pl.state="bhurt"
                             Player.snd_attack.play()
                             pl.anim_index=0
-                            pl.direction=-self.direction
+                            #pl.direction=-self.direction
                             pl.health-=5*self.punch/pl.resistance
                             if (pl.health<0):
                                 pl.health=0
@@ -216,7 +222,7 @@ class Player(Sprite):
         else:#if round collision
             player_radius=5
             for pl in match.player_list:
-                if (pl!=self)and(pl.state!="hurt")and(self.state!="hurt"):
+                if (pl!=self)and(pl.state!="hurt")and(pl.state!="bhurt")and(self.state!="hurt"):
                     if (abs(pl.pos[0]-self.pos[0])<player_radius*2)and(abs(pl.pos[1]-self.pos[1])<player_radius*2):
                         #if close, try cyrcle collision
                         x=self.pos[0]
@@ -229,10 +235,13 @@ class Player(Sprite):
                             #in the same direction he is now (new_x,new_y)
                             if (self.state=="attack"):
                                 #pl is attacked !
-                                pl.state="hurt"
+                                if ((self.pos[0]-pl.pos[0])*pl.direction>0):
+                                    pl.state="hurt"
+                                else:
+                                    pl.state="bhurt"
                                 Player.snd_attack.play()
                                 pl.anim_index=0
-                                pl.direction=-self.direction
+                                #pl.direction=-self.direction
                                 pl.health-=5*self.punch/pl.resistance
                                 if (pl.health<0):
                                     pl.health=0
@@ -311,9 +320,9 @@ class Player(Sprite):
         self.state="preshoot"
         self.anim_index=0
 
-        self.current_shoot_speed[0]=int(self.inputs.R)*4*self.kick - int(self.inputs.L)*4*self.kick + 8*self.direction*self.kick
-        self.current_shoot_speed[1]=int(self.inputs.U)*8*self.kick - int(self.inputs.D)*8*self.kick
-        self.current_shoot_speed[2]=8-int(self.inputs.R)*4 - int(self.inputs.L)*4
+        self.current_shoot_speed[0]=int(self.inputs.R)*4*self.kick - int(self.inputs.L)*4*self.kick + 8*self.direction*self.kick  + (random.random()-0.5)*2
+        self.current_shoot_speed[1]=int(self.inputs.U)*8*self.kick - int(self.inputs.D)*8*self.kick   + (random.random()-0.5)*4
+        self.current_shoot_speed[2]=8-int(self.inputs.R)*4 - int(self.inputs.L)*4   + (random.random()-0.5)*2
    
     def shoot(self,match):
         if (match.ball.owner==0) or (self.has_ball==0):
@@ -472,7 +481,7 @@ class Player(Sprite):
                 self.anim_index += self.team.ref_anim_speed[self.state]
             # Jump if the player presses the C button
             if (self.inputs.C and self.pos[2] == 0):
-                self.jump_speed = 2.5*self.jump_hight
+                self.jump_speed = 2*self.jump_hight
                 self.state="jump"
                 self.anim_index=0
                 

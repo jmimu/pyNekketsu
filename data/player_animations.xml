@@ -99,12 +99,47 @@
   </anim>
   <anim>
     <name>hurt</name>
-    <speed>0.04</speed>
+    <speed>0.1</speed>
     <img>
       <img_name>hurt_A.png</img_name>
       <head_img>hurt.png</head_img>
       <head_x>0</head_x>
       <head_y>1</head_y>
+    </img>
+    <img>
+      <img_name>hurt_B.png</img_name>
+      <head_img>hurt.png</head_img>
+      <head_x>0</head_x>
+      <head_y>0</head_y>
+    </img>
+    <img>
+      <img_name>hurt_C.png</img_name>
+      <head_img>hurt.png</head_img>
+      <head_x>0</head_x>
+      <head_y>0</head_y>
+    </img>
+
+  </anim>
+  <anim>
+    <name>bhurt</name>
+    <speed>0.1</speed>
+    <img>
+      <img_name>bhurt_A.png</img_name>
+      <head_img>angry.png</head_img>
+      <head_x>10</head_x>
+      <head_y>2</head_y>
+    </img>
+    <img>
+      <img_name>bhurt_B.png</img_name>
+      <head_img>angry.png</head_img>
+      <head_x>23</head_x>
+      <head_y>2</head_y>
+    </img>
+    <img>
+      <img_name>bhurt_C.png</img_name>
+      <head_img>angry.png</head_img>
+      <head_x>23</head_x>
+      <head_y>2</head_y>
     </img>
   </anim>
 </animations>
