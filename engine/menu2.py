@@ -42,17 +42,6 @@ from retrogamelib import dialog
 
 class Menu(object):
     all_menus={} #where all menus are copied, to allow referencing and avoid copy
-    configuration={}
-    configuration["game_mode"]="restart"
-    configuration["nb_players"]="1"
-    configuration["difficulty"]="1"
-    configuration["duration"]="60"
-    configuration["input_p1"]="1"
-    configuration["input_p2"]="1"
-    configuration["mode"]="1"
-    configuration["team_east"]="0"
-    configuration["team_west"]="1"
-    configuration["exit_menu"]="no" #not ready to exit menu
 
     @classmethod
     def get_menu_by_id(cls,id):
@@ -131,6 +120,8 @@ class Menu(object):
                 if (val==configuration[self.variable]):
                     break
                 selected_option+=1
+            if (selected_option==len(self.choices_values_value)):
+                selected_option=0
             dlg = dialog.Menu(font, self.choices_values_text)
         else:#look for submenus
             dlg = dialog.Menu(font, self.choices_submenus_text)
@@ -154,12 +145,11 @@ class Menu(object):
             if Inputs.player_just_A[1]:
                 if (len(self.choices_values_value)>0):#if settings
                     configuration[self.variable]=self.choices_values_value[dlg.get_option()[0]]
-                    if (self.exits):
-                        configuration["exit_menu"]="yes"
-                        return
                     if (self.choices_values_goto[dlg.get_option()[0]]!=0):
                         self.choices_values_goto[dlg.get_option()[0]].display(display,font,mainClock)
                     else:
+                        if (self.exits):
+                            configuration["exit_menu"]="yes"
                         return
                     
                 else:#if submenus
@@ -167,9 +157,11 @@ class Menu(object):
                     self.choices_submenus[dlg.get_option()[0]].display(display,font,mainClock)
             ## If you press B, cancel 
             if Inputs.player_just_B[1]:
-                if (self.parent!=0):
+                if (self.id!="menu_welcome"):
                     Inputs.player_just_B[1]=False
                     return
+                else:
+                    print("Nothing to do...")
             
             #if returns from a sub-menu asking to exit :
             if (configuration["exit_menu"]=="yes"):

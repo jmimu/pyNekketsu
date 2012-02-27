@@ -54,17 +54,13 @@ nesfont = font.Font(NES_FONT, (255, 255, 255))
 screen = display.get_surface()
 
 
-#show_info(display,nesfont,mainClock)
-
-configuration["game_mode"]="restart" #just to be sure. If menus.xml says that "yes" is default to "quit?", you'll never see the menu
 
 while 1:
-    while configuration["game_mode"]=="restart":
-        configuration["exit_menu"]="no"
-        Menu.all_menus["menu_welcome"].display(display,nesfont,mainClock)
-        if (configuration["game_mode"]=="quit"):
-            pygame.quit()
-            sys.exit()
+    configuration["exit_menu"]="no"
+    Menu.all_menus["menu_welcome"].display(display,nesfont,mainClock)
+    if (configuration["quit_game"]=="quit"):
+        pygame.quit()
+        sys.exit()
     
     players_human_teamA=0
     players_human_teamB=0
@@ -101,5 +97,4 @@ while 1:
         display.update()
         mainClock.tick(30)
     
-    configuration["game_mode"]="restart"
     

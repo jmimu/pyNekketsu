@@ -147,24 +147,24 @@
         <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
             <setting>
                 <text>too easy</text>
-                <value>0</value>
+                <value>2</value>
             </setting>
             <setting>
                 <text>easy</text>
-                <value>1</value>
+                <value>3</value>
                 <default></default>
             </setting>
             <setting>
                 <text>medium</text>
-                <value>2</value>
+                <value>4</value>
             </setting>
             <setting>
                 <text>hard</text>
-                <value>3</value>
+                <value>5</value>
             </setting>
             <setting>
                 <text>too hard</text>
-                <value>4</value>
+                <value>6</value>
             </setting>
         </choices>
     </menu>
@@ -240,7 +240,7 @@
     <menu>
         <id>menu_quit</id>
         <text>You want to quit?</text>
-        <variable>game_mode</variable><!-- this menu is here to change a setting-->
+        <variable>quit_game</variable><!-- this menu is here to change a setting-->
         <exits></exits>
         <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
             <setting>
@@ -249,8 +249,9 @@
             </setting>
             <setting>
                 <text>No</text>
-                <value>restart</value>
+                <value>no</value>
                 <default></default>
+                <goto>menu_welcome</goto>
             </setting>
         </choices>
     </menu>
@@ -285,13 +286,12 @@
         <id>menu_instructions3</id>
         <text>Instructions (3 of 3):</text>
         <dialogtext>Player2 controls:           F, G, H, T (to move),       A (shoot or attack),        Z (pass), R (pause, start)</dialogtext>
-        <variable>game_mode</variable>
-        <exits></exits>
+        <variable>instructions</variable>
         <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
             <setting>
                 <text>Return</text>
-                <value>restart</value>
-                <default></default>
+                <value>read</value>
+                <goto>menu_welcome</goto>
             </setting>
         </choices>
     </menu>
