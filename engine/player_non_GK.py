@@ -24,6 +24,7 @@ from sprite import Sprite
 from sprite import compileimage
 from inputs import Inputs
 from player import Player
+from settings import configuration
 
 class Player_non_GK(Player):
     
@@ -46,7 +47,8 @@ class Player_non_GK(Player):
                         #if proper bounce is impossible, use normal method
                         match.ball.speed[0]*=-0.6
                         match.ball.speed[2]+=(match.ball.pos[2]-self.pos[2])
-                    Player.snd_pass.play()
+                    if (configuration["sound"]=="on"):
+                        Player.snd_pass.play()
                 else:#not enought to hurt...
                     if (match.ball.speed[0]*self.direction<10):#speed X must be slow or in opposite direction
                         print(self.name+" takes the ball")

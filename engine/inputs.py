@@ -21,6 +21,8 @@ import pygame,sys
 
 from pygame.locals import *
 
+from settings import configuration
+
 #Real or fake inputs, for CPU and player
 #To handle key up, keydown and joystick
 
@@ -97,7 +99,7 @@ class Inputs():
         
         #0 : triangle, 6 :l1,  9 : start, 11 R3_analog
         #check for joysticks
-        if (len(cls.joystick)>0):
+        if (len(cls.joystick)>0) and (configuration["input_p1"]=="joystick"):
             if cls.joystick[0].get_hat(0)[0]<-0.5:
                 if (not cls.player_L[1]):
                     cls.player_just_L[1]=True
@@ -148,7 +150,7 @@ class Inputs():
             else:
                 cls.player_Start[1] = False
         
-        if (len(cls.joystick)>1):
+        if (len(cls.joystick)>1) and (configuration["input_p2"]=="joystick"):
             if cls.joystick[1].get_hat(0)[0]<-0.5:
                 if (not cls.player_L[2]):
                     cls.player_just_L[2]=True

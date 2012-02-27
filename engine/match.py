@@ -31,6 +31,7 @@ from field import Field
 from ball import Ball
 from sprite import Sprite
 from team import Team
+from settings import configuration
 import random
 
 class Match(object):
@@ -93,7 +94,8 @@ class Match(object):
         self.team[1].create_from_xml(1,nbr_players_teamB,human_players_teamB,self)
         self.player_list+=self.team[1].players
         
-        Match.snd_whistle.play()
+        if (configuration["sound"]=="on"):
+            Match.snd_whistle.play()
         print("Match starts")
         
     
@@ -104,7 +106,8 @@ class Match(object):
             if (self.match_time<=0):
                 self.is_finished=True
             else:
-                Match.snd_whistle.play()
+                if (configuration["sound"]=="on"):
+                    Match.snd_whistle.play()
         
         if (not self.pause):
             #write "Goal!" after a... goal
@@ -117,7 +120,8 @@ class Match(object):
                     self.team[-1].update(self)
                     self.team[1].update(self)
                 if (-1<self.match_time<0):
-                    Match.snd_whistle.play()
+                    if (configuration["sound"]=="on"):
+                        Match.snd_whistle.play()
 
                 self.ball.update(self)
                 

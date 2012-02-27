@@ -26,7 +26,8 @@ from math import cos
 from xml.dom import minidom
 
 from inputs import Inputs
-from team import Team
+#from team import Team
+from settings import configuration
 
 from retrogamelib import display
 from retrogamelib import font
@@ -36,6 +37,7 @@ from retrogamelib import dialog
 
 #read menus.xml file
 
+#Menu : pb : can't mix submenus and settings, and needs an "setting" to exit menu.
 
 
 class Menu(object):
@@ -82,10 +84,13 @@ class Menu(object):
         self.default_num=0
         self.parent=0
         self.exits=False #if menu is finished after that (only for configs)
+        self.dialogtext="" #if there are special instructions
     def read_xml(self,xml_node):
         self.id=xml_node.getElementsByTagName('id')[0].childNodes[0].data
         self.text=xml_node.getElementsByTagName('text')[0].childNodes[0].data
         self.exits=len(xml_node.getElementsByTagName('exits'))>0
+        if (len(xml_node.getElementsByTagName('dialogtext'))>0):
+            self.dialogtext=xml_node.getElementsByTagName('dialogtext')[0].childNodes[0].data
         #if submenus
         all_choices_node=xml_node.getElementsByTagName('sub-menu')
         for submenu_node in all_choices_node:
@@ -108,7 +113,7 @@ class Menu(object):
                 if (len(setting_node.getElementsByTagName('default'))>0):
                     self.default_num=len(self.choices_values_text)-1
                     #set this value to "configuration"
-                    Menu.configuration[self.variable]=subvalue
+                    configuration[self.variable]=subvalue
     def display(self,display,font,mainClock):
         title_image=pygame.image.load("data/title.png")
         dlg=0
@@ -116,7 +121,7 @@ class Menu(object):
         if (len(self.choices_values_value)>0):#if settings, read in "configuration"
             selected_option=0
             for val in self.choices_values_value :
-                if (val==Menu.configuration[self.variable]):
+                if (val==configuration[self.variable]):
                     break
                 selected_option+=1
             dlg = dialog.Menu(font, self.choices_values_text)
@@ -124,6 +129,9 @@ class Menu(object):
             dlg = dialog.Menu(font, self.choices_submenus_text)
         
         dlg.option=selected_option
+        if (len(self.dialogtext)>0):
+            dialogbox = dialog.DialogBox((240, 51), (0, 0, 0),(255, 255, 255), font)
+            dialogbox.set_dialog([self.dialogtext])
         while 1:
             mainClock.tick(30)
             Inputs.readkeys()#read all the actual keys
@@ -138,9 +146,9 @@ class Menu(object):
             # If you press A, check which option you're on!
             if Inputs.player_just_A[1]:
                 if (len(self.choices_values_value)>0):#if settings
-                    Menu.configuration[self.variable]=self.choices_values_value[dlg.get_option()[0]]
+                    configuration[self.variable]=self.choices_values_value[dlg.get_option()[0]]
                     if (self.exits):
-                        Menu.configuration["exit_menu"]="yes"
+                        configuration["exit_menu"]="yes"
                     return
                 else:#if submenus
                     print(dlg.get_option())
@@ -151,7 +159,7 @@ class Menu(object):
                 return
             
             #if returns from a sub-menu asking to exit :
-            if (Menu.configuration["exit_menu"]=="yes"):
+            if (configuration["exit_menu"]=="yes"):
                 return
             
             # Get the surface from the NES game library
@@ -162,6 +170,8 @@ class Menu(object):
             ren = font.render(self.text)
             screen.blit(ren, (8, 112))
             dlg.draw(screen, (16, 128), background=(0, 0, 0), border=(255, 255, 255))
+            if (len(self.dialogtext)>0):
+                dialogbox.draw(screen, (8, 160))
             # Update and draw the display
             display.update()
     
@@ -217,7 +227,7 @@ for i in range(0,len(menu_snd.choices_values_text)):
     print("+ ",menu_snd.choices_values_text[i])
     
 
-print(Menu.configuration)
+print(configuration)
 
 #the menu is a tree
 #class menu_node:

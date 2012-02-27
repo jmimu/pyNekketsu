@@ -22,6 +22,7 @@ import pygame
 import os
 import random
 import math
+from settings import configuration
 
 from sprite import Sprite
 
@@ -89,7 +90,8 @@ class Ball(Sprite):
             else:
                 self.speed[0]=self.speed[0]*match.field.roll_damp#damp is stronger if rebounce
                 self.speed[1]=self.speed[1]*match.field.roll_damp
-                Ball.snd_bounce.play()
+                if (configuration["sound"]=="on"):
+                    Ball.snd_bounce.play()
         
         # Keep in bounds if match not finished
         if (match.match_time>0):
@@ -105,7 +107,8 @@ class Ball(Sprite):
                     self.pos[2]=35
                     self.speed[:]=[6,random.randint(-6,6),6]
                     print("Score: %d - %d"%(match.team[-1].nb_goals,match.team[1].nb_goals))
-                    match.snd_whistle.play()
+                    if (configuration["sound"]=="on"):
+                        match.snd_whistle.play()
                     match.goaldrawing_time=20
                 else:
                     Ball.snd_bounce.play()
@@ -121,18 +124,22 @@ class Ball(Sprite):
                     self.pos[2]=35
                     self.speed[:]=[-6,random.randint(-6,6),6]
                     print("Score: %d - %d"%(match.team[-1].nb_goals,match.team[1].nb_goals))
-                    match.snd_whistle.play()
+                    if (configuration["sound"]=="on"):
+                        match.snd_whistle.play()
                     match.goaldrawing_time=20
                 else:
-                    Ball.snd_bounce.play()
+                    if (configuration["sound"]=="on"):
+                        Ball.snd_bounce.play()
             if self.pos[1] < -match.field.half_width:
                 self.pos[1] = -match.field.half_width
                 self.speed[1]*=-0.8
-                Ball.snd_bounce.play()
+                if (configuration["sound"]=="on"):
+                    Ball.snd_bounce.play()
             if self.pos[1] > match.field.half_width:
                 self.pos[1] = match.field.half_width
                 self.speed[1]*=-0.8
-                Ball.snd_bounce.play()
+                if (configuration["sound"]=="on"):
+                    Ball.snd_bounce.play()
             
         
         self.direction=1

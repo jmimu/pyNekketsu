@@ -7,11 +7,11 @@
             <sub-menu>
                 <text>Play !</text>
                 <goto>menu_play</goto>
+                <default></default>
             </sub-menu>
             <sub-menu>
                 <text>Instructions</text>
                 <goto>menu_instructions1</goto>
-                <default></default>
             </sub-menu>
             <sub-menu>
                 <text>Options</text>
@@ -21,6 +21,23 @@
                 <text>Quit</text>
                 <goto>menu_quit</goto>
             </sub-menu>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_play</id>
+        <text>Play !</text>
+        <variable>game_mode</variable><!-- this menu is here to change a setting-->
+        <exits></exits>
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>Go!</text>
+                <value>play</value>
+                <default></default>
+            </setting>
+            <setting>
+                <text>Cancel</text>
+                <value>restart</value>
+            </setting>
         </choices>
     </menu>
     <menu>
@@ -35,11 +52,11 @@
             </sub-menu>
             <sub-menu>
                 <text>Input Player 1</text>
-                <goto>menu_input1</goto>
+                <goto>menu_input_p1</goto>
             </sub-menu>
             <sub-menu>
                 <text>Input Player 2</text>
-                <goto>menu_input2</goto>
+                <goto>menu_input_p2</goto>
             </sub-menu>
         </choices>
     </menu>
@@ -56,6 +73,38 @@
             <setting>
                 <text>Off</text>
                 <value>off</value>
+            </setting>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_input_p1</id>
+        <text>Input for player 1</text>
+        <variable>input_p1</variable><!-- this menu is here to change a setting-->
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>Keyboard</text>
+                <value>keyboard</value>
+                <default></default>
+            </setting>
+            <setting>
+                <text>Joystick</text>
+                <value>joystick</value>
+            </setting>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_input_p2</id>
+        <text>Input for player 2</text>
+        <variable>input_p2</variable><!-- this menu is here to change a setting-->
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>Keyboard</text>
+                <value>keyboard</value>
+                <default></default>
+            </setting>
+            <setting>
+                <text>Joystick</text>
+                <value>joystick</value>
             </setting>
         </choices>
     </menu>
@@ -81,7 +130,8 @@
     <!-- instructions...-->
     <menu>
         <id>menu_instructions1</id>
-        <text>Instructions (1 of 3): Press L to continue, K to go back and Esc to quit.</text>
+        <text>Instructions (1 of 3):</text>
+        <dialogtext>Press L to continue, K to go back and Esc to quit.</dialogtext>
         <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
             <sub-menu>
                 <text>Continue...</text>
@@ -92,7 +142,8 @@
     </menu>
     <menu>
         <id>menu_instructions2</id>
-        <text>Instructions (2 of 3): Player1 controls:           arrows (to move),           K (shoot or attack),        L (pass), P (pause, start)</text>
+        <text>Instructions (2 of 3):</text>
+        <dialogtext>Player1 controls:           arrows (to move),           K (shoot or attack),        L (pass), P (pause, start)</dialogtext>
         <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
             <sub-menu>
                 <text>Continue...</text>
@@ -103,7 +154,8 @@
     </menu>
     <menu>
         <id>menu_instructions3</id>
-        <text>Instructions (3 of 3): Player2 controls:     \n      F, G, H, T (to move),       A (shoot or attack),        Z (pass), R (pause, start)</text>
+        <text>Instructions (3 of 3):</text>
+        <dialogtext>Player2 controls:           F, G, H, T (to move),       A (shoot or attack),        Z (pass), R (pause, start)</dialogtext>
         <variable>game_mode</variable>
         <exits></exits>
         <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->

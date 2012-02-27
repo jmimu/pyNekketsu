@@ -24,6 +24,7 @@ import math
 from sprite import Sprite
 from sprite import compileimage
 from inputs import Inputs
+from settings import configuration
 from copy import deepcopy
 
 round_collision=True
@@ -209,7 +210,8 @@ class Player(Sprite):
                                 pl.state="hurt"
                             else:
                                 pl.state="bhurt"
-                            Player.snd_attack.play()
+                            if (configuration["sound"]=="on"):
+                                Player.snd_attack.play()
                             pl.anim_index=0
                             #pl.direction=-self.direction
                             pl.health-=5*self.punch/pl.resistance
@@ -239,7 +241,8 @@ class Player(Sprite):
                                     pl.state="hurt"
                                 else:
                                     pl.state="bhurt"
-                                Player.snd_attack.play()
+                                if (configuration["sound"]=="on"):
+                                    Player.snd_attack.play()
                                 pl.anim_index=0
                                 #pl.direction=-self.direction
                                 pl.health-=5*self.punch/pl.resistance
@@ -344,7 +347,8 @@ class Player(Sprite):
 
         match.ball.owner=0
         self.has_ball=0
-        Player.snd_shoot.play()
+        if (configuration["sound"]=="on"):
+            Player.snd_shoot.play()
 
 
     def pass_ball(self,match):
@@ -424,7 +428,8 @@ class Player(Sprite):
 
         match.ball.owner=0
         self.has_ball=0
-        Player.snd_pass.play()
+        if (configuration["sound"]=="on"):
+            Player.snd_pass.play()
 
 
     def attack(self,match):

@@ -28,7 +28,7 @@ from player_GK import Player_GK
 from player_human import Player_Human
 from inputs import Inputs
 from sprite import coloringimage
-
+from settings import configuration
 
 class Team(object):
     def __init__(self,xml_file):#wing where they look: -1 (west) or +1 (east)
