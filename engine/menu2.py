@@ -72,7 +72,7 @@ class Menu(object):
         return menu
         
     def __init__(self,id):
-        print("Add node ",id)
+        #print("Add node ",id)
         Menu.all_menus[id]=self
         self.id=0
         self.text=""
@@ -81,6 +81,7 @@ class Menu(object):
         self.choices_variable="" #if has to change a setting
         self.choices_values_value=[]
         self.choices_values_text=[]
+        self.choices_values_goto=[] #submenu to go to when value selected (parent if no given)
         self.default_num=0
         self.parent=0
         self.exits=False #if menu is finished after that (only for configs)
@@ -110,6 +111,12 @@ class Menu(object):
                 self.choices_values_text.append(subtext)
                 subvalue=setting_node.getElementsByTagName('value')[0].childNodes[0].data
                 self.choices_values_value.append(subvalue)
+                if (len(setting_node.getElementsByTagName('goto'))>0):
+                    self.choices_values_goto.append(self.get_menu_by_id(setting_node.getElementsByTagName('goto')[0].childNodes[0].data))
+                    #change partent of submenu
+                    self.choices_values_goto[-1].parent=self
+                else:
+                    self.choices_values_goto.append(0)
                 if (len(setting_node.getElementsByTagName('default'))>0):
                     self.default_num=len(self.choices_values_text)-1
                     #set this value to "configuration"
@@ -149,14 +156,20 @@ class Menu(object):
                     configuration[self.variable]=self.choices_values_value[dlg.get_option()[0]]
                     if (self.exits):
                         configuration["exit_menu"]="yes"
-                    return
+                        return
+                    if (self.choices_values_goto[dlg.get_option()[0]]!=0):
+                        self.choices_values_goto[dlg.get_option()[0]].display(display,font,mainClock)
+                    else:
+                        return
+                    
                 else:#if submenus
-                    print(dlg.get_option())
+                    #print(dlg.get_option())
                     self.choices_submenus[dlg.get_option()[0]].display(display,font,mainClock)
             ## If you press B, cancel 
             if Inputs.player_just_B[1]:
-                Inputs.player_just_B[1]=False
-                return
+                if (self.parent!=0):
+                    Inputs.player_just_B[1]=False
+                    return
             
             #if returns from a sub-menu asking to exit :
             if (configuration["exit_menu"]=="yes"):
@@ -174,8 +187,6 @@ class Menu(object):
                 dialogbox.draw(screen, (8, 160))
             # Update and draw the display
             display.update()
-    
-
 
 
 
@@ -188,56 +199,43 @@ all_menus_node=menus_node.getElementsByTagName('menu')
 for menu_node in all_menus_node:
     Menu.get_menu_by_xmlnode(menu_node)
 
-for cle in Menu.all_menus:
-    print(cle,Menu.all_menus[cle])
 
 
 
 
-print("Welcome:")
-menu_depart=Menu.all_menus["menu_welcome"]
-if (menu_depart.parent!=0):
-    print("Parent: ",menu_depart.parent.id)
-for i in range(0,len(menu_depart.choices_submenus)):
-    if (i==menu_depart.default_num):
-        print "**"
-    print("- ",menu_depart.choices_submenus_text[i])
+#print("Welcome:")
+#menu_depart=Menu.all_menus["menu_welcome"]
+#if (menu_depart.parent!=0):
+#    print("Parent: ",menu_depart.parent.id)
+#for i in range(0,len(menu_depart.choices_submenus)):
+#    if (i==menu_depart.default_num):
+#        print "**"
+#    print("- ",menu_depart.choices_submenus_text[i])
+#
+#print("Options:")
+#menu_opt=menu_depart.choices_submenus[2]
+#if (menu_opt.parent!=0):
+#    print("Parent: ",menu_opt.parent.id)
+#for i in range(0,len(menu_opt.choices_submenus)):
+#    if (i==menu_opt.default_num):
+#        print "**"
+#    print("- ",menu_opt.choices_submenus_text[i])
+#    
+#
+#print("Sound:")
+#menu_snd=menu_opt.choices_submenus[0]
+#if (menu_snd.parent!=0):
+#    print("Parent: ",menu_snd.parent.id)
+#for i in range(0,len(menu_snd.choices_submenus)):
+#    if (i==menu_snd.default_num):
+#        print "**"
+#    print("- ",menu_snd.choices_submenus_text[i])
+#for i in range(0,len(menu_snd.choices_values_text)):
+#    if (i==menu_snd.default_num):
+#        print "**"
+#    print("+ ",menu_snd.choices_values_text[i])
+#    
+#
+#print(configuration)
 
-print("Options:")
-menu_opt=menu_depart.choices_submenus[2]
-if (menu_opt.parent!=0):
-    print("Parent: ",menu_opt.parent.id)
-for i in range(0,len(menu_opt.choices_submenus)):
-    if (i==menu_opt.default_num):
-        print "**"
-    print("- ",menu_opt.choices_submenus_text[i])
-    
-
-print("Sound:")
-menu_snd=menu_opt.choices_submenus[0]
-if (menu_snd.parent!=0):
-    print("Parent: ",menu_snd.parent.id)
-for i in range(0,len(menu_snd.choices_submenus)):
-    if (i==menu_snd.default_num):
-        print "**"
-    print("- ",menu_snd.choices_submenus_text[i])
-for i in range(0,len(menu_snd.choices_values_text)):
-    if (i==menu_snd.default_num):
-        print "**"
-    print("+ ",menu_snd.choices_values_text[i])
-    
-
-print(configuration)
-
-#the menu is a tree
-#class menu_node:
-#    def __init__(self, name, variable, value, sons):#variable is given if not a leaf. value is given if leaf (=only one son)
-#        self.parent=0
-#        self.name=name
-#        self.variable=variable #which variable is changed in configuration
-#        self.value=value
-#        for s in sons:
-#            s.parent=self
-#    def 
-#            
 

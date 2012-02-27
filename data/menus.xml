@@ -5,7 +5,7 @@
         <!--<variable></variable>--><!-- do not change a setting-->
         <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
             <sub-menu>
-                <text>Play !</text>
+                <text>Play!</text>
                 <goto>menu_play</goto>
                 <default></default>
             </sub-menu>
@@ -25,14 +25,29 @@
     </menu>
     <menu>
         <id>menu_play</id>
-        <text>Play !</text>
+        <text>Play!</text>
         <variable>game_mode</variable><!-- this menu is here to change a setting-->
-        <exits></exits>
         <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
             <setting>
-                <text>Go!</text>
-                <value>play</value>
+                <text>Simple Match</text>
+                <value>simple_match</value>
+                <goto>menu_simple_match1</goto>
                 <default></default>
+            </setting>
+            <setting>
+                <text>Championship</text>
+                <value>championship</value>
+                <goto>menu_championship</goto>
+            </setting>
+            <setting>
+                <text>Survival</text>
+                <value>survival</value>
+                <goto>menu_survival</goto>
+            </setting>
+            <setting>
+                <text>Fight</text>
+                <value>fight</value>
+                <goto>menu_fight</goto>
             </setting>
             <setting>
                 <text>Cancel</text>
@@ -40,6 +55,120 @@
             </setting>
         </choices>
     </menu>
+    <menu>
+        <id>menu_simple_match1</id>
+        <text>Simple Match: human players</text>
+        <variable>human_players_repartition</variable>
+        <choices>
+            <setting>
+                <text>no human player</text>
+                <value>none</value>
+                <goto>menu_simple_match2</goto>
+            </setting>
+            <setting>
+                <text>1 player</text>
+                <value>1vsCPU</value>
+                <goto>menu_simple_match2</goto>
+                <default></default>
+            </setting>
+            <setting>
+                <text>2 players team</text>
+                <value>12vsCPU</value>
+                <goto>menu_simple_match2</goto>
+            </setting>
+            <setting>
+                <text>2 players contest</text>
+                <value>1vs2</value>
+                <goto>menu_simple_match2</goto>
+            </setting>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_simple_match2</id>
+        <text>Simple Match: number of players</text>
+        <variable>nb_players_team</variable><!-- this menu is here to change a setting-->
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>1</text>
+                <value>1</value>
+                <goto>menu_simple_match3</goto>
+            </setting>
+            <setting>
+                <text>2</text>
+                <value>2</value>
+                <default></default>
+                <goto>menu_simple_match3</goto>
+            </setting>
+            <setting>
+                <text>3</text>
+                <value>3</value>
+                <goto>menu_simple_match3</goto>
+            </setting>
+            <setting>
+                <text>4</text>
+                <value>4</value>
+                <goto>menu_simple_match3</goto>
+            </setting>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_simple_match3</id>
+        <text>Simple Match: duration (s)</text>
+        <variable>duration</variable><!-- this menu is here to change a setting-->
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>30</text>
+                <value>30</value>
+                <goto>menu_simple_match4</goto>
+            </setting>
+            <setting>
+                <text>60</text>
+                <value>60</value>
+                <default></default>
+                <goto>menu_simple_match4</goto>
+            </setting>
+            <setting>
+                <text>120</text>
+                <value>120</value>
+                <goto>menu_simple_match4</goto>
+            </setting>
+            <setting>
+                <text>240</text>
+                <value>240</value>
+                <goto>menu_simple_match4</goto>
+            </setting>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_simple_match4</id>
+        <text>Simple Match: difficulty</text>
+        <variable>difficulty</variable><!-- this menu is here to change a setting-->
+        <exits></exits>
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>too easy</text>
+                <value>0</value>
+            </setting>
+            <setting>
+                <text>easy</text>
+                <value>1</value>
+                <default></default>
+            </setting>
+            <setting>
+                <text>medium</text>
+                <value>2</value>
+            </setting>
+            <setting>
+                <text>hard</text>
+                <value>3</value>
+            </setting>
+            <setting>
+                <text>too hard</text>
+                <value>4</value>
+            </setting>
+        </choices>
+    </menu>
+
     <menu>
         <id>menu_options</id>
         <text>Options</text>

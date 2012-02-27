@@ -66,7 +66,19 @@ while 1:
             pygame.quit()
             sys.exit()
     
-    players_human_teamA,players_human_teamB,difficulty,nb_players_team,match_length=1,0,1,2,60
+    players_human_teamA=0
+    players_human_teamB=0
+    if (configuration["human_players_repartition"]=="1vsCPU"):
+        players_human_teamA=1
+    if (configuration["human_players_repartition"]=="12vsCPU"):
+        players_human_teamA=2
+    if (configuration["human_players_repartition"]=="1vs2"):
+        players_human_teamA=1
+        players_human_teamB=1
+
+    difficulty=int(configuration["difficulty"])
+    nb_players_team=int(configuration["nb_players_team"])
+    match_length=int(configuration["duration"])
     west_team_index,east_team_index=0,1
     (teamA_filename,west_team_index,teamB_filename,east_team_index)=select_teams(display,nesfont,mainClock,west_team_index,east_team_index)
     

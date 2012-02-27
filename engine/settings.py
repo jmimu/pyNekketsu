@@ -22,13 +22,15 @@
 
 configuration={}
 configuration["game_mode"]="restart"
-configuration["nb_players"]="1"
+configuration["nb_players_team"]="1"
 configuration["difficulty"]="1"
 configuration["duration"]="60"
 configuration["input_p1"]="1"
 configuration["input_p2"]="1"
 configuration["mode"]="1"
+configuration["human_players_repartition"]="1vsCPU"
 configuration["team_east"]="0"
 configuration["team_west"]="1"
+
 configuration["exit_menu"]="no" #not ready to exit menu
 
