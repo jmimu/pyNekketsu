@@ -121,7 +121,7 @@ class Menu(object):
                     break
                 selected_option+=1
             if (selected_option==len(self.choices_values_value)):
-                selected_option=0
+                selected_option=self.default_num
             dlg = dialog.Menu(font, self.choices_values_text)
         else:#look for submenus
             dlg = dialog.Menu(font, self.choices_submenus_text)
