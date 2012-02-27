@@ -235,21 +235,37 @@ def select_teams(display,font,mainClock,west_team_index_init,east_team_index_ini
         if Inputs.player_just_U[1]:
             if (cursor_on_east_wing):
                 east_team_index-=1
+                if (east_team_index<0):
+                    east_team_index=len(allteams)-1
                 if (east_team_index==west_team_index):
                     east_team_index-=1
+                    if (east_team_index<0):
+                        east_team_index=len(allteams)-1
             else:
                 west_team_index-=1
+                if (west_team_index<0):
+                    west_team_index=len(allteams)-1
                 if (east_team_index==west_team_index):
                     west_team_index-=1
+                    if (west_team_index<0):
+                        west_team_index=len(allteams)-1
         if Inputs.player_just_D[1]:
             if (cursor_on_east_wing):
                 east_team_index+=1
+                if (east_team_index>=len(allteams)):
+                    east_team_index=0
                 if (east_team_index==west_team_index):
                     east_team_index+=1
+                    if (east_team_index>=len(allteams)):
+                        east_team_index=0
             else:
                 west_team_index+=1
+                if (west_team_index>=len(allteams)):
+                    west_team_index=0
                 if (east_team_index==west_team_index):
                     west_team_index+=1
+                    if (west_team_index>=len(allteams)):
+                        west_team_index=0
         if Inputs.player_just_R[1] or Inputs.player_just_L[1]:
                 cursor_on_east_wing=not cursor_on_east_wing
         # If you press A, check which option you're on!
@@ -258,14 +274,7 @@ def select_teams(display,font,mainClock,west_team_index_init,east_team_index_ini
         # If you press B, cancel 
         if (Inputs.player_just_B[1]):# or  Inputs.player_just_Esc[1] or Inputs.player_just_Esc[2]):
             return ("?",west_team_index,"?",east_team_index)
-        if (west_team_index<0):
-            west_team_index=len(allteams)-1
-        if (west_team_index>=len(allteams)):
-            west_team_index=0
-        if (east_team_index<0):
-            east_team_index=len(allteams)-1
-        if (east_team_index>=len(allteams)):
-            east_team_index=0
+        
         
         # Get the surface from the NES game library
         screen = display.get_surface()

@@ -123,7 +123,6 @@ class Inputs():
             else:
                 cls.player_D[1] = False
             
-            
             if cls.joystick[0].get_button(2):
                 if (not cls.player_A[1]):
                     cls.player_just_A[1]=True
@@ -148,7 +147,59 @@ class Inputs():
                 cls.player_Start[1] = True
             else:
                 cls.player_Start[1] = False
+        
+        if (len(cls.joystick)>1):
+            if cls.joystick[1].get_hat(0)[0]<-0.5:
+                if (not cls.player_L[2]):
+                    cls.player_just_L[2]=True
+                cls.player_L[2] = True
+            else:
+                cls.player_L[2] = False
+            if cls.joystick[1].get_hat(0)[0]>0.5:
+                if (not cls.player_R[2]):
+                    cls.player_just_R[2]=True
+                cls.player_R[2] = True
+            else:
+                cls.player_R[2] = False
+            if cls.joystick[1].get_hat(0)[1]>0.5:
+                if (not cls.player_U[2]):
+                    cls.player_just_U[2]=True
+                cls.player_U[2] = True
+            else:
+                cls.player_U[2] = False
+            if cls.joystick[1].get_hat(0)[1]<-0.5:
+                if (not cls.player_D[2]):
+                    cls.player_just_D[2]=True
+                cls.player_D[2] = True
+            else:
+                cls.player_D[2] = False
+            
+            if cls.joystick[1].get_button(2):
+                if (not cls.player_A[2]):
+                    cls.player_just_A[2]=True
+                cls.player_A[2] = True
+            else:
+                cls.player_A[2] = False
+            if cls.joystick[1].get_button(1):
+                if (not cls.player_B[2]):
+                    cls.player_just_B[2]=True
+                cls.player_B[2] = True
+            else:
+                cls.player_B[2] = False
+            if cls.joystick[1].get_button(0):
+                if (not cls.player_C[2]):
+                    cls.player_just_C[2]=True
+                cls.player_C[2] = True
+            else:
+                cls.player_C[2] = False
+            if cls.joystick[1].get_button(9):
+                if (not cls.player_Start[2]):
+                    cls.player_just_Start[2]=True
+                cls.player_Start[2] = True
+            else:
+                cls.player_Start[2] = False
 
+        
         # check for events
         for event in pygame.event.get():
             if event.type == QUIT:
