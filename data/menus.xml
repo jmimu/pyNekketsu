@@ -1,0 +1,118 @@
+<menus>
+    <menu>
+        <id>menu_welcome</id>
+        <text>Welcome to pyNekketsu</text>
+        <!--<variable></variable>--><!-- do not change a setting-->
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <sub-menu>
+                <text>Play !</text>
+                <goto>menu_play</goto>
+            </sub-menu>
+            <sub-menu>
+                <text>Instructions</text>
+                <goto>menu_instructions1</goto>
+                <default></default>
+            </sub-menu>
+            <sub-menu>
+                <text>Options</text>
+                <goto>menu_options</goto>
+            </sub-menu>
+            <sub-menu>
+                <text>Quit</text>
+                <goto>menu_quit</goto>
+            </sub-menu>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_options</id>
+        <text>Options</text>
+        <!--<variable></variable>--><!-- do not change a setting-->
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <sub-menu>
+                <text>Sound</text>
+                <goto>menu_sound</goto>
+                <default></default>
+            </sub-menu>
+            <sub-menu>
+                <text>Input Player 1</text>
+                <goto>menu_input1</goto>
+            </sub-menu>
+            <sub-menu>
+                <text>Input Player 2</text>
+                <goto>menu_input2</goto>
+            </sub-menu>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_sound</id>
+        <text>Options</text>
+        <variable>sound</variable><!-- this menu is here to change a setting-->
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>On</text>
+                <value>on</value>
+                <default></default>
+            </setting>
+            <setting>
+                <text>Off</text>
+                <value>off</value>
+            </setting>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_quit</id>
+        <text>You want to quit?</text>
+        <variable>game_mode</variable><!-- this menu is here to change a setting-->
+        <exits></exits>
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>Yes</text>
+                <value>quit</value>
+            </setting>
+            <setting>
+                <text>No</text>
+                <value>restart</value>
+                <default></default>
+            </setting>
+        </choices>
+    </menu>
+    
+    
+    <!-- instructions...-->
+    <menu>
+        <id>menu_instructions1</id>
+        <text>Instructions (1 of 3): Press L to continue, K to go back and Esc to quit.</text>
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <sub-menu>
+                <text>Continue...</text>
+                <goto>menu_instructions2</goto>
+                <default></default>
+            </sub-menu>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_instructions2</id>
+        <text>Instructions (2 of 3): Player1 controls:           arrows (to move),           K (shoot or attack),        L (pass), P (pause, start)</text>
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <sub-menu>
+                <text>Continue...</text>
+                <goto>menu_instructions3</goto>
+                <default></default>
+            </sub-menu>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_instructions3</id>
+        <text>Instructions (3 of 3): Player2 controls:     \n      F, G, H, T (to move),       A (shoot or attack),        Z (pass), R (pause, start)</text>
+        <variable>game_mode</variable>
+        <exits></exits>
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>Return</text>
+                <value>restart</value>
+                <default></default>
+            </setting>
+        </choices>
+    </menu>
+ 
+</menus>

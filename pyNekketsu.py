@@ -39,6 +39,7 @@ pygame.mixer.pre_init(22050,8,1,1024)
 
 from match import Match
 from menu import call_all_menus, show_info, select_teams
+from menu2 import Menu
 from inputs import Inputs
 
 
@@ -52,9 +53,20 @@ nesfont = font.Font(NES_FONT, (255, 255, 255))
 # Get the surface from the NES game library
 screen = display.get_surface()
 
-show_info(display,nesfont,mainClock)
+
+#show_info(display,nesfont,mainClock)
+
+Menu.configuration["game_mode"]="restart" #just to be sure. If menus.xml says that "yes" is default to "quit?", you'll never see the menu
 
 while 1:
+    print("Game mode: ",Menu.configuration["game_mode"])
+    while Menu.configuration["game_mode"]=="restart":
+        Menu.configuration["exit_menu"]="no"
+        Menu.all_menus["menu_welcome"].display(display,nesfont,mainClock)
+        if (Menu.configuration["game_mode"]=="quit"):
+            pygame.quit()
+            sys.exit()
+    
     players_human_teamA,players_human_teamB,difficulty,nb_players_team,match_length,teamA_filename,teamB_filename=call_all_menus(display,nesfont,mainClock)
 
     match=Match(teamA_filename,teamB_filename)
@@ -73,5 +85,5 @@ while 1:
         
         display.update()
         mainClock.tick(30)
-
-        
+    Menu.configuration["game_mode"]="restart"
+    
