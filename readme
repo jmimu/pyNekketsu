@@ -33,4 +33,14 @@ How to play:
   P2: F, G, H (to move) +  A (to kick, attack or ask to shoot), Z (to pass or ask pass), R (for pause)
 
 
+The configuration is given in config.txt file.
+Its synthax is :
+"""
+#variable1
+value
+#variable2
+value
+...
+"""
+Variable name can be found in data/menus.xml.
 

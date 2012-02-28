@@ -191,8 +191,19 @@ all_menus_node=menus_node.getElementsByTagName('menu')
 for menu_node in all_menus_node:
     Menu.get_menu_by_xmlnode(menu_node)
 
+#then read "config.txt" file, to have default settings
+config_file = open("config.txt","r")
+line = config_file.readline()
+while line:
+    if (line[0]=="#"):
+        variable=line[1:-1]
+        value=config_file.readline()
+        value=value[0:-1]
+        configuration[variable]=value
+        print("conf["+variable+"]="+value+".")
+    line = config_file.readline()
 
-
+config_file.close()
 
 
 #print("Welcome:")

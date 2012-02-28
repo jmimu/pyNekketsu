@@ -47,7 +47,7 @@
             <setting>
                 <text>Fight</text>
                 <value>fight</value>
-                <goto>menu_fight</goto>
+                <goto>menu_fight1</goto>
             </setting>
             <setting>
                 <text>Cancel</text>
@@ -168,6 +168,101 @@
             </setting>
         </choices>
     </menu>
+
+
+
+
+
+
+
+    <menu>
+        <id>menu_fight1</id>
+        <text>Fight: human players</text>
+        <variable>human_players_repartition</variable>
+        <choices>
+            <setting>
+                <text>no human player</text>
+                <value>none</value>
+                <goto>menu_fight2</goto>
+            </setting>
+            <setting>
+                <text>1 player</text>
+                <value>1vsCPU</value>
+                <goto>menu_fight2</goto>
+                <default></default>
+            </setting>
+            <setting>
+                <text>2 players contest</text>
+                <value>1vs2</value>
+                <goto>menu_fight2</goto>
+            </setting>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_fight2</id>
+        <text>Fight: duration (s)</text>
+        <variable>duration</variable><!-- this menu is here to change a setting-->
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>30</text>
+                <value>30</value>
+                <goto>menu_fight3</goto>
+            </setting>
+            <setting>
+                <text>60</text>
+                <value>60</value>
+                <default></default>
+                <goto>menu_fight3</goto>
+            </setting>
+            <setting>
+                <text>120</text>
+                <value>120</value>
+                <goto>menu_fight3</goto>
+            </setting>
+            <setting>
+                <text>240</text>
+                <value>240</value>
+                <goto>menu_fight3</goto>
+            </setting>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_fight3</id>
+        <text>Fight: difficulty</text>
+        <variable>difficulty</variable><!-- this menu is here to change a setting-->
+        <exits></exits>
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>too easy</text>
+                <value>2</value>
+            </setting>
+            <setting>
+                <text>easy</text>
+                <value>3</value>
+                <default></default>
+            </setting>
+            <setting>
+                <text>medium</text>
+                <value>4</value>
+            </setting>
+            <setting>
+                <text>hard</text>
+                <value>5</value>
+            </setting>
+            <setting>
+                <text>too hard</text>
+                <value>6</value>
+            </setting>
+        </choices>
+    </menu>
+
+
+
+
+
+
+
+
 
     <menu>
         <id>menu_options</id>

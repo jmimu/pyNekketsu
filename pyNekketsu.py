@@ -71,6 +71,8 @@ while 1:
     if (configuration["human_players_repartition"]=="1vs2"):
         players_human_teamA=1
         players_human_teamB=1
+    if (configuration["game_mode"]=="fight"):
+        configuration["nb_players_team"]=1
 
     difficulty=int(configuration["difficulty"])
     nb_players_team=int(configuration["nb_players_team"])

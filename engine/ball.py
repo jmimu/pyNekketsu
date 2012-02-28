@@ -98,7 +98,7 @@ class Ball(Sprite):
             if self.pos[0] < -match.field.half_length:
                 self.pos[0] = -match.field.half_length
                 self.speed[0]*=-0.8
-                if (abs(self.pos[1]-match.field.goal_latitude[-1])<match.field.goal_half_width[-1]-self.size) \
+                if (configuration["game_mode"]!="fight") and (abs(self.pos[1]-match.field.goal_latitude[-1])<match.field.goal_half_width[-1]-self.size) \
                     and (self.pos[2]<match.field.z+match.field.goal_height[-1]-self.size*2):#goal!
                     match.team[1].nb_goals+=1
                     if (self.owner!=0):
@@ -111,11 +111,12 @@ class Ball(Sprite):
                         match.snd_whistle.play()
                     match.goaldrawing_time=20
                 else:
-                    Ball.snd_bounce.play()
+                    if (configuration["sound"]=="on"):
+                        Ball.snd_bounce.play()
             if self.pos[0] > match.field.half_length:
                 self.pos[0] = match.field.half_length
                 self.speed[0]*=-0.8
-                if (abs(self.pos[1]-match.field.goal_latitude[1])<match.field.goal_half_width[1]-self.size) \
+                if (configuration["game_mode"]!="fight") and (abs(self.pos[1]-match.field.goal_latitude[1])<match.field.goal_half_width[1]-self.size) \
                     and (self.pos[2]<match.field.z+match.field.goal_height[1]-self.size*2):#goal!
                     match.team[-1].nb_goals+=1
                     if (self.owner!=0):

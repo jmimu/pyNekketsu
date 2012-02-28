@@ -38,6 +38,8 @@ class Player_non_GK(Player):
                 and (abs(match.ball.pos[1]-self.pos[1])<5)  \
                 and ((match.ball.pos[2]-self.pos[2])<7): #Z
                 if (abs(match.ball.speed[0])>9*self.control):#too much in opposite direction : KO
+                    if (configuration["game_mode"]=="fight"):
+                        match.team[-self.team.wing].nb_goals+=1
                     if (match.ball.speed[0]*self.direction<1):
                         self.state="hurt"
                     else:
