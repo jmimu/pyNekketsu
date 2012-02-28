@@ -1,7 +1,7 @@
 #game_mode
-fight
+simple_match
 #nb_players_team
-1
+2
 #difficulty
 4
 #duration

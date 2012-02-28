@@ -196,9 +196,9 @@ config_file = open("config.txt","r")
 line = config_file.readline()
 while line:
     if (line[0]=="#"):
-        variable=line[1:-1]
+        variable=line[1:-1].split()[0]
         value=config_file.readline()
-        value=value[0:-1]
+        value=value.split()[0]
         configuration[variable]=value
         print("conf["+variable+"]="+value+".")
     line = config_file.readline()

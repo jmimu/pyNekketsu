@@ -36,10 +36,9 @@ display.init(scale=2, caption="pyNekketsu", res=NESRES)
 
 pygame.mixer.pre_init(22050,8,1,1024)
 
-
+from menu2 import Menu
 from match import Match
 from menu import select_teams#,call_all_menus, show_info
-from menu2 import Menu
 from inputs import Inputs
 from settings import configuration
 

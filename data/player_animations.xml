@@ -99,7 +99,7 @@
   </anim>
   <anim>
     <name>hurt</name>
-    <speed>0.12</speed>
+    <speed>0.16</speed>
     <img>
       <img_name>hurt_A.png</img_name>
       <head_img>hurt.png</head_img>
@@ -156,7 +156,7 @@
   </anim>
   <anim>
     <name>bhurt</name>
-    <speed>0.12</speed>
+    <speed>0.16</speed>
     <img>
       <img_name>bhurt_A.png</img_name>
       <head_img>angry.png</head_img>
