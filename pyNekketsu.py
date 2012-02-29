@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #    pyNekketsu
-#    Copyright (C) 2011  JM Muller
+#    Copyright (C) 2011-2012  JM Muller
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -56,28 +56,33 @@ screen = display.get_surface()
 
 while 1:
     configuration["exit_menu"]="no"
-    Menu.all_menus["menu_welcome"].display(display,nesfont,mainClock)
-    if (configuration["quit_game"]=="quit"):
-        pygame.quit()
-        sys.exit()
-    
-    players_human_teamA=0
-    players_human_teamB=0
-    if (configuration["human_players_repartition"]=="1vsCPU"):
-        players_human_teamA=1
-    if (configuration["human_players_repartition"]=="12vsCPU"):
-        players_human_teamA=2
-    if (configuration["human_players_repartition"]=="1vs2"):
-        players_human_teamA=1
-        players_human_teamB=1
-    if (configuration["game_mode"]=="fight"):
-        configuration["nb_players_team"]=1
+    while (configuration["exit_menu"]=="no"):
+        Menu.all_menus["menu_welcome"].display(display,nesfont,mainClock)
+        if (configuration["quit_game"]=="quit"):
+            pygame.quit()
+            sys.exit()
+        
+        players_human_teamA=0
+        players_human_teamB=0
+        if (configuration["human_players_repartition"]=="1vsCPU"):
+            players_human_teamA=1
+        if (configuration["human_players_repartition"]=="12vsCPU"):
+            players_human_teamA=2
+        if (configuration["human_players_repartition"]=="1vs2"):
+            players_human_teamA=1
+            players_human_teamB=1
+        if (configuration["game_mode"]=="fight"):
+            configuration["nb_players_team"]=1
 
-    difficulty=int(configuration["difficulty"])
-    nb_players_team=int(configuration["nb_players_team"])
-    match_length=int(configuration["duration"])
-    west_team_index,east_team_index=0,1
-    (teamA_filename,west_team_index,teamB_filename,east_team_index)=select_teams(display,nesfont,mainClock,west_team_index,east_team_index)
+        difficulty=int(configuration["difficulty"])
+        nb_players_team=int(configuration["nb_players_team"])
+        match_length=int(configuration["duration"])
+        west_team_index,east_team_index=0,1
+        (teamA_filename,west_team_index,teamB_filename,east_team_index)=select_teams(display,nesfont,mainClock,west_team_index,east_team_index)
+        if (teamA_filename=="?"):
+            configuration["exit_menu"]="no"
+            
+        
     
     #players_human_teamA,players_human_teamB,difficulty,nb_players_team,match_length,teamA_filename,teamB_filename=call_all_menus(display,nesfont,mainClock)
 

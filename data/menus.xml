@@ -2,6 +2,7 @@
     <menu>
         <id>menu_welcome</id>
         <text>Welcome to pyNekketsu</text>
+        <dialogtext>Press arrows to move, L to continue and K to go back.</dialogtext>
         <!--<variable></variable>--><!-- do not change a setting-->
         <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
             <sub-menu>
@@ -368,7 +369,7 @@
     <menu>
         <id>menu_instructions2</id>
         <text>Instructions (2 of 3):</text>
-        <dialogtext>Player1 controls:           arrows (to move),           K (shoot or attack),        L (pass), P (pause, start)</dialogtext>
+        <dialogtext>Player 1 controls:          arrows (to move),           K (shoot or attack),        L (pass), P (pause, start)</dialogtext>
         <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
             <sub-menu>
                 <text>Continue...</text>
@@ -380,7 +381,7 @@
     <menu>
         <id>menu_instructions3</id>
         <text>Instructions (3 of 3):</text>
-        <dialogtext>Player2 controls:           F, G, H, T (to move),       A (shoot or attack),        Z (pass), R (pause, start)</dialogtext>
+        <dialogtext>Player 2 controls:          F, G, H, T (to move),       A (shoot or attack),        Z (pass), R (pause, start)</dialogtext>
         <variable>instructions</variable>
         <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
             <setting>

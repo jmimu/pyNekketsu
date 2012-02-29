@@ -1,22 +1,15 @@
-Bug:
- - if B during team select => make a special goto in menu.xml ?
- - goal is not precise
- - make GK able to take the ball far if there is no one else
- - make the GK go closer to the goal then somebody attacks
-
  - make players able to avoid collision ? (depending on strength)
  - be able to change attacking and collision distances
  - when a cpu player has the ball, and the second closest to the ball is an enemy and it the direction of the goal, and there are more than 1 player per teams, pass.
 
  - correct ref_pos scale with overlaping
- - improve GK jump time (depending on ball speed?)
  - change difficulty : shrink team charateristics
  - use health and endurance, and make stronger players avoid attacks
- - change ball hurting : only if ball is out of collision rectangle
  - what to do if choose twice the same team ?
- - make xml for fields, and choice in menu
- - use surface.fill for sky and grass (because it's optimized?)
+ - make xml for fields ?
 
+ - add fight mode AI
+ - better integration of team select in menu2 => make a special goto in menu.xml ?
  
 Retrogamelib bugs :
  - menu size
@@ -29,4 +22,3 @@ Doc :
  - you can ask your teamate to shoot, in the direction you give
 
 
- - fight mode : no goal, earn points when hurt foe with the ball

@@ -94,6 +94,8 @@ class Menu(object):
         #if values
         if (len(xml_node.getElementsByTagName('variable'))>0):
             self.variable=xml_node.getElementsByTagName('variable')[0].childNodes[0].data
+            if not(self.variable in configuration.keys()):
+                configuration[self.variable]="" #define the entry, to avoid bug if no default defined
             all_settings_node=xml_node.getElementsByTagName('setting')
             for setting_node in all_settings_node:
                 subtext=setting_node.getElementsByTagName('text')[0].childNodes[0].data
@@ -176,7 +178,7 @@ class Menu(object):
             screen.blit(ren, (8, 112))
             dlg.draw(screen, (16, 128), background=(0, 0, 0), border=(255, 255, 255))
             if (len(self.dialogtext)>0):
-                dialogbox.draw(screen, (8, 160))
+                dialogbox.draw(screen, (8, 180))
             # Update and draw the display
             display.update()
 

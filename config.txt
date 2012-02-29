@@ -3,7 +3,7 @@ simple_match
 #nb_players_team
 2
 #difficulty
-4
+3
 #duration
 60
 #input_p1
@@ -13,4 +13,4 @@ keyboard
 #human_players_repartition
 1vsCPU
 #sound
-off
+on
