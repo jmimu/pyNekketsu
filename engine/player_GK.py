@@ -39,7 +39,7 @@ class Player_GK(Player):
             if (abs(match.ball.pos[0]-self.pos[0]-self.direction*1)<4) \
                 and (abs(match.ball.pos[1]-self.pos[1])<5)  \
                 and ((match.ball.pos[2]-self.pos[2])<7): #Z
-                if (abs(match.ball.speed[0])>10*self.control):#too much in opposite direction : KO
+                if (abs(match.ball.speed[0])>13*self.control):#too much in opposite direction : KO
                     self.state="hurt"
                     self.anim_index=0
                     if not match.ball.bounce_on_player(self):
@@ -87,11 +87,11 @@ class Player_GK(Player):
             if (abs(goal_position[0]-match.ball.pos[0])>abs(goal_position[0]-self.pos[0])):
                 #ball is not between GK and the goal
 
-                aimed_GK_distance_to_goal=15 #normal value
+                aimed_GK_distance_to_goal=12 #normal value
                 if (abs(foe.pos[0]-goal_position[0])<aimed_GK_distance_to_goal*2)and(match.ball.owner!=0):
-                    aimed_GK_distance_to_goal=int(abs(foe.pos[0]-goal_position[0])/10)*5 #if foe is close, return to goal
+                    aimed_GK_distance_to_goal=int(abs(foe.pos[0]-goal_position[0])/8)*5 #if foe is close, return to goal
                 if ((abs(foe.pos[0]-self.pos[0])>30)and(abs(match.ball.pos[0]-self.pos[0])<25))and(match.ball.owner==0):
-                    aimed_GK_distance_to_goal=abs(match.ball.pos[0]-goal_position[0])
+                    aimed_GK_distance_to_goal=abs(match.ball.pos[0]-goal_position[0])#go further from goal
                 
                 #if ball is high, return to goal!
                 if (self.pos[2]<match.ball.pos[2]-6) and (abs(self.pos[0]-match.ball.pos[0])>10) and (-self.team.wing*match.ball.speed[0]<0):
@@ -120,18 +120,24 @@ class Player_GK(Player):
                     self.inputs.R=False
 
                 #set y pos to be between ball and goal
-                if (abs(match.ball.pos[0]-goal_position[0])<1):
+                if (abs(match.ball.pos[0]-goal_position[0])<1)or(abs(match.ball.pos[0]-self.pos[0])<5):
                     between_pos_y=match.ball.pos[1]
                 else:
                     between_pos_y=goal_position[1]+(self.pos[0]-goal_position[0])*(match.ball.pos[1]-goal_position[1])/(match.ball.pos[0]-goal_position[0])
                     between_pos_y+=random.randint(Player_GK.difficulty,15)-random.randint(Player_GK.difficulty,15)
-                if (match.ball.owner==0)and (-self.team.wing*match.ball.speed[0]>-1):#if nobody has the ball and it's not cpoming too quickly, go directly to it
+                if (match.ball.owner==0)and (-self.team.wing*match.ball.speed[0]>-1):#if nobody has the ball and it's not coming too quickly, go directly to it
                     between_pos_y=match.ball.pos[1]
-                if (self.pos[1]<between_pos_y-2) and (random.randint(0, 13/self.precision)<3+Player_GK.difficulty):
+                if (match.ball.owner==0)and (-self.team.wing*match.ball.speed[0]<0):#the ball is going to the goal: go where the ball will be when ball.x == GK.x
+                    #ball trajectory : y=mx+p
+                    m=match.ball.speed[1]/match.ball.speed[0]
+                    p=match.ball.pos[1]-m*match.ball.pos[0]
+                    #where the ball will be when match.ball.pos[0]==self.pos[0]
+                    between_pos_y=m*self.pos[0]+p
+                if (self.pos[1]<between_pos_y-0.5) and (random.randint(0, 13/self.precision)<3+Player_GK.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>between_pos_y+2) and (random.randint(0, 13/self.precision)<3+Player_GK.difficulty):
+                if (self.pos[1]>between_pos_y+0.5) and (random.randint(0, 13/self.precision)<3+Player_GK.difficulty):
                     self.inputs.D=True
-
+                    
                     
             else:
                 #ball is between GK and the goal
@@ -139,9 +145,9 @@ class Player_GK(Player):
                     self.inputs.R=True
                 if (self.pos[0]>match.ball.pos[0]+2) and (random.randint(0, 15)<5+Player_GK.difficulty):
                     self.inputs.L=True
-                if (self.pos[1]<match.ball.pos[1]-5) and (random.randint(0, 15)<5+Player_GK.difficulty):
+                if (self.pos[1]<match.ball.pos[1]-2) and (random.randint(0, 15)<5+Player_GK.difficulty):
                     self.inputs.U=True
-                if (self.pos[1]>match.ball.pos[1]+5) and (random.randint(0, 15)<5+Player_GK.difficulty):
+                if (self.pos[1]>match.ball.pos[1]+2) and (random.randint(0, 15)<5+Player_GK.difficulty):
                     self.inputs.D=True
      
 

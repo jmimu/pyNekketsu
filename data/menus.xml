@@ -34,7 +34,7 @@
                 <goto>menu_simple_match1</goto>
                 <default></default>
             </setting>
-            <setting>
+<!--            <setting>
                 <text>Championship</text>
                 <value>championship</value>
                 <goto>menu_championship</goto>
@@ -43,7 +43,7 @@
                 <text>Survival</text>
                 <value>survival</value>
                 <goto>menu_survival</goto>
-            </setting>
+            </setting>-->
             <setting>
                 <text>Fight</text>
                 <value>fight</value>

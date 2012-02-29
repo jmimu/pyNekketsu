@@ -22,16 +22,16 @@ import pygame,sys
 from pygame.locals import *
 
 from settings import configuration
-
+from sprite import coloringimage
 
 #Field represents the soccer field: size, drawing, goal position...
 
 class Field():
     sky_image=pygame.image.load("data/sky.png")
     grass_image=pygame.image.load("data/grass.png")
-    flag_back_image=pygame.image.load("data/flag_back.png")
-    flag_front_image=pygame.image.load("data/flag_front.png")
-    def __init__(self):
+    
+    
+    def __init__(self,west_top_color,west_bottom_color,east_top_color,east_bottom_color):
         self.half_length=100
         self.half_width=50
         self.z=0.0
@@ -48,6 +48,11 @@ class Field():
         self.goal_latitude[1]=0#where the goal center is inside field width
         self.bounce_damp=0.6#1=perfect
         self.roll_damp=0.9#1=perfect
+        
+        self.flag_back_image_west=coloringimage("../flag_back.png",west_top_color,west_bottom_color)
+        self.flag_front_image_west=coloringimage("../flag_front.png",west_top_color,west_bottom_color)
+        self.flag_back_image_east=coloringimage("../flag_back.png",east_top_color,east_bottom_color)
+        self.flag_front_image_east=coloringimage("../flag_front.png",east_top_color,east_bottom_color)
 
     def collide_with_player(self,player): #block a player inside the field
         # If we're at ground level, stop.
@@ -96,11 +101,11 @@ class Field():
         pos=camera.proj([self.half_length,self.half_width,self.z+8])
         pos[1]-=8
         pygame.draw.line(surface, (180, 180, 185), camera.proj([self.half_length,self.half_width,self.z]),pos, 2)
-        surface.blit(Field.flag_back_image,pos)
+        surface.blit(self.flag_back_image_east,pos)
         pos=camera.proj([-self.half_length,self.half_width,self.z+8])
         pos[1]-=8
         pygame.draw.line(surface, (180, 180, 185), camera.proj([-self.half_length,self.half_width,self.z]),pos, 2)
-        surface.blit(Field.flag_back_image,pos)
+        surface.blit(self.flag_back_image_west,pos)
         
      
         if (configuration["game_mode"]!="fight"):
@@ -141,11 +146,11 @@ class Field():
         pos[1]-=12
         pygame.draw.line(surface, (180, 180, 185), camera.proj([self.half_length,-self.half_width,self.z]),pos, 3)
         pos[0]-=1
-        surface.blit(Field.flag_front_image,pos)
+        surface.blit(self.flag_front_image_east,pos)
         pos=camera.proj([-self.half_length,-self.half_width,self.z+8])
         pos[1]-=12
         pygame.draw.line(surface, (180, 180, 185), camera.proj([-self.half_length,-self.half_width,self.z]),pos, 3)
         pos[0]-=1
-        surface.blit(Field.flag_front_image,pos)
+        surface.blit(self.flag_front_image_west,pos)
 
 

@@ -49,8 +49,6 @@ class Match(object):
         self.match_time=0
         self.human_players=[-1,0,0] #max two players, player num 0 does not exist
         self.pause=False
-        self.field=Field()
-        self.cam=Camera(self.field)
         self.ball=Ball()
         self.player_list=[]
         self.team={}#
@@ -59,7 +57,7 @@ class Match(object):
         self.team[-1]=Team(self.teamA_filename)
         self.team[1]=Team(self.teamB_filename)
         
-    
+
     def init(self,nbr_players_human_teamA,nbr_players_teamA,nbr_players_human_teamB,nbr_players_teamB,difficulty=8,length=60):
         Player_CPU.difficulty=difficulty
         Player_GK.difficulty=difficulty
@@ -72,8 +70,6 @@ class Match(object):
         self.match_time=length
         self.human_players=[-1,0,0] #max two players, player num 0 does not exist
         self.pause=False
-        self.field=Field()
-        self.cam=Camera(self.field)
         self.ball=Ball()
         self.player_list=[]
         
@@ -88,12 +84,16 @@ class Match(object):
         if (nbr_players_human_teamB>1):
             human_players_teamB.append( 1+len(human_players_teamA)+len(human_players_teamB) )
 
+        self.field=Field(self.team[-1].top_color,self.team[-1].bottom_color,self.team[1].top_color,self.team[1].bottom_color)
+        self.cam=Camera(self.field)
+
         self.team[-1].create_from_xml(-1,nbr_players_teamA,human_players_teamA,self)
         self.player_list+=self.team[-1].players
         
         self.team[1].create_from_xml(1,nbr_players_teamB,human_players_teamB,self)
         self.player_list+=self.team[1].players
         
+
         if (configuration["sound"]=="on"):
             Match.snd_whistle.play()
         print("Match starts")
