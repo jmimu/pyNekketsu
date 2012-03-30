@@ -20,6 +20,8 @@
 
 #settings : global variable for configuration
 
+delta_time=0.5
+
 configuration={}
 #configuration["game_mode"]="simple_match"
 #configuration["nb_players_team"]="1"

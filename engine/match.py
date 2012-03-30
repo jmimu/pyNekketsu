@@ -31,7 +31,7 @@ from field import Field
 from ball import Ball
 from sprite import Sprite
 from team import Team
-from settings import configuration
+from settings import configuration,delta_time
 import random
 
 class Match(object):
@@ -116,9 +116,9 @@ class Match(object):
                     self.goaldrawing_time-=1
 
                 if (self.match_time>0):#when time is out, players stop
-                    self.match_time-=1.0/30 #30 FPS
+                    self.match_time-=1.0/30*delta_time #30 FPS
                     self.team[-1].update(self)
-                    #self.team[1].update(self)
+                    self.team[1].update(self)
                 if (-1<self.match_time<0):
                     if (configuration["sound"]=="on"):
                         Match.snd_whistle.play()

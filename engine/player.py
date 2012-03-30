@@ -24,7 +24,7 @@ import math
 from sprite import Sprite
 from sprite import compileimage
 from inputs import Inputs
-from settings import configuration
+from settings import configuration,delta_time
 from copy import deepcopy
 
 round_collision=True
@@ -145,16 +145,16 @@ class Player(Sprite):
         if (self.state=="jump"): #if jumping, continue to go in previous direction
             jump_speed_x=(self.pos[0]-self.previous_pos[0])
             jump_speed_y=(self.pos[1]-self.previous_pos[1])
-            self.pos[0]+=jump_speed_x
-            self.pos[1]+=jump_speed_y
-            self.previous_pos[0]+=jump_speed_x
-            self.previous_pos[1]+=jump_speed_y
+            self.pos[0]+=jump_speed_x*delta_time
+            self.pos[1]+=jump_speed_y*delta_time
+            self.previous_pos[0]+=jump_speed_x*delta_time
+            self.previous_pos[1]+=jump_speed_y*delta_time
         else:
             self.previous_pos[:]=self.pos[:] #be careful with that...
         
         # Increase the y position by the jump speed
-        self.pos[2] += self.jump_speed
-        self.jump_speed -= 0.4
+        self.pos[2] += self.jump_speed*delta_time
+        self.jump_speed -= 0.4*delta_time
         
         if (self.jump_speed < -0.5):
             self.state="jump"
@@ -162,29 +162,29 @@ class Player(Sprite):
 
         
         if (self.state=="preshoot"):
-            self.anim_index += self.team.ref_anim_speed[self.state]
+            self.anim_index += self.team.ref_anim_speed[self.state]*delta_time
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.shoot(match)
  
         if (self.state=="shoot"):
-            self.anim_index += self.team.ref_anim_speed[self.state]
+            self.anim_index += self.team.ref_anim_speed[self.state]*delta_time
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
         if (self.state=="attack"):
-            self.anim_index += self.team.ref_anim_speed[self.state]
-            self.pos[0]+=self.direction/3.0
+            self.anim_index += self.team.ref_anim_speed[self.state]*delta_time
+            self.pos[0]+=self.direction/3.0*delta_time
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
         if (self.state=="hurt") or (self.state=="bhurt"):
-            self.anim_index += self.team.ref_anim_speed[self.state]
+            self.anim_index += self.team.ref_anim_speed[self.state]*delta_time
             if (self.anim_index<1):
                 if (self.state=="hurt"):
-                    self.pos[0]-=self.direction/10.0
+                    self.pos[0]-=self.direction/10.0*delta_time
                 else:
-                    self.pos[0]+=self.direction/10.0
+                    self.pos[0]+=self.direction/10.0*delta_time
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
@@ -308,7 +308,7 @@ class Player(Sprite):
         Sprite.draw(self,surface,camera,is_shadow)
         #surface.blit(self.team.image, camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*3))
         if (self.is_saying_timer>0) and (self.is_saying!=""):
-            self.is_saying_timer=self.is_saying_timer-1
+            self.is_saying_timer-=1*delta_time
             message_pos=[]
             message_pos[:]=self.pos[:]
             surface.blit(Player.speech_image[self.is_saying], camera.proj(message_pos,-self.image.get_width(),50))
@@ -466,32 +466,32 @@ class Player(Sprite):
         if (self.state=="walk"):
             if (self.has_ball!=0): #with ball: slower
                 if self.inputs.L:
-                    self.pos[0] -= self.speed#*0.8
-                    self.energy -= 1
+                    self.pos[0] -= self.speed*delta_time#*0.8
+                    self.energy -= 1*delta_time
                     self.direction = -1
                 if self.inputs.R:
-                    self.pos[0] += self.speed#*0.8
-                    self.energy -= 1
+                    self.pos[0] += self.speed*delta_time#*0.8
+                    self.energy -= 1*delta_time
                     self.direction = +1
                 if self.inputs.U:
-                    self.pos[1] += self.speed#*0.8
-                    self.energy -= 1
+                    self.pos[1] += self.speed*delta_time#*0.8
+                    self.energy -= 1*delta_time
                 if self.inputs.D:
-                    self.pos[1] -= self.speed#*0.8
-                    self.energy -= 1
+                    self.pos[1] -= self.speed*delta_time#*0.8
+                    self.energy -= 1*delta_time
             else:#don't have ball
                 if self.inputs.L:
-                    self.pos[0] -= self.speed
+                    self.pos[0] -= self.speed*delta_time
                     self.direction = -1
                 if self.inputs.R:
-                    self.pos[0] += self.speed
+                    self.pos[0] += self.speed*delta_time
                     self.direction = +1
                 if self.inputs.U:
-                    self.pos[1] += self.speed
+                    self.pos[1] += self.speed*delta_time
                 if self.inputs.D:
-                    self.pos[1] -= self.speed
+                    self.pos[1] -= self.speed*delta_time
             if (self.inputs.L or self.inputs.R or self.inputs.U or self.inputs.D):
-                self.anim_index += self.team.ref_anim_speed[self.state]
+                self.anim_index += self.team.ref_anim_speed[self.state]*delta_time
             # Jump if the player presses the C button
             if (self.inputs.C and self.pos[2] == 0):
                 self.jump_speed = 2*self.jump_hight

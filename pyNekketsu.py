@@ -101,6 +101,6 @@ while 1:
         match.draw(screen,nesfont)
         
         display.update()
-        mainClock.tick(30)
+        mainClock.tick(50)
     
     

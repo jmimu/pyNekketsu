@@ -21,6 +21,7 @@ import pygame,sys
 
 from pygame.locals import *
 from field import Field
+from settings import configuration,delta_time
 
 #to draw everything in field world, with a projection
 
@@ -36,9 +37,9 @@ class Camera():
         self.decal_to_target=[0,-150,50]
     def aim_to(self,ground_pos,direction,speed=100): # try to go closer to ground_pos point, and look forward in a direction , at a given speed (in %)
         self.decal_to_target[0]=25.0*direction#add to x
-        self.x+=(ground_pos[0]+self.decal_to_target[0]-self.x)*speed/100.0
-        self.y+=(ground_pos[1]+self.decal_to_target[1]-self.y)*speed/100.0
-        self.z+=(ground_pos[2]+self.decal_to_target[2]-self.z)*speed/100.0
+        self.x+=(ground_pos[0]+self.decal_to_target[0]-self.x)*speed/100.0*delta_time
+        self.y+=(ground_pos[1]+self.decal_to_target[1]-self.y)*speed/100.0*delta_time
+        self.z+=(ground_pos[2]+self.decal_to_target[2]-self.z)*speed/100.0*delta_time
         if (self.x<-self.field.half_length+20):
             self.x=-self.field.half_length+20
         if (self.x>self.field.half_length-20):
