@@ -1,3 +1,6 @@
+ - be able to change game speed ?
+ - GK is sometimes lost...
+ - previous team are not kept when returning to menu
  - make players able to avoid collision ? (depending on strength)
  - be able to change attacking and collision distances
  - when a cpu player has the ball, and the second closest to the ball is an enemy and it the direction of the goal, and there are more than 1 player per teams, pass.

@@ -80,8 +80,12 @@ class Player_GK(Player):
             if (foe.pos[1]<self.pos[1]) or (random.randint(0, 2)==0):
                 self.inputs.U=True
             #shoot!
-            if not((abs(foe.pos[1]-self.pos[1])<8)and(self.direction*(foe.pos[0]-self.pos[0])>0)and(self.direction*(foe.pos[0]-self.pos[0])<20)):
-                #print(abs(foe.pos[1]-self.pos[1]),self.direction*(foe.pos[0]-self.pos[0]))
+            cant_shoot=False
+            for p in match.player_list:
+                if ((abs(p.pos[1]-self.pos[1])<8)and(self.direction*(p.pos[0]-self.pos[0])>0)and(self.direction*(p.pos[0]-self.pos[0])<20)):
+                    cant_shoot=True
+                    break
+            if not(cant_shoot):
                 self.inputs.B=True
         else:#do not have the ball
             if (abs(goal_position[0]-match.ball.pos[0])>abs(goal_position[0]-self.pos[0])):

@@ -196,16 +196,23 @@ class Team(object):
         for i in range(1,3):
             #if has to pass to human player
             if (match.human_players[i]!=0) and (match.human_players[i].team==self) and (Inputs.player_just_A[i]) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
-                if (random.random()<0.35*match.ball.owner.listening):
-                    #aim to the player ?
-                    match.ball.owner.inputs.A=True
-                    match.ball.owner.inputs.U=False
-                    match.ball.owner.inputs.D=False
-                    match.ball.owner.inputs.L=False
-                    match.ball.owner.inputs.R=False
+              #show "pass!" speech baloon
+              match.human_players[i].is_saying="pass"
+              match.human_players[i].is_saying_timer=10
+              if (random.random()<0.35*match.ball.owner.listening):
+                  #aim to the player ?
+                  match.ball.owner.inputs.A=True
+                  match.ball.owner.inputs.U=False
+                  match.ball.owner.inputs.D=False
+                  match.ball.owner.inputs.L=False
+                  match.ball.owner.inputs.R=False
 
             #if AI player is asked to shoot
             if (match.human_players[i]!=0) and (match.human_players[i].team==self) and (Inputs.player_just_B[i]) and (match.ball.owner!=0) and (match.ball.owner.number_human_player==0) and (match.ball.owner.team==self):
+                #show "shoot!" speech baloon
+                match.human_players[i].is_saying="shoot"
+                match.human_players[i].is_saying_timer=10
+                
                 if (random.random()<0.35*match.ball.owner.listening):
                     #shoot in the direction P1 is aiming at
                     match.ball.owner.inputs.B=True

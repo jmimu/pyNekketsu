@@ -13,4 +13,4 @@ keyboard
 #human_players_repartition
 1vsCPU
 #sound
-on
+off

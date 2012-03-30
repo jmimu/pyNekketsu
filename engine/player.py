@@ -34,6 +34,12 @@ class Player(Sprite):
     snd_shoot = pygame.mixer.Sound("data/sound/etw/shot.wav")
     snd_attack = pygame.mixer.Sound("data/sound/stk/parachute.wav")
     
+    #images for what the player is saying
+    speech_image={}
+    speech_image["pass"]=pygame.image.load("data/pass.png")
+    speech_image["shoot"]=pygame.image.load("data/shoot.png")
+    speech_image["wonder"]=pygame.image.load("data/wonder.png")
+    
     #  pos_init is "expanded" to the whole field with field_half_length
     def __init__(self, team):
         Sprite.__init__(self)
@@ -41,7 +47,6 @@ class Player(Sprite):
         self.number_human_player=0
         self.image=0#current image
         self.skin_color=()
-        self.message_image=0#image of what he says
         self.previous_pos=[]
 
         #player characteristics
@@ -73,6 +78,9 @@ class Player(Sprite):
         self.current_shoot_speed=[0,0,0]#where the ball will go when preshoot is finished
 
         self.anim={}#dictionnary for left and right
+        
+        self.is_saying=""#what the player is saying
+        self.is_saying_timer=0
         
     def read_xml(self,player_node,field):
         self.name=player_node.getElementsByTagName('name')[0].childNodes[0].data
@@ -164,14 +172,12 @@ class Player(Sprite):
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
-                self.message_image=0
         if (self.state=="attack"):
             self.anim_index += self.team.ref_anim_speed[self.state]
             self.pos[0]+=self.direction/3.0
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
-                self.message_image=0
         if (self.state=="hurt") or (self.state=="bhurt"):
             self.anim_index += self.team.ref_anim_speed[self.state]
             if (self.anim_index<1):
@@ -182,7 +188,6 @@ class Player(Sprite):
             if (self.anim_index>=len(self.anim[self.direction][self.state])):
                 self.anim_index=0
                 self.state="walk"
-                self.message_image=0
             
         #try to catch the ball  : see player_GK and player_non_GK
 
@@ -302,13 +307,15 @@ class Player(Sprite):
     def draw(self,surface,camera,is_shadow=True):
         Sprite.draw(self,surface,camera,is_shadow)
         #surface.blit(self.team.image, camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*3))
-        if (self.message_image!=0):
+        if (self.is_saying_timer>0) and (self.is_saying!=""):
+            self.is_saying_timer=self.is_saying_timer-1
             message_pos=[]
             message_pos[:]=self.pos[:]
-            if (self.direction==1):
-                surface.blit(self.message_image, camera.proj(message_pos,-self.image.get_width(),30))
-            else:
-                surface.blit(self.message_image, camera.proj(message_pos,self.message_image.get_width()+self.image.get_width()*2,30))
+            surface.blit(Player.speech_image[self.is_saying], camera.proj(message_pos,-self.image.get_width(),50))
+            #if (self.direction==1):
+            #    surface.blit(Player.speech_image[self.is_saying], camera.proj(message_pos,-self.image.get_width(),30))
+            #else:
+            #    surface.blit(Player.speech_image[self.is_saying], camera.proj(message_pos,self.is_saying.get_width()+self.image.get_width()*2,30))
 
  
     def preshoot(self,match):
@@ -330,7 +337,8 @@ class Player(Sprite):
     def shoot(self,match):
         if (match.ball.owner==0) or (self.has_ball==0):
             print(self.name+" failed to shoot")
-            self.message_image=Sprite.font.render("??")
+            self.is_saying="wonder"
+            self.is_saying_timer=5
             match.ball.owner=0
             self.has_ball=0
             self.state="shoot"
