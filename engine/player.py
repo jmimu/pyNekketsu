@@ -138,6 +138,8 @@ class Player(Sprite):
         
 
     def update(self,match):
+        if (self.is_saying_timer>0) and (self.is_saying!=""):
+            self.is_saying_timer-=1*delta_time
         previous_pos=[]
         previous_pos[:]=self.pos[:] #in case of collision, return to previous position
         self.handle_inputs(match)
@@ -308,7 +310,6 @@ class Player(Sprite):
         Sprite.draw(self,surface,camera,is_shadow)
         #surface.blit(self.team.image, camera.proj([self.pos[0],self.pos[1],self.pos[2]],self.team.image.get_width(),self.team.image.get_height()*3))
         if (self.is_saying_timer>0) and (self.is_saying!=""):
-            self.is_saying_timer-=1*delta_time
             message_pos=[]
             message_pos[:]=self.pos[:]
             surface.blit(Player.speech_image[self.is_saying], camera.proj(message_pos,-self.image.get_width(),50))
