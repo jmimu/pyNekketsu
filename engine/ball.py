@@ -31,9 +31,9 @@ class Ball(Sprite):
     snd_bounce = pygame.mixer.Sound("data/sound/etw/shoot2.wav")
     def __init__(self):
         Sprite.__init__(self)
-        self.pos=[0,0,15] #like every other thing, pos is at center bottom
+        self.pos=[0,0,5] #like every other thing, pos is at center bottom
 
-        self.speed=[0,20,10]
+        self.speed=[0,0,0]
         self.size=2 #ball radius, for goal accuracy (used in y, and 2* in z)
         self.owner=0 #0 if ball is free
 

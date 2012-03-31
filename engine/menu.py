@@ -219,6 +219,8 @@ def select_teams(display,font,mainClock,west_team_index_init,east_team_index_ini
             allteams.append(Team("data/teams/"+fname))
     
     title_image=pygame.image.load("data/title.png")
+    up_image=pygame.image.load("data/arrow_up.png")
+    down_image=pygame.image.load("data/arrow_down.png")
 
     cursor_on_east_wing=False
     cursor_color_angle=0
@@ -282,9 +284,13 @@ def select_teams(display,font,mainClock,west_team_index_init,east_team_index_ini
         
         #draw current teams
         if (cursor_on_east_wing):
-            pygame.draw.rect(screen, (150+cos(cursor_color_angle)*50,150+cos(cursor_color_angle+2.1)*50 ,150+cos(cursor_color_angle+1.2)*50 ), (185, 115, 25,25),1)
+            pygame.draw.rect(screen, (150+cos(cursor_color_angle)*50,150+cos(cursor_color_angle+2.1)*50 ,150+cos(cursor_color_angle+1.2)*50 ), (185, 95, 25,25),1)
+            screen.blit(up_image,(185, 78))
+            screen.blit(down_image,(185, 121))
         else:
-            pygame.draw.rect(screen, (150+cos(cursor_color_angle)*50,150+cos(cursor_color_angle+2.1)*50 ,150+cos(cursor_color_angle+1.2)*50), (37, 115, 25,25),1)
+            pygame.draw.rect(screen, (150+cos(cursor_color_angle)*50,150+cos(cursor_color_angle+2.1)*50 ,150+cos(cursor_color_angle+1.2)*50), (37, 95, 25,25),1)
+            screen.blit(up_image,(37, 78))
+            screen.blit(down_image,(37, 121))
 
         draw_team_info_text(screen,font,128)
         #screen.blit(allteams[west_team_index].image,(42,120))
@@ -292,8 +298,8 @@ def select_teams(display,font,mainClock,west_team_index_init,east_team_index_ini
         transf_west_img=pygame.transform.scale(allteams[west_team_index].image,(int(16+4*cos(cursor_color_angle)),int(16+4*cos(1.3*cursor_color_angle+0.5))))
         transf_east_img=pygame.transform.scale(allteams[east_team_index].image,(int(16+4*cos(cursor_color_angle+1)),int(16+4*cos(1.3*cursor_color_angle+1.5))))
 
-        screen.blit(transf_west_img,(42+8-(16+4*cos(cursor_color_angle))/2,120+8-(16+4*cos(1.3*cursor_color_angle+0.5))/2))
-        screen.blit(transf_east_img,(192+8-(16+4*cos(cursor_color_angle+1))/2,120+8-(16+4*cos(1.3*cursor_color_angle+1.5))/2))
+        screen.blit(transf_west_img,(42+8-(16+4*cos(cursor_color_angle))/2,100+8-(16+4*cos(1.3*cursor_color_angle+0.5))/2))
+        screen.blit(transf_east_img,(190+8-(16+4*cos(cursor_color_angle+1))/2,100+8-(16+4*cos(1.3*cursor_color_angle+1.5))/2))
 
         allteams[west_team_index].draw_info(screen,78,-1)
         allteams[east_team_index].draw_info(screen,178,1)
