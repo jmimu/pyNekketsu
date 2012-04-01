@@ -1,5 +1,7 @@
 #game_mode
 simple_match
+#speed
+2
 #nb_players_team
 2
 #difficulty

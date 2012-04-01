@@ -20,7 +20,8 @@
 
 #settings : global variable for configuration
 
-delta_time=0.5
+
+
 
 configuration={}
 #configuration["game_mode"]="simple_match"
@@ -35,4 +36,4 @@ configuration={}
 #configuration["team_west"]="1"
 
 configuration["exit_menu"]="no" #not ready to exit menu
-
+configuration["delta_time"]=0.5

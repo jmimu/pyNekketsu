@@ -31,7 +31,7 @@ from field import Field
 from ball import Ball
 from sprite import Sprite
 from team import Team
-from settings import configuration,delta_time
+from settings import configuration
 import random
 
 class Match(object):
@@ -97,7 +97,6 @@ class Match(object):
         self.team[1].create_from_xml(1,nbr_players_teamB,human_players_teamB,self)
         self.player_list+=self.team[1].players
         
-
         print("Match starts")
         
     
@@ -114,15 +113,15 @@ class Match(object):
         if (not self.pause):
             if (self.message_drawing_time<10):
                 if (self.message_drawing_time>0):
-                    self.message_drawing_time-=1*delta_time
-                    if (self.message_drawing_time>8)and(self.message_image==self.start_image):#kick off
+                    self.message_drawing_time-=1*configuration["delta_time"]
+                    if (self.message_drawing_time>5)and(self.message_image==self.start_image):#kick off
                         if (configuration["sound"]=="on"):
                             Match.snd_whistle.play()
-                        self.message_drawing_time=8
+                        self.message_drawing_time=5
 
 
                 if (self.match_time>0):#when time is out, players stop
-                    self.match_time-=1.0/30*delta_time #30 FPS
+                    self.match_time-=1.0/30*configuration["delta_time"] #30 FPS
                     self.team[-1].update(self)
                     self.team[1].update(self)
                 if (-1<self.match_time<0):
@@ -131,7 +130,7 @@ class Match(object):
 
                 self.ball.update(self)
             else:
-                self.message_drawing_time-=1
+                self.message_drawing_time-=1*configuration["delta_time"]
             #camera moves even if there is a message
             if (self.ball.owner==0):
                 self.cam.aim_to([self.ball.pos[0],self.ball.pos[1],self.ball.pos[2]/2],0,50)
@@ -174,7 +173,7 @@ class Match(object):
         for s in sprite_list:
             s.draw(surface,self.cam)
         
-        if (self.message_drawing_time!=0):
+        if (self.message_drawing_time>0):
             surface.blit(self.message_image, [0,0])
     
 

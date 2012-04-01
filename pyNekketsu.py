@@ -62,6 +62,8 @@ while 1:
             pygame.quit()
             sys.exit()
         
+        configuration["delta_time"]=0.3+int(configuration["speed"])/10.0
+
         players_human_teamA=0
         players_human_teamB=0
         if (configuration["human_players_repartition"]=="1vsCPU"):

@@ -22,7 +22,7 @@ import pygame
 import os
 import random
 import math
-from settings import configuration,delta_time
+from settings import configuration
 
 from sprite import Sprite
 
@@ -62,7 +62,6 @@ class Ball(Sprite):
         
         
     def update(self,match):
-        
         if (self.owner!=0):
             self.speed[0]=(self.owner.pos[0]+4*self.owner.direction-self.pos[0])*4
             self.speed[1]=(self.owner.pos[1]-self.pos[1])*4
@@ -72,10 +71,10 @@ class Ball(Sprite):
         if (abs(self.speed[1])<0.2):
             self.speed[1]=0
  
-        self.pos[0]+=self.speed[0]*0.2*delta_time
-        self.pos[1]+=self.speed[1]*0.2*delta_time
-        self.pos[2]+=self.speed[2]*0.2*delta_time
-        self.speed[2]+=-2*0.2*delta_time
+        self.pos[0]+=self.speed[0]*0.2*configuration["delta_time"]
+        self.pos[1]+=self.speed[1]*0.2*configuration["delta_time"]
+        self.pos[2]+=self.speed[2]*0.2*configuration["delta_time"]
+        self.speed[2]+=-2*0.2*configuration["delta_time"]
 
    
 
@@ -152,7 +151,7 @@ class Ball(Sprite):
         self.animation()
 
     def animation(self):
-        self.anim_index += (self.speed[0]**2+self.speed[1]**2)/50.0*delta_time
+        self.anim_index += (self.speed[0]**2+self.speed[1]**2)/50.0*configuration["delta_time"]
 
         if (self.anim_index>=len(self.anim[self.direction][self.state])):
             self.anim_index=0
@@ -187,8 +186,8 @@ class Ball(Sprite):
             #there is no contact in the past
             return False
 #        print("previous_pos: ",self.pos[0],self.pos[1],(pl.pos[0]-self.pos[0])**2+(pl.pos[1]-self.pos[1])**2)
-        self.pos[0]+=l*self.speed[0]*delta_time
-        self.pos[1]+=l*self.speed[1]*delta_time
+        self.pos[0]+=l*self.speed[0]*configuration["delta_time"]
+        self.pos[1]+=l*self.speed[1]*configuration["delta_time"]
 #        print("new_pos: ",self.pos[0],self.pos[1],(pl.pos[0]-self.pos[0])**2+(pl.pos[1]-self.pos[1])**2)
         #mirror the ball velocity
         

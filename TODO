@@ -1,7 +1,8 @@
- - change match start
  - add training mode
- - GK is sometimes lost...
+ - GK is sometimes lost... and they go too far from the goal
  - previous team are not kept when returning to menu
+ - why there is no animation if delta_time is too big ?
+ - menus don't always have a "return"; if may be useful in the options
 
  - make players able to avoid collision ? (depending on strength)
  - be able to change attacking and collision distances

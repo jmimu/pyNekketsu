@@ -276,6 +276,11 @@
                 <default></default>
             </sub-menu>
             <sub-menu>
+                <text>Speed</text>
+                <goto>menu_speed</goto>
+            </sub-menu>
+
+            <sub-menu>
                 <text>Input Player 1</text>
                 <goto>menu_input_p1</goto>
             </sub-menu>
@@ -298,6 +303,30 @@
             <setting>
                 <text>Off</text>
                 <value>off</value>
+            </setting>
+        </choices>
+    </menu>
+    <menu>
+        <id>menu_speed</id>
+        <text>Options</text>
+        <variable>speed</variable><!-- this menu is here to change a setting-->
+        <choices><!-- choices can be setting or sub-menu. if variable not set, only sub-menus are possible-->
+            <setting>
+                <text>1</text>
+                <value>1</value>
+            </setting>
+            <setting>
+                <text>2</text>
+                <value>2</value>
+                <default></default>
+            </setting>
+            <setting>
+                <text>3</text>
+                <value>3</value>
+            </setting>
+            <setting>
+                <text>4</text>
+                <value>4</value>
             </setting>
         </choices>
     </menu>
