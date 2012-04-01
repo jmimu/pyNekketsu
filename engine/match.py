@@ -40,8 +40,10 @@ class Match(object):
     #TODO: add field choice
     def __init__(self,teamA,teamB):
         self.goal_image=pygame.image.load("data/goal.png")
+        self.start_image=pygame.image.load("data/start.png")
+        self.message_drawing_time=50
+        self.message_image=self.start_image
         self.clock_image=pygame.image.load("data/clock.png")
-        self.goaldrawing_time=0
         self.is_finished=False
         self.teamA_filename=teamA
         self.teamB_filename=teamB
@@ -63,8 +65,10 @@ class Match(object):
         Player_GK.difficulty=difficulty
 
         self.goal_image=pygame.image.load("data/goal.png")
+        self.start_image=pygame.image.load("data/start.png")
+        self.message_drawing_time=50
+        self.message_image=self.start_image
         self.clock_image=pygame.image.load("data/clock.png")
-        self.goaldrawing_time=0
         self.is_finished=False
         
         self.match_time=length
@@ -94,8 +98,6 @@ class Match(object):
         self.player_list+=self.team[1].players
         
 
-        if (configuration["sound"]=="on"):
-            Match.snd_whistle.play()
         print("Match starts")
         
     
@@ -110,10 +112,14 @@ class Match(object):
                     Match.snd_whistle.play()
         
         if (not self.pause):
-            #write "Goal!" after a... goal
-            if (self.goaldrawing_time<10):
-                if (self.goaldrawing_time>0):
-                    self.goaldrawing_time-=1
+            if (self.message_drawing_time<10):
+                if (self.message_drawing_time>0):
+                    self.message_drawing_time-=1*delta_time
+                    if (self.message_drawing_time>8)and(self.message_image==self.start_image):#kick off
+                        if (configuration["sound"]=="on"):
+                            Match.snd_whistle.play()
+                        self.message_drawing_time=8
+
 
                 if (self.match_time>0):#when time is out, players stop
                     self.match_time-=1.0/30*delta_time #30 FPS
@@ -124,14 +130,14 @@ class Match(object):
                         Match.snd_whistle.play()
 
                 self.ball.update(self)
-                
-                if (self.ball.owner==0):
-                    self.cam.aim_to([self.ball.pos[0],self.ball.pos[1],self.ball.pos[2]/2],0,50)
-                else:
-                    self.cam.aim_to([self.ball.pos[0],self.ball.pos[1],self.ball.pos[2]/2],self.ball.owner.direction,5)
-
             else:
-                self.goaldrawing_time-=1
+                self.message_drawing_time-=1
+            #camera moves even if there is a message
+            if (self.ball.owner==0):
+                self.cam.aim_to([self.ball.pos[0],self.ball.pos[1],self.ball.pos[2]/2],0,50)
+            else:
+                self.cam.aim_to([self.ball.pos[0],self.ball.pos[1],self.ball.pos[2]/2],self.ball.owner.direction,5)
+
 
         else:#during pause the ball continues to roll
             self.ball.animation()
@@ -168,8 +174,8 @@ class Match(object):
         for s in sprite_list:
             s.draw(surface,self.cam)
         
-        if (self.goaldrawing_time!=0):
-            surface.blit(self.goal_image, [0,0])
+        if (self.message_drawing_time!=0):
+            surface.blit(self.message_image, [0,0])
     
 
         if (self.pause):

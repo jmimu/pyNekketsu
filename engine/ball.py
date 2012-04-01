@@ -109,7 +109,8 @@ class Ball(Sprite):
                     print("Score: %d - %d"%(match.team[-1].nb_goals,match.team[1].nb_goals))
                     if (configuration["sound"]=="on"):
                         match.snd_whistle.play()
-                    match.goaldrawing_time=20
+                    match.message_drawing_time=20
+                    match.message_image=match.goal_image
                 else:
                     if (configuration["sound"]=="on"):
                         Ball.snd_bounce.play()
@@ -127,7 +128,8 @@ class Ball(Sprite):
                     print("Score: %d - %d"%(match.team[-1].nb_goals,match.team[1].nb_goals))
                     if (configuration["sound"]=="on"):
                         match.snd_whistle.play()
-                    match.goaldrawing_time=20
+                    match.message_drawing_time=20
+                    match.message_image=match.goal_image
                 else:
                     if (configuration["sound"]=="on"):
                         Ball.snd_bounce.play()
