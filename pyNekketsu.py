@@ -24,8 +24,6 @@ import os
 import sys
 sys.path.insert(0, "engine")
 
-
-
 import pygame, sys, time, random
 from pygame.locals import *
 from retrogamelib import display

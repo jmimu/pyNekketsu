@@ -20,15 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 Inspired by Technous Japan's game "Nekketsu Koukou Dodgeball Bu: Soccer Hen".
+https://github.com/jmimu/pyNekketsu
 
-Based on retrogamelib (http://code.google.com/p/retrogamelib/) for screen and dialogs. 
+Based on retrogamelib (https://github.com/bitcraft/retrogamelib.git) for screen and dialogs. 
 
 Sounds from Eat the Whistle (http://etw.sourceforge.net/),
 and SuperTuxKart (http://supertuxkart.sf.net).
 
 See gaming videos there: http://www.youtube.com/user/jmimu2
-
-For any question or help offer, write to: jmimu*AT*free.fr
 
 See how to play on the website: http://jmimu.free.fr/pyNekketsu/help.html
   P1: arrows (to move) + K (to kick, attack or ask to shoot), L (to pass or ask pass), P (for pause)

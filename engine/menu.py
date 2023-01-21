@@ -188,25 +188,25 @@ def draw_team_info_text(screen,font,x):
     y_gap=10
     color=(200,200,0)
     ren = font.render("speed")
-    screen.blit(ren,(x+font.center_shift("speed"),y-4))
+    screen.blit(ren,(x-font.get_width()*len("speed")//2,y-4))
     y+=y_gap
     ren = font.render("resistance")
-    screen.blit(ren,(x+font.center_shift("resistance"),y-4))
+    screen.blit(ren,(x-font.get_width()*len("resistance")//2,y-4))
     y+=y_gap
     ren = font.render("control")
-    screen.blit(ren,(x+font.center_shift("control"),y-4))
+    screen.blit(ren,(x-font.get_width()*len("control")//2,y-4))
     y+=y_gap
     ren = font.render("kick")
-    screen.blit(ren,(x+font.center_shift("kick"),y-4))
+    screen.blit(ren,(x-font.get_width()*len("kick")//2,y-4))
     y+=y_gap
     ren = font.render("punch")
-    screen.blit(ren,(x+font.center_shift("punch"),y-4))
+    screen.blit(ren,(x-font.get_width()*len("punch")//2,y-4))
     y+=y_gap
     ren = font.render("precision")
-    screen.blit(ren,(x+font.center_shift("precision"),y-4))
+    screen.blit(ren,(x-font.get_width()*len("precision")//2,y-4))
     y+=y_gap
     ren = font.render("listening")
-    screen.blit(ren,(x+font.center_shift("listening"),y-4))
+    screen.blit(ren,(x-font.get_width()*len("listening")//2,y-4))
     y+=y_gap
     
  
@@ -305,9 +305,9 @@ def select_teams(display,font,mainClock,west_team_index_init,east_team_index_ini
         allteams[east_team_index].draw_info(screen,178,1)
         
         ren = font.render(allteams[west_team_index].name)
-        screen.blit(ren, (55+font.center_shift(allteams[west_team_index].name), 142))
+        screen.blit(ren, (55-font.get_width()*len(allteams[west_team_index].name)//2, 142))
         ren = font.render(allteams[east_team_index].name)
-        screen.blit(ren, (200+font.center_shift(allteams[east_team_index].name), 142))
+        screen.blit(ren, (200-font.get_width()*len(allteams[east_team_index].name)//2, 142))
         ren = font.render("vs.")
         screen.blit(ren, (120, 125))
 

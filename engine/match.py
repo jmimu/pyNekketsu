@@ -151,13 +151,13 @@ class Match(object):
         screen.blit(self.team[-1].outfit_img,(52, 140))
         screen.blit(self.team[1].outfit_img,(180, 140))
         ren = font.render("vs.")
-        screen.blit(ren, (128+font.center_shift("vs."), 155))
+        screen.blit(ren, (128-font.get_width()*len("vs.")//2, 155))
 
         ren = font.render(self.team[-1].name)
-        screen.blit(ren, (64+font.center_shift(self.team[-1].name), 175))
+        screen.blit(ren, (64-font.get_width()*len(self.team[-1].name)//2, 175))
         screen.blit(self.team[-1].image,(56, 185))
         ren = font.render(self.team[1].name)
-        screen.blit(ren, (192+font.center_shift(self.team[1].name), 175))
+        screen.blit(ren, (192-font.get_width()*len(self.team[1].name)//2, 175))
         screen.blit(self.team[1].image,(186, 185))
         # Update and draw the display
         display.update()

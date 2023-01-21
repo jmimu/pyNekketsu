@@ -1,1 +1,1 @@
-import display, button, dialog, gameobject, clock, font, util, constants, camera
+from . import display, button, dialog, gameobject, clock, font, util, constants, camera
